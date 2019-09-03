@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CBA.Core.Implementation.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Users</h2>
+@if (!Model.Any())
+{
+    <p>We don't have any Users yet</p>
+}
+else
+{
+    <table id="customers" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>FullName</th>
+            <th>Branch</th>
+            <th>Email</th>
+            <th>Username</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(user.FullName, "View", "Users", new { id = user.Id}, null)</td>
+                <td>@user.Branch.Name</td>
+                <td>@user.Email</td>
+                <td>@user.Username</td>
+                <td>
+                    <button data-customer-id="@user.Id" class ="btn-link js-delete">Delete</button>
+                </td>
+            </tr>
+                
+        }
+        </tbody>
+    </table>
+}
+
