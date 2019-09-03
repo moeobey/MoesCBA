@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CBA.Core.Interface;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CBA.Core.Implementation
 {
@@ -14,11 +16,21 @@ namespace CBA.Core.Implementation
         public string BranchId { get; set; }
 
         public string Email { get; set; }
+
+        [Required]
         public string Username { get; set; }
         public string PhoneNumber { get; set; }
 
+
         public string Password { get; set; }
+
+     
         public DateTime Date { get; set; }
+
+        public string Role { get; set; }
+
+        public bool PasswordStatus { get; set; }
+
 
     }
 }
