@@ -16,9 +16,13 @@
         @* BEGIN Menu *@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
-            <li class="@Url.IsLinkActive("Index", "Home")">
-                <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
-            </li>
+            @if (Session["Role"].ToString() == "Admin")
+            {
+                <li class="@Url.IsLinkActive("New", "Users")">
+                    <a href="@Url.Action("New", "Users")"><i class="fa fa-link"></i> <span>Add User</span></a>
+                </li>
+            }
+          
             <li class="@Url.IsLinkActive("AnotherLink", "Home")">
                 <a href="@Url.Action("AnotherLink", "Home")"><i class="fa fa-link"></i> <span>Another Link</span></a>
             </li>
