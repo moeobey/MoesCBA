@@ -13,7 +13,7 @@ namespace CBA.Core.Implementation
     {
         public int Id { get; set; }
         public string FullName { get; set; }
-        public string BranchId { get; set; }
+
 
         public string Email { get; set; }
 
@@ -25,11 +25,19 @@ namespace CBA.Core.Implementation
         public string Password { get; set; }
 
      
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+
+        
+
+        public bool PasswordStatus { get; set; }
+
 
         public string Role { get; set; }
 
-        public bool PasswordStatus { get; set; }
+        public Branch Branch { get; set; }
+        public int? BranchId { get; set; }
+
+
 
 
     }
