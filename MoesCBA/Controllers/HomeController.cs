@@ -4,10 +4,10 @@ namespace MoesCBA.Controllers
 {
     public class HomeController : Controller
     {
-        [HttpGet]
+        //[HttpGet]
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Account");
         }
 
         [HttpGet]
