@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CBA.Core.Implementation.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["message"] != null){
+    <div class="alert alert-success">
+        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+
+}
+@if (!Model.Any())
+{
+    <p>We don't have any Customers yet</p>
+}
+else
+{
+    if (Session ["Role"] != null && Session["Role"].ToString() == "Admin")
+    {
+        <h2>Users</h2>  
+        <table id="users" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Customer Id</th>
+                <th>Email</th>
+                <th>Gender</th>
+
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(customer.FullName, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.Gender</td>
+
+                    <td>
+                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                        <button>@Html.ActionLink("OpenAccount", "New", "CustomersAccount", new { id = customer.Id }, null)</button>
+                    </td>
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    }
+}
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function () {
+            $("#users").DataTable();
+            setTimeout(function () {
+                $(".alert-success").fadeOut(100, null);                            
+            }, 3000);
+        });
+
+    </script>
+
+
+}

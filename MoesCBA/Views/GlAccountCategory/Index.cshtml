@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CBA.Core.Implementation.GlAccountCategory>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">
+        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+
+}
+@if (!Model.Any())
+{
+    <p>We don't have any Gl Account Category Yet</p>
+}
+else
+{
+    if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+    {
+        <h2>Gl Account Categories</h2>
+        <table id="category" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th> Name</th>
+                    <th>Main Account Category </th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(category.Name, "Edit", "GlAccountCategory", new { id = category.Id }, null)</td>
+                        
+                        <td>@category.MainAccountCategory</td>
+
+                        <td>
+                            <button data-customer-id="@category.Id" class="btn-link js-delete">Delete</button>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    }
+}
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function () {
+            $("#category").DataTable();
+            setTimeout(function () {
+                $(".alert-success").fadeOut(100, null);
+            }, 3000);
+        });
+
+    </script>
+
+
+}
+

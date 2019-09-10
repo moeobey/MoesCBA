@@ -1,8 +1,56 @@
-﻿@model CBA.Core.ViewModels.UserViewModel
+﻿@using System.Web.Optimization
+@model CBA.Core.ViewModels.NewUserViewModel
 @{
-    ViewBag.Title = "UserForm";
+    ViewBag.Title = "ADDUserForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2></h2>
+@using (Html.BeginForm("Save", "Users"))
+{
+
+    <div class=" form-signin">
+        <div class="text-center  mb-4">
+            <h1>Add Teller</h1>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.FullName)
+            @Html.TextBoxFor(m => m.User.FullName, new { @class = "form-control" ,required="required"})
+            @Html.ValidationMessageFor(m => m.User.FullName)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.Email)
+            @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control", type ="email", required="required"})
+            @Html.ValidationMessage("email", new {@class ="user-validation-error"})
+        </div>
+        <div class="form-group">
+
+            @Html.LabelFor(m => m.User.Branch, new { })
+            @Html.DropDownListFor(m => m.User.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new { @class = "form-control", required="required" })
+            @Html.ValidationMessageFor(m => m.User.BranchId)
+
+        </div>
+        <div class="form-group">
+                @Html.LabelFor(m => m.User.Username)
+
+                @Html.TextBoxFor(m => m.User.Username, "{0:d MMM yyyy}", new {@class = "form-control", required = "required"})
+                @Html.ValidationMessage("username", new {@class = "user-validation-error"})
+            </div>
+        
+       
+        <div class="form-group">
+            @Html.LabelFor(m => m.User.PhoneNumber)
+
+            @Html.TextBoxFor(m => m.User.PhoneNumber, new { @class = "form-control",required="required" })
+            @Html.ValidationMessageFor(m => m.User.PhoneNumber)
+        </div>
+
+
+       
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </div>
+}
 

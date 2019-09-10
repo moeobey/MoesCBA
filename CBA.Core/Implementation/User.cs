@@ -37,6 +37,8 @@ namespace CBA.Core.Implementation
         public Branch Branch { get; set; }
         public int? BranchId { get; set; }
 
+        public bool IsAssigned { get; set; }
+
 
 
 

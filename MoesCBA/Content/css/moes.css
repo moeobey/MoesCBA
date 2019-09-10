@@ -1,0 +1,40 @@
+﻿.form-signin {
+    width: 100%;
+    max-width: 420px;
+    padding: 15px;
+    margin: auto;
+}
+
+.mb-4, .my-4 {
+    margin-bottom: 1.5rem !important;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem !important;
+}
+.font-weight-normal {
+    font-weight: 400 !important;
+}
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+.user-validation-error {
+    color: red;
+}
+.alert-success {
+    -ms-transition: margin-top ease .50s;
+    -o-transition: margin-top ease .50s;
+    -webkit-transition: margin-top ease .50s;
+    transition: margin-top ease .50s;
+}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}

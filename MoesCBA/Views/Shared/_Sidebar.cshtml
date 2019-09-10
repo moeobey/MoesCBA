@@ -14,31 +14,103 @@
         </form>
         @* END Search *@
         @* BEGIN Menu *@
-        <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">HEADER</li>
-            @if (Session["Role"].ToString() == "Admin")
-            {
-                <li class="@Url.IsLinkActive("New", "Users")">
-                    <a href="@Url.Action("New", "Users")"><i class="fa fa-link"></i> <span>Add User</span></a>
-                </li>
-            }
-          
-            <li class="@Url.IsLinkActive("AnotherLink", "Home")">
-                <a href="@Url.Action("AnotherLink", "Home")"><i class="fa fa-link"></i> <span>Another Link</span></a>
-            </li>
+    <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">HEADER</li>
+        @if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+        {
+           
+
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-link"></i> <span>Multilevel</span>
+                    <i class="fa fa-link"></i> <span>Users</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">Link in level 2</a></li>
-                    <li><a href="#">Link in level 2</a></li>
+                    <li class="@Url.IsLinkActive("Index", "Users")">
+                        <a href="@Url.Action("Index", "Users")"><i class="fa fa-link"></i> <span>View User</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("New", "Users")">
+                        <a href="@Url.Action("New", "Users")"><i class="fa fa-link"></i> <span>Add User</span></a>
+                    </li>
+                   
+
                 </ul>
             </li>
-        </ul>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>Teller Management</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("Index", "Tellers")">
+                        <a href="@Url.Action("Index", "Tellers")"><i class="fa fa-link"></i> <span>View Tellers</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("New", "Tellers")">
+                        <a href="@Url.Action("New", "Tellers")"><i class="fa fa-link"></i> <span>Add Teller</span></a>
+                    </li>
+                   
+
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>GL Account Category</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("Index", "GlAccountCategory")">
+                        <a href="@Url.Action("Index", "GlAccountCategory")"><i class="fa fa-link"></i> <span>View </span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("New", "GlAccountCategory")">
+                        <a href="@Url.Action("New", "GlAccountCategory")"><i class="fa fa-link"></i> <span>Add </span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>GL Account</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("Index", "GlAccounts")">
+                        <a href="@Url.Action("Index", "GlAccounts")"><i class="fa fa-link"></i> <span>View </span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("New", "GlAccounts")">
+                        <a href="@Url.Action("New", "GlAccounts")"><i class="fa fa-link"></i> <span>Add </span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>Customer</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("New", "Customers")">
+                        <a href="@Url.Action("New", "Customers")"><i class="fa fa-link"></i> <span>Add </span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("Index", "Customers")">
+                        <a href="@Url.Action("Index", "Customers")"><i class="fa fa-link"></i> <span>View </span></a>
+                    </li>
+                </ul>
+            </li>
+        }
+
+    </ul>
+        
+
         @* END Menu *@
     </section>
 </aside>

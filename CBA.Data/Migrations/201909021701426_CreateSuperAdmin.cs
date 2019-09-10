@@ -1,3 +1,6 @@
+using System.Security.Cryptography;
+using System.Web.Helpers;
+
 namespace CBA.Data.Migrations
 {
     using System;
@@ -7,7 +10,7 @@ namespace CBA.Data.Migrations
     {
         public override void Up()
         {
-            Sql("INSERT into User(FullName, BranchId, Email,Username, PhoneNumber, Password, Date ), VALUES()");
+         
         }
         
         public override void Down()

@@ -1,0 +1,54 @@
+﻿@model CBA.Core.ViewModels.NewGlAccountViewModel
+@{
+    ViewBag.Title = "Gl Account Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Save", "GlAccounts"))
+{
+    <div class=" form-signin">
+        <div class="text-center  mb-4">
+            <h1>Add GL Account</h1>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" ,required="required"})
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
+
+
+      
+        <div class="form-group">
+            @Html.LabelFor(m => m.Branches)
+            @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new {@class = "form-control", required = "required"})
+            @Html.ValidationMessageFor(m => m.BranchId)
+        </div>
+          
+        <div class="form-group">
+            @if (Model.Id == 0)
+            {
+                @Html.LabelFor(m => m.GlAccountCategories)
+                @Html.DropDownListFor(m => m.GlAccountCategoryId, new SelectList(Model.GlAccountCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required"})
+                @Html.ValidationMessageFor(m => m.GlAccountCategoryId)
+            }
+        @if (Model.Id != 0)
+        {
+            @Html.LabelFor(m => m.GlAccountCategories)
+            @Html.DropDownListFor(m => m.GlAccountCategoryId, new SelectList(Model.GlAccountCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required", disabled="true"})
+            @Html.ValidationMessageFor(m => m.GlAccountCategoryId)
+        }
+
+           
+        </div>
+
+      
+
+
+        @Html.HiddenFor(m => m.Id)
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </div>
+}
+

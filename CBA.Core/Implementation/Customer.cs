@@ -15,7 +15,7 @@ namespace CBA.Core.Implementation
 }
     public class Customer
     {
-        public SqlMoney amount { get; set; }
+      
             public int Id { get; set; }
             public string CustomerId { get; set; }
             public string FullName { get; set; }

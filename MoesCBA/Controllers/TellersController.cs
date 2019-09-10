@@ -26,9 +26,7 @@ namespace MoesCBA.Controllers
         [CheckRole]
         public ActionResult New(int id)
         {
-            //if (id != 0)
-            //{
-                var selectedUser = _userContext.GetUnassigned(id);
+                var selectedUser = _userContext.Get(id);
                 var selectedGlAccounts = _glAccountContext.GetAllUnassigned();
                 var selectedViewModel = new NewTellerViewModel
                 {
@@ -37,46 +35,47 @@ namespace MoesCBA.Controllers
 
                 };
                 return View("TellerForm", selectedViewModel);
-            //}
-            //var users = _userContext.GetAllUnassigned();
-            //var glAccounts = _glAccountContext.GetAllUnassigned();
-            //var viewModel = new NewTellerViewModel
-            //{
-            //    User =  users,
-            //    GlAccount = glAccounts
-            //};
-            //return View("TellerForm", viewModel);
+           
         }
 
         [CheckSession]
         [CheckRole]
         public ActionResult Save(Teller teller)
         {
-            var user = new User();
-            var glAccount = new GlAccount();
-            var userInDb = _userContext.Get(Convert.ToInt32(teller.UserId));
-            var glAccountInDb = _glAccountContext.Get(teller.GlAccountId);
-            if (ModelState.IsValid)
+            int userId = Convert.ToInt32(Request.Form["userId"]);
+            if (_userContext.GetUnassigned(userId) != null)
             {
+                var user = new User();
+                var glAccount = new GlAccount();
+
+
+                var userInDb = _userContext.Get(userId);
+                var glAccountInDb = _glAccountContext.Get(teller.GlAccountId);
+
                 userInDb.IsAssigned = true;
                 _userContext.Update(user);
 
                 glAccountInDb.IsAssigned = true;
                 _glAccountContext.Update(glAccount);
 
+                teller.UserId = userId;
                 _context.Save(teller);
                 TempData["message"] = "Till Account Assigned Successfully";
                 return RedirectToAction("Index");
             }
 
-            var users = _userContext.GetAllUnassigned();
-            var glAccounts = _glAccountContext.GetAllUnassigned();
-            var viewModel = new NewTellerViewModel
+            ViewBag.hasTillAccount = "User Has Till Account";
+            var tellers = _context.GetWithAll();
+            var selectedUser = _userContext.Get(userId);
+            var selectedGlAccounts = _glAccountContext.GetAllUnassigned();
+            var selectedViewModel = new NewTellerViewModel
             {
-                User = users,
-                GlAccount = glAccounts
+                User = selectedUser,
+                GlAccount = selectedGlAccounts
+
             };
-            return View("TellerForm", viewModel);
+            return View("TellerForm", selectedViewModel);
+
 
         }
 

@@ -1,0 +1,68 @@
+﻿@model CBA.Core.Implementation.GlAccountCategory
+@{
+    ViewBag.Title = "GlAccountCategoryForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+
+@using (Html.BeginForm("Save", "GlAccountCategory"))
+{
+
+<div class=" form-signin">
+    @if (Model.Id == 0)
+    {
+        <div class="text-center  mb-4">
+            <h1>Add GL Account Category</h1>
+        </div>
+    }
+    @if (Model.Id != 0)
+    {
+        <div class="text-center  mb-4">
+            <h1>Edit GL Account Category</h1>
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Name)
+    </div>
+    
+  
+        <div class="form-group">
+
+            @Html.LabelFor(m => m.MainAccountCategory)
+            @if (Model.Id == 0)
+            {
+            @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Gender", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.MainAccountCategory)
+            }
+            @if (Model.Id != 0)
+            {
+                @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Category", new { @class = "form-control", required = "required", disabled = "true"})
+               
+            }
+        </div>
+ 
+  
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description)
+
+        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Description)
+    </div>
+
+
+
+
+
+
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</div>
+}
+

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CBA.Core.Implementation.Teller>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+@if (TempData["message"] != null){
+    <div class="alert alert-success">
+        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+}
+@if (!Model.Any())
+{
+    <p>We don't have any Till Accounts yet</p>
+}
+else
+{
+    if (Session["Role"].ToString() == "Admin")
+    {
+        <h2 class="text-center">Till Accounts</h2>  
+        <table id="users" class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>Teller Name</th>
+                <th>Till Account</th>
+                <th>Till Account Balance</th>
+              
+
+             
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var teller in Model)
+            {
+                <tr>
+                    <td>@teller.User.FullName</td>
+                    <td>@teller.GlAccount.Name</td>
+                    <td>@teller.GlAccount.Balance</td>
+
+                 
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    }
+}
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function () {
+            $("#users").DataTable();
+            setTimeout(function () {
+                $(".alert-success").fadeOut(100, null);                            
+            }, 3000);
+        });
+
+    </script>
+
+
+}

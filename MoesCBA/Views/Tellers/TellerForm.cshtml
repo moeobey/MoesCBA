@@ -1,0 +1,44 @@
+﻿@model CBA.Core.ViewModels.NewTellerViewModel
+@{
+    ViewBag.Title = "TellerForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>TellerForm</h2>
+@if (ViewBag.hasTillAccount !=null)
+{
+<div class="alert alert-danger">
+    @ViewBag.hasTillAccount
+</div>
+}
+@using (Html.BeginForm("Save", "Tellers"))
+{
+   
+<div class=" form-signin">
+    <div class="text-center  mb-4">
+        <h1>Assign Till Account</h1>
+    </div>
+   
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Teller.User, new { })
+        @Html.DisplayTextFor(m => m.User.FullName)
+        @Html.ValidationMessageFor(m => m.User)
+    </div>
+    <div class="form-group">
+
+        @Html.LabelFor(m => m.Teller.GlAccount, new { })
+        @Html.DropDownListFor(m => m.Teller.GlAccountId, new SelectList(Model.GlAccount, "id", "Name"), "Select Gl Account ", new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Teller)
+
+    </div>
+    <input type="hidden" name="userId" value="@Model.User.Id" />
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</div>
+}
+
+
+

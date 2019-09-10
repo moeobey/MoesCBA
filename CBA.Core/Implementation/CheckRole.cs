@@ -14,7 +14,7 @@ namespace CBA.Core.Implementation
         {
             var mySession = HttpContext.Current.Session;
 
-            if (mySession["Role"].ToString() != "Admin")
+            if (mySession["Role"] != null && mySession["Role"].ToString() != "Admin")
             {
                 filterContext.Result = new RedirectResult(string.Format("/Users/"));
             }

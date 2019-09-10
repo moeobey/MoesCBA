@@ -1,0 +1,48 @@
+﻿@using System.Web.Optimization
+@model CBA.Core.Implementation.User
+@{
+    //ViewBag.Title = "Index";
+    //ViewBag.Description = "Home Page";
+    Layout = null;
+    //ViewBag.msg = "yo";
+}
+
+
+@Styles.Render("~/Bundles/css")
+@using (Html.BeginForm("AuthenticateUser", "Account"))
+{
+   
+    <div class=" form-signin">
+        <div class="text-center  mb-4">
+            <h1>Login</h1>
+        </div>
+        @if(ViewBag.msg != null)
+        {
+            <div class=" alert alert-danger">
+                <strong>@ViewBag.msg</strong>
+            </div>
+        }
+        <div class="form-group">
+
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "username", required = "required" })
+        </div>
+        <div class="form-group">
+
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "password", required = "required" })
+        </div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        @Html.AntiForgeryToken()
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <p class="mt-5 mb-3 text-muted text-center">&copy; 2019</p>
+     
+    </div>
+
+}
+
+
+

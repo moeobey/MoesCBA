@@ -1,7 +1,33 @@
-﻿@{
-    ViewBag.Title = "Index";
-    ViewBag.Description = "Home Page";
+﻿@using System.Web.Optimization
+@{
+    //ViewBag.Title = "Index";
+//ViewBag.Description = "Home Page";
+    Layout = null;
 }
+@Styles.Render("~/Bundles/css")
+<form class="form-signin">
+    <div class="text-center mb-4">
+        <h1>Login</h1> 
+    </div>
+
+    <div class="form-label-group">
+      
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    </div>
+
+    <div class="form-label-group">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      
+    </div>
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted text-center">&copy; 2019</p>
+</form>
 
 @*<div class="row">
     <div class="col-xs-12 col-md-5">

@@ -8,10 +8,10 @@ namespace CBA.Core.Interface
 {
     public interface IPerson
     {
-         int Id { get; set; }
-         string FullName { get; set; }
+         //int Id { get; set; }
+         //string FullName { get; set; }
 
-         string BranchId { get; set; }
-         DateTime Date { get; set; }
+         ////string BranchId { get; set; }
+         //DateTime Date { get; set; }
     }
 }
