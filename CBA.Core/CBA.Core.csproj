@@ -53,6 +53,9 @@
     <Compile Include="Implementation\CustomerAccount.cs" />
     <Compile Include="Implementation\GlAccount.cs" />
     <Compile Include="Implementation\GlAccountCategory.cs" />
+    <Compile Include="Implementation\CurrentAccountConfig.cs" />
+    <Compile Include="Implementation\LoanAccountConfig.cs" />
+    <Compile Include="Implementation\SavingsAccountConfig.cs" />
     <Compile Include="Implementation\Teller.cs" />
     <Compile Include="Implementation\TillAccount.cs" />
     <Compile Include="Implementation\User.cs" />

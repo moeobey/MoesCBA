@@ -18,7 +18,7 @@ namespace CBA.Core.ViewModels
 
         public int? GlAccountCategoryId { get; set; }
         public int? BranchId { get; set; }
-        public string AccountCode { get; set; }
+        public int AccountCode { get; set; }
         public bool IsAssigned { get; set; }
         public SqlMoney Balance { get; set; }
         public NewGlAccountViewModel()

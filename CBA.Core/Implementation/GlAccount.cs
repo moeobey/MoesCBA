@@ -18,10 +18,11 @@ namespace CBA.Core.Implementation
 
         public Branch Branch { get; set; }
         public int BranchId { get; set; }
-        public string AccountCode { get; set; }
+        public int AccountCode { get; set; }
         public bool IsAssigned { get; set; }
         public decimal Balance { get; set; }
 
+        public  bool IsTillAccount { get; set; }
      
 
 
