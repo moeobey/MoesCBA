@@ -9,6 +9,8 @@ using CBA.Logic;
 
 namespace MoesCBA.Controllers
 {
+    [CheckSession]
+    [CheckRole]
     public class CustomersAccountController : Controller
     {
         private readonly CustomerLogic _customerContext = new CustomerLogic();
@@ -16,16 +18,14 @@ namespace MoesCBA.Controllers
 
         private readonly CustomerAccountLogic _context = new CustomerAccountLogic();
         // GET: CustomersAccount
-        [CheckSession]
-        [CheckRole]
+     
         public ActionResult Index()
         {
             var customerAccounts = _context.GetAllCustomersAccounts();
 
             return View(customerAccounts);
         }
-        [CheckSession]
-        [CheckRole]
+      
         public ActionResult New(int id)
         {
             var customer = _customerContext.Get(id);
@@ -39,23 +39,40 @@ namespace MoesCBA.Controllers
             };
             return View("CustomerAccountForm", viewModel);
         }
-        [CheckSession]
-        [CheckRole]
+        
         public ActionResult Save(CustomerAccount account)
         {
             int userId = Convert.ToInt32(Request.Form["userId"]);
             int id = Convert.ToInt32(Request.Form["id"]);
             if (ModelState.IsValid)
             {
-                if (id== 0)
+                var accountInDb = _context.Get(account.Id);
+                if (id== 0 && account.AccountType !=0)
                 {
-                    account.CustomerId = Request.Form["customerId"];
-                    account.AccountNumber = "111111";
+                    var customerId = Request.Form["customerId"];
+                    account.CustomerId = customerId;
+                    //account.AccountNumber = "111111";
                     account.CreatedAt = DateTime.Now;
-                    //account.AccountNumber = _context.generateAccountNumber(account.Customer, account.AccountType);
+                    account.IsOpen = true;
+
+                    account.AccountNumber = _context.GenerateAccountNumber(customerId, account.AccountType.ToString());
                     _context.Save(account);
                     TempData["message"] = "Account Created Successfully";
                     return RedirectToAction("Index");
+                }
+                if (account.Id != 0)   //update account
+                {
+                    accountInDb.AccountName = account.AccountName;
+                    accountInDb.BranchId = account.BranchId;
+                    _context.Update(account);
+                    TempData["message"] = "Update Successful";
+                    return RedirectToAction("Index");
+                }
+
+                if (account.AccountType == 0)
+                {
+                    ModelState.AddModelError("selectAccountType", "Please select Account Type");
+                    
                 }
             }
             var customer = _customerContext.Get(userId);
@@ -70,13 +87,12 @@ namespace MoesCBA.Controllers
             return View("CustomerAccountForm", viewModel);
 
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult Edit(int id)
         {
+            var customerId = _context.GetCustomerId(id);
             var branches = _userContext.GetBranches().ToList();
             var customerAccount = _context.Get(id);
-            var customer = _customerContext.Get(id);
+            var customer = _customerContext.GetByCustomerId(customerId);
             var viewModel = new NewCustomerAccountViewModel(customerAccount)
             {
                 Branches = branches,
@@ -86,5 +102,40 @@ namespace MoesCBA.Controllers
             return View("CustomerAccountForm", viewModel);
         }
 
+     
+        public JsonResult CloseAccount(int id)
+        {
+            var customerAccount = new CustomerAccount();
+            bool result = false;
+            var customer = _context.Get(id);
+            if (customer != null)
+            {
+                customer.IsOpen = false;
+                _context.Update(customerAccount);
+                result = true;
+                TempData["message"] = "Account Closed Successfully";
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+
+        }
+      
+        public JsonResult OpenAccount(int id)
+        {
+            var customerAccount = new CustomerAccount();
+            bool result = false;
+            var customer = _context.Get(id);
+            if (customer != null)
+            {
+                customer.IsOpen = true;
+                _context.Update(customerAccount);
+                result = true;
+                TempData["message"] = "Account Opened Successfully";
+
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
+
+
+        }
     }
 }

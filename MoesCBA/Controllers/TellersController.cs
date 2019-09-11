@@ -9,21 +9,19 @@ using CBA.Logic;
 
 namespace MoesCBA.Controllers
 {
+    [CheckSession]
+    [CheckRole]
     public class TellersController : Controller
     {
         private readonly UserLogic _userContext = new UserLogic();
         private readonly GlAccountLogic _glAccountContext = new GlAccountLogic();
         private  readonly  TellerLogic _context = new TellerLogic();
         // GET: Tellers
-        [CheckSession]
-        [CheckRole]
         public ActionResult Index()
         {
             var tellers = _context.GetWithAll();
             return View(tellers);
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult New(int id)
         {
                 var selectedUser = _userContext.Get(id);
@@ -38,8 +36,8 @@ namespace MoesCBA.Controllers
            
         }
 
-        [CheckSession]
-        [CheckRole]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Teller teller)
         {
             int userId = Convert.ToInt32(Request.Form["userId"]);

@@ -17,9 +17,7 @@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">HEADER</li>
         @if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
-        {
-           
-
+        { 
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-link"></i> <span>Users</span>
@@ -48,9 +46,6 @@
                 <ul class="treeview-menu">
                     <li class="@Url.IsLinkActive("Index", "Tellers")">
                         <a href="@Url.Action("Index", "Tellers")"><i class="fa fa-link"></i> <span>View Tellers</span></a>
-                    </li>
-                    <li class="@Url.IsLinkActive("New", "Tellers")">
-                        <a href="@Url.Action("New", "Tellers")"><i class="fa fa-link"></i> <span>Add Teller</span></a>
                     </li>
                    
 
@@ -107,7 +102,28 @@
                 </ul>
             </li>
         }
-
+        <li class="@Url.IsLinkActive("Index", "CustomersAccount")">
+            <a href="@Url.Action("Index", "CustomersAccount")"><i class="fa fa-link"></i> <span>Customers Account </span></a>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-link"></i> <span> Account Type Management</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li class="@Url.IsLinkActive("Index", "GlAccountCategory")">
+                    <a href="@Url.Action("Index", "GlAccountCategory")"><i class="fa fa-link"></i> <span>Savings  </span></a>
+                </li>
+                <li class="@Url.IsLinkActive("New", "GlAccountCategory")">
+                    <a href="@Url.Action("New", "GlAccountCategory")"><i class="fa fa-link"></i> <span>Current </span></a>
+                </li>
+                <li class="@Url.IsLinkActive("New", "GlAccountCategory")">
+                    <a href="@Url.Action("New", "GlAccountCategory")"><i class="fa fa-link"></i> <span>Loans </span></a>
+                </li>
+            </ul>
+        </li>
     </ul>
         
 

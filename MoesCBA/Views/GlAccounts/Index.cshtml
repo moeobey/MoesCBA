@@ -23,48 +23,49 @@ else
     if (Session["Role"].ToString() == "Admin")
     {
 
-            <h2>GL Accounts</h2>
-                <table id="accounts" class="table table-bordered table-hover">
-                    <thead>
+        <h2>GL Accounts</h2>
+        <table id="accounts" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Account Name</th>
+                    <th>Account Code</th>
+                    <th>GL category</th>
+                    <th>Branch</th>
+
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var account in Model)
+                {
                     <tr>
-                        <th>Account Name</th>
-                        <th>Account Code</th>
-                        <th>GL category</th>
-                        <th>Branch</th>
+                        <td>@Html.ActionLink(account.Name, "Edit", "GlAccounts", new { id = account.Id }, null)</td>
+                        <td>@account.AccountCode</td>
+                        <td>@account.GlAccountCategory.Name</td>
+                        <td>@account.Branch.Name</td>
 
-                        <th>Action</th>
+                        <td>
+                            <button data-customer-id="@account.Id" class="btn-link js-delete">Delete</button>
+                        </td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var account in Model)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(account.Name, "Edit", "GlAccounts", new { id = account.Id }, null)</td>
-                            <td>@account.AccountCode</td>
-                            <td>@account.GlAccountCategory.Name</td>
-                            <td>@account.Branch.Name</td>
 
-                            <td>
-                                <button data-customer-id="@account.Id" class="btn-link js-delete">Delete</button>
-                            </td>
-                        </tr>
-
-                    }
-                    </tbody>
-                </table>
+                }
+            </tbody>
+        </table>
     }
 
 
 }
-@*@section ViewSpecificJavascript{
+@section ViewSpecificJavascript{
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $("#accounts").DataTable();
-            setTimeout(function () {
-                $(".alert-success").fadeOut(100, null);
-            }, 3000);
+            setTimeout(function() {
+                    $(".alert-success").fadeOut(100, null);
+                },
+                3000);
         });
 
-    </script>*@
-
+    </script>
+}
 

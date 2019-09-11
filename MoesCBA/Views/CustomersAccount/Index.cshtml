@@ -44,7 +44,12 @@ else
                         <td>@customersAccount.AccountType</td>
 
                         <td>
-                            <button data-customer-id="@customersAccount.Id" class="btn-link js-delete">Close Account</button>
+                            @if(customersAccount.IsOpen){
+                                <button data-customer-id="@customersAccount.Id" class="btn-link js-delete">Close Account</button>
+                            }
+                            @if(!customersAccount.IsOpen){
+                                <button data-customer-id="@customersAccount.Id" class="btn-link js-open">Open Account</button>
+                            }
                         </td>
                     </tr>
 
@@ -56,11 +61,48 @@ else
 @section ViewSpecificJavascript{
     <script>
         $(document).ready(function() {
-            $("#customersAccount").DataTable();
+          var table =   $("#customersAccount").DataTable();
             setTimeout(function() {
                     $(".alert-success").fadeOut(100, null);
                 },
                 3000);
+
+            $("#customersAccount").on("click", ".js-delete",  function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure", function(result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/CustomersAccount/CloseAccount/" + button.attr("data-customer-id"),
+                            method: "POST",
+                            success: function (result) {
+                                location.reload();
+
+                                //alert("yo");
+
+                            }
+                        });
+                    }
+                });
+                 
+            });
+
+            $("#customersAccount").on("click", ".js-open",  function () {
+                var button = $(this);
+
+                bootbox.confirm("Are you sure", function(result) {
+                    if (result) {
+                        $.ajax({
+                            url: "/CustomersAccount/OpenAccount/" + button.attr("data-customer-id"),
+                            method: "POST",
+                            success: function (result) {
+                                location.reload();
+                            }
+                        });
+                    }
+                });
+                 
+            });
         });
 
     </script>

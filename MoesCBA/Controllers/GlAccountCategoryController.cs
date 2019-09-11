@@ -8,19 +8,18 @@ using CBA.Logic;
 
 namespace MoesCBA.Controllers
 {
+    [CheckSession]
+    [CheckRole]
     public class GlAccountCategoryController : Controller
     {
         private readonly GlAccountCategoryLogic _context = new GlAccountCategoryLogic();
         // GET: GlAccountCategory
-        [CheckSession]
-        [CheckRole]
+       
         public ActionResult Index()
         {
             var categories = _context.GetAll();
             return View(categories);
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult New()
         {
             var category = new GlAccountCategory
@@ -29,14 +28,12 @@ namespace MoesCBA.Controllers
             };
             return View("GlAccountCategoryForm", category);
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult Save( GlAccountCategory category)
         {
             if (ModelState.IsValid)
             {
                 var categoryInDb = _context.Get(category.Id);
-                if (category.Id == 0)
+                if (category.Id == 0 && category.MainAccountCategory != 0)
                 {
                     _context.Save(category);
                     TempData["message"] = "Category Added Successfully";
@@ -51,6 +48,13 @@ namespace MoesCBA.Controllers
                         TempData["message"] = "Update Successful";
                     return RedirectToAction("Index");
                 }
+
+                if (category.MainAccountCategory == 0)
+                {
+                
+                    ModelState.AddModelError("mainGl", "please select a category ");
+                    
+                }
             }
             var tCategory = new GlAccountCategory
             {
@@ -58,8 +62,6 @@ namespace MoesCBA.Controllers
             };
             return View("GlAccountCategoryForm", tCategory);
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult Edit(int id)
         {
             var category = _context.Get(id);

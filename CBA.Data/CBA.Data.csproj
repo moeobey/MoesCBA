@@ -204,6 +204,14 @@
     <Compile Include="Migrations\201909091606383_updatesome.Designer.cs">
       <DependentUpon>201909091606383_updatesome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909101223420_resetUsers.cs" />
+    <Compile Include="Migrations\201909101223420_resetUsers.Designer.cs">
+      <DependentUpon>201909101223420_resetUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909101228592_resetCustomersTable.cs" />
+    <Compile Include="Migrations\201909101228592_resetCustomersTable.Designer.cs">
+      <DependentUpon>201909101228592_resetCustomersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -329,6 +337,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909091606383_updatesome.resx">
       <DependentUpon>201909091606383_updatesome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909101223420_resetUsers.resx">
+      <DependentUpon>201909101223420_resetUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909101228592_resetCustomersTable.resx">
+      <DependentUpon>201909101228592_resetCustomersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

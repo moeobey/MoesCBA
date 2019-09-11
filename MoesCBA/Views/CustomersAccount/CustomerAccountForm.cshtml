@@ -7,13 +7,23 @@
 
 @using (Html.BeginForm("Save", "CustomersAccount"))
 {
-   
+
     <div class=" form-signin">
-        <div class="text-center  mb-4">
-            <h1>Open Account</h1>
-        </div>
+        @if (@Model.Id == 0)
+        {
+            <div class="text-center  mb-4">
+                <h1>Open Account</h1>
+            </div>
+        }
+        else
+        {
+            <div class="text-center  mb-4">
+                <h1>Edit Account</h1>
+            </div>
+        }
+
         <div class="form-group">
-            @Html.LabelFor(m =>m.Customer.FullName)
+            @Html.LabelFor(m => m.Customer.FullName)
             @Html.DisplayTextFor(m => m.Customer.FullName)
             @Html.ValidationMessageFor(m => m.Customer)
         </div>
@@ -24,27 +34,37 @@
                 @Html.TextBoxFor(m => m.AccountName, new {@class = "form-control", required = "required"})
                 @Html.ValidationMessageFor(m => m.AccountName)
             </div>
-           
 
             @Html.LabelFor(m => m.Branches, new {})
             @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new {@class = "form-control", required = "required"})
             @Html.ValidationMessageFor(m => m.BranchId)
             
+        
+            @if(@Model.Id == 0){
             <div class="form-group">
-
                 @Html.LabelFor(m => m.AccountType)
-             
-                @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new { @class = "form-control", required = "required" })
-                @Html.ValidationMessageFor(m => m.AccountType)
+                @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new {@class = "form-control", required = "required"})
+                @Html.ValidationMessage("selectAccountType", new {@class ="user-validation-error"})
                 
-
             </div>
+            }
+            @if(@Model.Id != 0){
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AccountType)
+                    @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new {@class = "form-control", disabled= "true"})
+
+
+                </div>
+            }
 
         </div>
         @*@Html.HiddenFor(m=>m.Id)*@
         <input type="hidden" name="id" value="@Model.Id"/>
-        <input type="hidden" name="userId" value="@Model.Customer.Id"/>
-        <input type="hidden" name="customerId" value="@Model.Customer.CustomerId"/>
+        
+            <input type="hidden" name="userId" value="@Model.Customer.Id"/>
+            <input type="hidden" name="customerId" value="@Model.Customer.CustomerId"/>
+        
+
         @Html.AntiForgeryToken()
         <button type="submit" class="btn btn-primary">Save</button>
 

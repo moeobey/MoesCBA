@@ -10,19 +10,17 @@ using CBA.Logic;
 
 namespace MoesCBA.Controllers
 {
+    [CheckSession]
+    [CheckRole]
     public class CustomersController : Controller
     {
         private readonly CustomerLogic _context = new CustomerLogic();
         // GET: CustomersController
-        [CheckRole]
-        [CheckSession]
         public ActionResult Index()
         {
             var users = _context.GetAll();
             return View(users);
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult New()
         {
             var customer = new Customer
@@ -31,8 +29,9 @@ namespace MoesCBA.Controllers
             };
             return View("CustomerForm", customer);
         }
-        [CheckSession]
-        [CheckRole]
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             if (ModelState.IsValid)
@@ -61,23 +60,35 @@ namespace MoesCBA.Controllers
                         TempData["message"] = "Update Successful";
                         return RedirectToAction("Index");
                     }
-                 
-                    customer.CustomerId = _context.GenerateCustomerId();
-                    customer.Date = DateTime.Now;
-                    _context.Save(customer);
-                    TempData["message"] = "Customer Successfully Added";
 
-                    return RedirectToAction("Index");
+                    if (customer.Gender != 0 && customer.Id == 0)
+                    {
+                        customer.CustomerId = _context.GenerateCustomerId();
+                        customer.Date = DateTime.Now;
+                        _context.Save(customer);
+                        TempData["message"] = "Customer Successfully Added";
+
+                        return RedirectToAction("Index");
+                    }
+                  
                 }
 
+                if (customer.Gender == 0)
+                {
+                    ModelState.AddModelError("selectGender", "Please select gender");
+                }
                 if (!emailIsUnique)
                     ModelState.AddModelError("EmailExist", "This Email Exists");
 
                 if (!phoneNumberIsUnique)
                     ModelState.AddModelError("PhoneNumberExist", "This Phone Number Exists");
             }
-            
-            return View("CustomerForm");
+
+            var currentCustomer = new Customer
+            {
+                Id = 0
+            };
+            return View("CustomerForm", currentCustomer);
         }
         public ActionResult Edit(int id)
         {

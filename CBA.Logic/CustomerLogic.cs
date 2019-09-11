@@ -55,16 +55,23 @@ namespace CBA.Logic
 
         public string GenerateCustomerId()
         {
-            var customerId = _db.GetAll().OrderByDescending(b => b.Id);
-            var lastUserId = 1;
-            if (customerId.Count() > 1)
-                lastUserId = customerId.First().Id;
-            
-            Random rnd = new Random();
-            int newRand = rnd.Next(1, 100);
-            var value = "19" + lastUserId.ToString() + newRand.ToString();
-            return value;
+            var ids = _db.GetAll().OrderByDescending(b => b.Id);
+            var customerId = "0000001";
+            if (ids.Count() > 1)
+            {
+                var lastCustomerId = ids.First().Id;
+                lastCustomerId++;
+                customerId = lastCustomerId.ToString().PadLeft(9, '0');
+            }
+            return customerId;
+        }
 
+        public Customer GetByCustomerId(string customerId)
+        {
+           
+                var values = _db.GetByCustomerId(customerId);
+                return values;
+            
         }
     }
 }

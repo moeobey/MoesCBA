@@ -36,12 +36,13 @@
             @Html.LabelFor(m => m.MainAccountCategory)
             @if (Model.Id == 0)
             {
-            @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Gender", new { @class = "form-control", required = "required" })
-            @Html.ValidationMessageFor(m => m.MainAccountCategory)
+            @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Account Category", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessage("mainGl", new {@class ="user-validation-error"})
             }
             @if (Model.Id != 0)
             {
                 @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Category", new { @class = "form-control", required = "required", disabled = "true"})
+
                
             }
         </div>

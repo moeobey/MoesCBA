@@ -28,6 +28,13 @@ namespace CBA.Data.Implementation
             return tEmail;
 
         }
+        public Customer GetByCustomerId(string customerId)
+        {
+            var customer = _context.Customer.FirstOrDefault(u => u.CustomerId == customerId);
+            return customer;
+
+        }
+        
 
     }
 }

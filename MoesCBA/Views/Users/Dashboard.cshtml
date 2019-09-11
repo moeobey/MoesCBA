@@ -41,7 +41,7 @@ else
 
                         <td>
                             <button data-customer-id="@user.Id" class="btn-link js-delete">Delete</button>
-                            @if (user.IsAssigned == false)
+                            @if (user.IsAssigned == false && user.Role == "Teller")
                             {
                                 <button>@Html.ActionLink("Assign Till", "New", "Tellers", new { id = user.Id }, null)</button>
 

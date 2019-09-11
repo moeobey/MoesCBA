@@ -9,20 +9,19 @@ using CBA.Logic;
 
 namespace MoesCBA.Controllers
 {
+    [CheckSession]
+    [CheckRole]
     public class GlAccountsController : Controller
     {
         private readonly GlAccountLogic _context = new GlAccountLogic();
         private readonly UserLogic _userContext = new UserLogic();
        
-        [CheckSession]
-        [CheckRole]
+       
         public ActionResult Index()
         {
             var glAccounts = _context.GetAllGlAccounts();
             return View(glAccounts);
         }
-        [CheckSession]
-        [CheckRole]
         public ActionResult New()
         {
             var branches = _userContext.GetBranches();
@@ -34,9 +33,6 @@ namespace MoesCBA.Controllers
             };
             return View("GlAccountForm", viewModel);
         }
-
-        [CheckSession]
-        [CheckRole]
         public ActionResult Save(GlAccount account)
         {
             if (ModelState.IsValid)
@@ -68,10 +64,6 @@ namespace MoesCBA.Controllers
             };
             return View("GlAccountForm", tAccount);
         }
-
-
-        [CheckSession]
-        [CheckRole]
         public ActionResult Edit(int id)
         {
             var branches = _userContext.GetBranches().ToList();

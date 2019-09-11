@@ -20,8 +20,15 @@ namespace CBA.Data.Implementation
         public IEnumerable<CustomerAccount> GetAllCustomersAccounts()
         {
 
-            return _context.CustomerAccounts.Include(c => c.Branch).ToList();
+            return _context.CustomerAccounts.Include(c => c.Branch).OrderByDescending(c=>c.Id).ToList();
         }
-     
+        public string GetCustomerId(int id)
+        {
+            var customer = _context.CustomerAccounts.FirstOrDefault(u => u.Id == id);
+            return customer.CustomerId;
+
+        }
+        
+
     }
 }

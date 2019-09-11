@@ -10,11 +10,13 @@ using  CBA.Core.ViewModels;
 
 namespace MoesCBA.Controllers
 {
-    public class UsersController : Controller
+        [CheckSession]
+        public class UsersController : Controller
     {
+        
         private readonly UserLogic _context = new UserLogic();
         // GET: Users
-        [CheckSession]
+        //[CheckRole]
         public ActionResult Index()
         {
             var users = _context.GetAllWithBranch();
@@ -27,7 +29,6 @@ namespace MoesCBA.Controllers
             return View("ChangePasswordForm");
         }
 
-        [CheckSession]
         [CheckRole]
         public ActionResult New()
         {
@@ -43,8 +44,9 @@ namespace MoesCBA.Controllers
 
             return View("UserForm",viewModel);
         }
-        [CheckSession]
         [CheckRole]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(User user)
         {
             if (ModelState.IsValid)
@@ -82,7 +84,7 @@ namespace MoesCBA.Controllers
             return View("UserForm", viewModel);
         }
         [HttpPost]
-        [CheckSession]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdatePassword(User user)
         {
             if (Session["id"] != null)
@@ -117,8 +119,7 @@ namespace MoesCBA.Controllers
             return RedirectToAction("LogOut", "Account");
         }
 
-
-        [CheckSession]
+        [CheckRole]
         public ActionResult Edit(int id)
         {
             var user = _context.Get(id);
@@ -132,9 +133,9 @@ namespace MoesCBA.Controllers
             };
             return View("EditUserForm", viewModel);
         }
-        [CheckSession]
         [CheckRole]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult UpdateUserDetails(User user)
         {
             var userInDb = _context.Get(user.Id);

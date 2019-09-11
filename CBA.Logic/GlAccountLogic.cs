@@ -49,28 +49,26 @@ namespace CBA.Logic
         public string GenerateGlAccountCode(int categoryId)
         {
             var ids = _db.GetAll().OrderByDescending(b => b.Id);
-            var accountId = 1;
+            var accountId = "0000001";
             if (ids.Count() > 1)
             {
-                accountId = ids.First().Id;
-                accountId++;
+                var lastCustomerId = ids.First().Id;
+                lastCustomerId++;
+                accountId = lastCustomerId.ToString().PadLeft(5, '0');
             }
-                
-            //var value = accountId + 1;
-           
             var mainAccountType = _category.GetMainAccountType(categoryId);
             switch (mainAccountType)
             {
                 case "Asset":
-                    return "10" + accountId;
+                    return "1" + accountId;
                 case "Liability":
-                    return "20" + accountId;
+                    return "2" + accountId;
                 case "Capital":
-                    return "30" + accountId;
+                    return "3" + accountId;
                 case "Income":
-                    return "40" + accountId;
+                    return "4" + accountId;
                 case "Expense":
-                    return "50" + accountId;
+                    return "5" + accountId;
                 default:
                     return "";
             }
