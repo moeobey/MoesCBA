@@ -46,6 +46,7 @@ namespace CBA.Data.Implementation
 
             return _context.GlAccounts.Where(u => u.AccountCode.ToString().StartsWith("4")).Where(u => u.IsAssigned == false);
         }
+
         
     }
 }

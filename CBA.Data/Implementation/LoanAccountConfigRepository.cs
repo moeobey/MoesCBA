@@ -9,8 +9,16 @@ namespace CBA.Data.Implementation
 {
    public class LoanAccountConfigRepository:Repository<LoanAccountConfig>
     {
+        private readonly ApplicationDbContext _context;
         public LoanAccountConfigRepository(ApplicationDbContext context) : base(context)
         {
+            _context = context;
+        }
+        
+        public LoanAccountConfig GetLoanConfig()
+        {
+            return _context.LoanAccountConfigs.FirstOrDefault();
+
         }
     }
 }

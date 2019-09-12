@@ -11,30 +11,54 @@ namespace CBA.Logic
 {
    public class AccountTypeConfigLogic
     {
-        private readonly SavingAccountConfigRepository _savingsContext = new SavingAccountConfigRepository(new ApplicationDbContext());
-        private readonly CurrentAccountConfigRepository _currentContext = new CurrentAccountConfigRepository(new ApplicationDbContext());
-        private readonly LoanAccountConfigRepository _loanContext = new LoanAccountConfigRepository(new ApplicationDbContext());
+        private readonly SavingAccountConfigRepository _savingsAccContext = new SavingAccountConfigRepository(new ApplicationDbContext());
+        private readonly CurrentAccountConfigRepository _currentAccContext = new CurrentAccountConfigRepository(new ApplicationDbContext());
+        private readonly LoanAccountConfigRepository _loanAccContext = new LoanAccountConfigRepository(new ApplicationDbContext());
 
         public SavingsAccountConfig GetSavingsConfig()
         {
-            var config = _savingsContext.GetAllSavings();
+            var config = _savingsAccContext.GetAllSavings();
             return config;
         }
         public CurrentAccountConfig GetCurrentConfig()
         {
-            var config = _currentContext.GetCurrentConfig();
+            var config = _currentAccContext.GetCurrentConfig();
+            return config;
+        }
+        public LoanAccountConfig GetLoanConfig()
+        {
+            var config = _loanAccContext.GetLoanConfig();
             return config;
         }
         public void SaveSavings(SavingsAccountConfig config)
         {
-            _savingsContext.Add(config);
-            _savingsContext.Save(config);
+            _savingsAccContext.Add(config);
+            _savingsAccContext.Save(config);
         }
-        
+        public void SaveCurrent(CurrentAccountConfig config)
+        {
+            _currentAccContext.Add(config);
+            _currentAccContext.Save(config);
+        }
+        public void SaveLoan(LoanAccountConfig config)
+        {
+            _loanAccContext.Add(config);
+            _loanAccContext.Save(config);
+        }
+
         public void UpdateSavings(SavingsAccountConfig savingsConfig)
         {
-            _savingsContext.Save(savingsConfig);
+            _savingsAccContext.Save(savingsConfig);
 
+        }
+        public void UpdateCurrent(CurrentAccountConfig currentConfig)
+        {
+            _currentAccContext.Save(currentConfig);
+
+        }
+        public void UpdateLoan(LoanAccountConfig loanConfig)
+        {
+            _loanAccContext.Save(loanConfig);
         }
     }
 }

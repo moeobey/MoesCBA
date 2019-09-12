@@ -28,14 +28,14 @@ namespace MoesCBA.Controllers
             object glAccount = null;
             if (config != null)
             {
-                 glAccount = _glAccountContext.Get(config.GlAccountId); //to get the gl account name
+                 glAccount = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
 
             }
             var glAccounts = _glAccountContext.GetAllExpenseAccount();
             var viewModel = new SavingsAccountConfigViewModel(config)
             {
-                GlAccount = (GlAccount) glAccount,
-                GlAccounts = glAccounts
+                InterestExpenseGl = (GlAccount) glAccount,
+                InterestExpenseGls = glAccounts
             };
             
            return View("SavingsAccountTypeForm", viewModel);
@@ -47,12 +47,13 @@ namespace MoesCBA.Controllers
             
             var glAccount = new GlAccount();
             var configInDb = _context.GetSavingsConfig();
-            var glAccountInDb = _glAccountContext.Get(config.GlAccountId);
+            var glAccountInDb = _glAccountContext.Get(config.InterestExpenseGlId);
             if (config.Id == 0) //setup new configuration
             {
                 glAccountInDb.IsAssigned = true; // Update the gl account to is assigned
                 _glAccountContext.Update(glAccount);
 
+                config.Status = true;
                 _context.SaveSavings(config);
                 return RedirectToAction("SavingsAccount");
             }
@@ -61,17 +62,17 @@ namespace MoesCBA.Controllers
             {
                 configInDb.CInterestRate = config.CInterestRate;
                 configInDb.MinBalance = config.MinBalance;
-                if (config.GlAccountId == 0) //check if gl account is the same
+                if (config.InterestExpenseGlId == 0) //check if gl account is the same
                 {
-                    configInDb.GlAccountId = configInDb.GlAccountId;
+                    configInDb.InterestExpenseGlId = configInDb.InterestExpenseGlId;
                 }
                 else
                 {
-                    var newGlAccountInDb = _glAccountContext.Get(configInDb.GlAccountId); // free up the old gl account that was assigned
+                    var newGlAccountInDb = _glAccountContext.Get(configInDb.InterestExpenseGlId); // free up the old gl account that was assigned
                     newGlAccountInDb.IsAssigned = false;
                     _glAccountContext.Update(glAccount);
 
-                    configInDb.GlAccountId = config.GlAccountId;
+                    configInDb.InterestExpenseGlId = config.InterestExpenseGlId;
 
                   
                     glAccountInDb.IsAssigned = true; // Update the  new gl account to is assigned
@@ -109,54 +110,137 @@ namespace MoesCBA.Controllers
             return View("CurrentAccountTypeForm", viewModel);
         }
 
-        //[HttpPost]
-        //public ActionResult SaveCurrentConfig(CurrentAccountConfig config)
-        //{
+        [HttpPost]
+        public ActionResult SaveCurrentConfig(CurrentAccountConfig config)
+        {
 
-        //    var glAccount = new GlAccount();
-        //    var configInDb = _context.GetSavingsConfig();
-        //    var glAccountInDb = _glAccountContext.Get(config.GlAccountId);
-        //    if (config.Id == 0) //setup new configuration
-        //    {
-        //        glAccountInDb.IsAssigned = true; // Update the gl account to is assigned
-        //        _glAccountContext.Update(glAccount);
+            var glAccount = new GlAccount();
+            var configInDb = _context.GetCurrentConfig();
+            var interestExpenseGlInDb = _glAccountContext.Get(config.InterestExpenseGlId);
+            var cotIncomeGlInDb = _glAccountContext.Get(config.COTIncomeGlId);
+            if (config.Id == 0) //setup new configuration
+            {
+                interestExpenseGlInDb.IsAssigned = true; // Update the Interest gl account to is assigned
+                cotIncomeGlInDb.IsAssigned = true;// update the income gl account
+                _glAccountContext.Update(glAccount);
 
-        //        _context.SaveSavings(config);
-        //        return RedirectToAction("SavingsAccount");
-        //    }
+                config.Status = true;               //change the status of configuration to true
+                _context.SaveCurrent(config);
+                return RedirectToAction("CurrentAccount");
+            }
 
-        //    if (config.Id != 0) //update current configuration
-        //    {
-        //        configInDb.CInterestRate = config.CInterestRate;
-        //        configInDb.MinBalance = config.MinBalance;
-        //        if (config.GlAccountId == 0) //check if gl account is the same
-        //        {
-        //            configInDb.GlAccountId = configInDb.GlAccountId;
-        //        }
-        //        else
-        //        {
-        //            var newGlAccountInDb = _glAccountContext.Get(configInDb.GlAccountId); // free up the old gl account that was assigned
-        //            newGlAccountInDb.IsAssigned = false;
-        //            _glAccountContext.Update(glAccount);
+            if (config.Id != 0) //update current configuration
+            {
+                configInDb.CInterestRate = config.CInterestRate;
+                configInDb.MinBalance = config.MinBalance;
+                configInDb.COT = config.COT;
 
-        //            configInDb.GlAccountId = config.GlAccountId;
+                if (config.InterestExpenseGlId == 0) //check if any of the  gl accounts are the same
+                {
+                    configInDb.InterestExpenseGlId = configInDb.InterestExpenseGlId;
+                  
+                }
+                else
+                {
+                    var oldInterestExpenseGlInDb = _glAccountContext.Get(configInDb.InterestExpenseGlId); // free up the old gl accounts that was assigned
+                    oldInterestExpenseGlInDb.IsAssigned = false;
+                    _glAccountContext.Update(glAccount);
+
+                    configInDb.InterestExpenseGlId = config.InterestExpenseGlId;
 
 
-        //            glAccountInDb.IsAssigned = true; // Update the  new gl account to is assigned
-        //            _glAccountContext.Update(glAccount);
+                    interestExpenseGlInDb.IsAssigned = true; // Update the  new gl account to is assigned
+                    _glAccountContext.Update(glAccount);
 
-        //        }
+                }
 
-        //        _context.UpdateSavings(config);
-        //        return RedirectToAction("SavingsAccount");
-        //    }
-        //    return RedirectToAction("SavingsAccount");
-        //}
+                if (config.COTIncomeGlId == 0)
+                {
+                    configInDb.COTIncomeGlId = configInDb.COTIncomeGlId;
+                }
+                else
+                {
+                    var oldIncomeGlInDb = _glAccountContext.Get(configInDb.COTIncomeGlId);
+                    oldIncomeGlInDb.IsAssigned = false;
+                    _glAccountContext.Update(glAccount);
 
-     
+
+                    configInDb.COTIncomeGlId = config.COTIncomeGlId;
+                    cotIncomeGlInDb.IsAssigned = true;
+                    _glAccountContext.Update(glAccount);
+
+                }
+
+
+                _context.UpdateCurrent(config);
+                return RedirectToAction("CurrentAccount");
+            }
+            return RedirectToAction("CurrentAccount");
+        }
+
+
         public ActionResult LoanAccount()
         {
-            return View("LoanAccountTypeForm");
+            var config = _context.GetSavingsConfig();
+            object glAccount = null;
+            if (config != null)
+            {
+                glAccount = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
+
+            }
+            var glAccounts = _glAccountContext.GetAllExpenseAccount();
+            var viewModel = new SavingsAccountConfigViewModel(config)
+            {
+                InterestExpenseGl = (GlAccount)glAccount,
+                InterestExpenseGls = glAccounts
+            };
+
+            return View("SavingsAccountTypeForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult SaveLoanConfig(SavingsAccountConfig config)
+        {
+
+            var glAccount = new GlAccount();
+            var configInDb = _context.GetSavingsConfig();
+            var glAccountInDb = _glAccountContext.Get(config.InterestExpenseGlId);
+            if (config.Id == 0) //setup new configuration
+            {
+                glAccountInDb.IsAssigned = true; // Update the gl account to is assigned
+                _glAccountContext.Update(glAccount);
+
+                config.Status = true;
+                _context.SaveSavings(config);
+                return RedirectToAction("SavingsAccount");
+            }
+
+            if (config.Id != 0) //update current configuration
+            {
+                configInDb.CInterestRate = config.CInterestRate;
+                configInDb.MinBalance = config.MinBalance;
+                if (config.InterestExpenseGlId == 0) //check if gl account is the same
+                {
+                    configInDb.InterestExpenseGlId = configInDb.InterestExpenseGlId;
+                }
+                else
+                {
+                    var newGlAccountInDb = _glAccountContext.Get(configInDb.InterestExpenseGlId); // free up the old gl account that was assigned
+                    newGlAccountInDb.IsAssigned = false;
+                    _glAccountContext.Update(glAccount);
+
+                    configInDb.InterestExpenseGlId = config.InterestExpenseGlId;
+
+
+                    glAccountInDb.IsAssigned = true; // Update the  new gl account to is assigned
+                    _glAccountContext.Update(glAccount);
+
+                }
+
+                _context.UpdateSavings(config);
+                return RedirectToAction("SavingsAccount");
+            }
+            return RedirectToAction("SavingsAccount");
         }
     }
 }

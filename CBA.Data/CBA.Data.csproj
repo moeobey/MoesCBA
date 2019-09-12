@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201909121206114_NamingConvention.Designer.cs">
       <DependentUpon>201909121206114_NamingConvention.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909121211344_morenamingconvention.cs" />
+    <Compile Include="Migrations\201909121211344_morenamingconvention.Designer.cs">
+      <DependentUpon>201909121211344_morenamingconvention.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -395,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909121206114_NamingConvention.resx">
       <DependentUpon>201909121206114_NamingConvention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121211344_morenamingconvention.resx">
+      <DependentUpon>201909121211344_morenamingconvention.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

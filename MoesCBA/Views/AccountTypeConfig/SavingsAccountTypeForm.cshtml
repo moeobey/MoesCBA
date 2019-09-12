@@ -29,9 +29,9 @@
         {
             <div class="form-group">
 
-                @Html.LabelFor(m => m.GlAccounts, new { })
-                @Html.DropDownListFor(m => m.GlAccountId, new SelectList(Model.GlAccounts, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.GlAccounts)
+                @Html.LabelFor(m => m.InterestExpenseGls, new { })
+                @Html.DropDownListFor(m => m.InterestExpenseGlId, new SelectList(Model.InterestExpenseGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.InterestExpenseGls)
 
             </div>
         }
@@ -39,14 +39,14 @@
         {
             <div class="form-group">
               <label>Current Interest GL Account:</label>
-                @Html.DisplayTextFor(m => m.GlAccount.Name)
+                @Html.DisplayTextFor(m => m.InterestExpenseGl.Name)
               
             </div>
             <div class="form-group">
 
-                @Html.LabelFor(m => m.GlAccounts, new { })
-                @Html.DropDownListFor(m => m.GlAccountId, new SelectList(Model.GlAccounts, "id", "Name"), "Change Interest Expense GL ", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.GlAccounts)
+                @Html.LabelFor(m => m.InterestExpenseGls, new { })
+                @Html.DropDownListFor(m => m.InterestExpenseGlId, new SelectList(Model.InterestExpenseGls, "id", "Name"), "Change Interest Expense GL ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.InterestExpenseGls)
 
             </div>
         }

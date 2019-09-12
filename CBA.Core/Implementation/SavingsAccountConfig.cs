@@ -14,10 +14,9 @@ namespace CBA.Core.Implementation
         //[Range(0.1,10)]
         public decimal CInterestRate  { get; set; }
         public decimal MinBalance { get; set; }
-        public GlAccount GlAccount { get; set; }
+        public GlAccount InterestExpenseGl { get; set; }
 
-        //interest expense gl account id
-        public int GlAccountId { get; set; }
+        public int InterestExpenseGlId { get; set; }
         public bool Status { get; set; }
 
   

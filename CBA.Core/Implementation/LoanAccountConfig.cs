@@ -12,10 +12,10 @@ namespace CBA.Core.Implementation
         public int Id { get; set; }         
         //[Range(0.1,10)]
         public int DInterestRate  { get; set; }
-        public GlAccount GlAccount { get; set; }
 
-        //interest expense gl account id
-        public int GlAccountId { get; set; }
+        public GlAccount InterestIncomeGl { get; set; }
+
+        public int InterestIncomeGlId { get; set; }
         public bool Status { get; set; }
 
     }
