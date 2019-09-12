@@ -62,6 +62,8 @@
     <Compile Include="Implementation\UserRole.cs" />
     <Compile Include="Interface\IPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CurrentAccountConfigViewModel.cs" />
+    <Compile Include="ViewModels\SavingsAccountConfigViewModel.cs" />
     <Compile Include="ViewModels\NewCustomerAccountViewModel.cs" />
     <Compile Include="ViewModels\NewGlAccountViewModel.cs" />
     <Compile Include="ViewModels\NewTellerViewModel.cs" />

@@ -23,11 +23,29 @@ namespace CBA.Data.Implementation
 
             return _context.GlAccounts.Include(c=>c.Branch).Include(c=>c.GlAccountCategory).ToList();
         }
+
         public IEnumerable<GlAccount> GetAllUnassigned()
         {
         
-            return _context.GlAccounts.Where(u => u.IsAssigned == false);
+            return _context.GlAccounts.Where(u => u.IsAssigned == false).Where(u=>u.IsTillAccount == true);
 
         }
+        public GlAccount GetByName(string name)
+        {
+            var tName = _context.GlAccounts.FirstOrDefault(u => u.Name.ToLower() == name.ToLower());
+            return tName;
+
+        }
+        public IEnumerable<GlAccount> GetAllExpenseAccount()
+        {
+
+            return _context.GlAccounts.Where(u => u.AccountCode.ToString().StartsWith("5")).Where(u=>u.IsAssigned == false);
+        }
+        public IEnumerable<GlAccount> GetAllIncomeAccount()
+        {
+
+            return _context.GlAccounts.Where(u => u.AccountCode.ToString().StartsWith("4")).Where(u => u.IsAssigned == false);
+        }
+        
     }
 }

@@ -44,9 +44,20 @@ namespace CBA.Logic
             var values = _db.GetAll();
             return values;
         }
+        public IEnumerable<GlAccount> GetAllExpenseAccount()
+        {
+            var values = _db.GetAllExpenseAccount();
+            return values;
+        }
+        public IEnumerable<GlAccount> GetAllIncomeAccount()
+        {
+            var values = _db.GetAllIncomeAccount();
+            return values;
+        }
+        
 
 
-        public string GenerateGlAccountCode(int categoryId)
+        public int GenerateGlAccountCode(int categoryId)
         {
             var ids = _db.GetAll().OrderByDescending(b => b.Id);
             var accountId = "0000001";
@@ -60,17 +71,23 @@ namespace CBA.Logic
             switch (mainAccountType)
             {
                 case "Asset":
-                    return "1" + accountId;
+                    var assetValue = "1" + accountId;
+                    return Convert.ToInt32(assetValue);
                 case "Liability":
-                    return "2" + accountId;
+                    var liabilityValue = "2" + accountId;
+                    return Convert.ToInt32(liabilityValue);
                 case "Capital":
-                    return "3" + accountId;
+                    var capitalValue = "3" + accountId;
+                    return Convert.ToInt32(capitalValue);
                 case "Income":
-                    return "4" + accountId;
+                    var incomeValue = "4" + accountId;
+                    return Convert.ToInt32(incomeValue);
                 case "Expense":
-                    return "5" + accountId;
+                    var expenseValue = "5" + accountId;
+                    return Convert.ToInt32(expenseValue);
+
                 default:
-                    return "";
+                    return 0;
             }
 
 
@@ -81,5 +98,17 @@ namespace CBA.Logic
             var values = _db.GetAllUnassigned();
             return values;
         }
+        public bool NameIsUnique(string name)
+        {
+            bool isUnique = false;
+
+            var tName = _db.GetByName(name);
+            if (tName == null)
+                isUnique = true;
+
+            return isUnique;
+        }
+
+        
     }
 }

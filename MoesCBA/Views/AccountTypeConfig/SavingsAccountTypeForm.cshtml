@@ -1,0 +1,62 @@
+﻿
+@model CBA.Core.ViewModels.SavingsAccountConfigViewModel
+@{
+    ViewBag.Title = "SavingsAccountTypeForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    @using (Html.BeginForm("SaveSavingsConfig", "AccountTypeConfig"))
+    {
+
+    <div class=" form-signin">
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CInterestRate)
+            @Html.TextBoxFor(m => m.CInterestRate, new { @class = "form-control", required = "required", type = "number", min = "1", max = "10" })
+            @Html.ValidationMessageFor(m => m.CInterestRate)
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.MinBalance)
+            @Html.TextBoxFor(m => m.MinBalance, new { @class = "form-control", required = "required", type = "number", min = "100.00" })
+            @Html.ValidationMessageFor(m => m.CInterestRate)
+        </div>
+  
+        @if (Model.Id == 0)
+        {
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.GlAccounts, new { })
+                @Html.DropDownListFor(m => m.GlAccountId, new SelectList(Model.GlAccounts, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.GlAccounts)
+
+            </div>
+        }
+        @if (Model.Id != 0)
+        {
+            <div class="form-group">
+              <label>Current Interest GL Account:</label>
+                @Html.DisplayTextFor(m => m.GlAccount.Name)
+              
+            </div>
+            <div class="form-group">
+
+                @Html.LabelFor(m => m.GlAccounts, new { })
+                @Html.DropDownListFor(m => m.GlAccountId, new SelectList(Model.GlAccounts, "id", "Name"), "Change Interest Expense GL ", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.GlAccounts)
+
+            </div>
+        }
+
+
+        <button class="btn btn-primary">Set Configurations</button>
+        @Html.HiddenFor(m => m.Id)
+    </div>
+    }
+
+
+
+

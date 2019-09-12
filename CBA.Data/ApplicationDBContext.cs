@@ -23,7 +23,13 @@ namespace CBA.Data
         public DbSet<GlAccount> GlAccounts { get; set; }
         public DbSet<TillAccount> TillAccounts { get; set; }
         public DbSet<Teller> Tellers { get; set; }
-
         public DbSet<CustomerAccount> CustomerAccounts { get; set; }
+
+        public DbSet<SavingsAccountConfig> SavingsAccountConfigs { get; set; }
+
+        public DbSet<CurrentAccountConfig> CurrentAccountConfigs { get; set; }
+
+        public DbSet<LoanAccountConfig> LoanAccountConfigs { get; set; }
+
     }
 }

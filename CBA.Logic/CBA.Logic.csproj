@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountTypeConfigLogic.cs" />
     <Compile Include="AccountLogic.cs" />
     <Compile Include="CustomerAccountLogic.cs" />
     <Compile Include="CustomerLogic.cs" />

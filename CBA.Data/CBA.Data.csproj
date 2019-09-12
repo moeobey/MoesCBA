@@ -50,12 +50,15 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Implementation\BranchRepository.cs" />
+    <Compile Include="Implementation\CurrentAccountConfigRepository.cs" />
     <Compile Include="Implementation\CustomerAccountRepository.cs" />
     <Compile Include="Implementation\CustomerRepository.cs" />
     <Compile Include="Implementation\GlAccountCategoryRepository.cs" />
     <Compile Include="Implementation\GlAccountRepository.cs" />
+    <Compile Include="Implementation\LoanAccountConfigRepository.cs" />
     <Compile Include="Implementation\Repository.cs" />
     <Compile Include="Implementation\RolesRepository.cs" />
+    <Compile Include="Implementation\SavingAccountConfigRepository.cs" />
     <Compile Include="Implementation\TellerRepository.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
@@ -212,6 +215,34 @@
     <Compile Include="Migrations\201909101228592_resetCustomersTable.Designer.cs">
       <DependentUpon>201909101228592_resetCustomersTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909110947450_someUpdatesss.cs" />
+    <Compile Include="Migrations\201909110947450_someUpdatesss.Designer.cs">
+      <DependentUpon>201909110947450_someUpdatesss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909111049420_CreateAccountConfigurations.cs" />
+    <Compile Include="Migrations\201909111049420_CreateAccountConfigurations.Designer.cs">
+      <DependentUpon>201909111049420_CreateAccountConfigurations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909111116267_CheckIfGlIsAssignableToTeller.cs" />
+    <Compile Include="Migrations\201909111116267_CheckIfGlIsAssignableToTeller.Designer.cs">
+      <DependentUpon>201909111116267_CheckIfGlIsAssignableToTeller.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909111124103_CheckIfGlsTill.cs" />
+    <Compile Include="Migrations\201909111124103_CheckIfGlsTill.Designer.cs">
+      <DependentUpon>201909111124103_CheckIfGlsTill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909111426470_CheckIf.cs" />
+    <Compile Include="Migrations\201909111426470_CheckIf.Designer.cs">
+      <DependentUpon>201909111426470_CheckIf.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909111454459_CheckIfs.cs" />
+    <Compile Include="Migrations\201909111454459_CheckIfs.Designer.cs">
+      <DependentUpon>201909111454459_CheckIfs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121206114_NamingConvention.cs" />
+    <Compile Include="Migrations\201909121206114_NamingConvention.Designer.cs">
+      <DependentUpon>201909121206114_NamingConvention.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -343,6 +374,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909101228592_resetCustomersTable.resx">
       <DependentUpon>201909101228592_resetCustomersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909110947450_someUpdatesss.resx">
+      <DependentUpon>201909110947450_someUpdatesss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909111049420_CreateAccountConfigurations.resx">
+      <DependentUpon>201909111049420_CreateAccountConfigurations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909111116267_CheckIfGlIsAssignableToTeller.resx">
+      <DependentUpon>201909111116267_CheckIfGlIsAssignableToTeller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909111124103_CheckIfGlsTill.resx">
+      <DependentUpon>201909111124103_CheckIfGlsTill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909111426470_CheckIf.resx">
+      <DependentUpon>201909111426470_CheckIf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909111454459_CheckIfs.resx">
+      <DependentUpon>201909111454459_CheckIfs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121206114_NamingConvention.resx">
+      <DependentUpon>201909121206114_NamingConvention.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

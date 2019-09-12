@@ -397,6 +397,10 @@
     <Content Include="Views\CustomersAccount\Index.cshtml" />
     <Content Include="Views\CustomersAccount\CustomerAccountForm.cshtml" />
     <Content Include="Scripts\jquery-1.9.0.min.map" />
+    <Content Include="Views\AccountTypeConfig\Index.cshtml" />
+    <Content Include="Views\AccountTypeConfig\SavingsAccountTypeForm.cshtml" />
+    <Content Include="Views\AccountTypeConfig\CurrentAccountTypeForm.cshtml" />
+    <Content Include="Views\AccountTypeConfig\LoanAccountTypeForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -406,6 +410,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountTypeConfigController.cs" />
     <Compile Include="Controllers\CustomersAccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\GlAccountsController.cs" />

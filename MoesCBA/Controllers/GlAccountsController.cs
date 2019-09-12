@@ -38,21 +38,36 @@ namespace MoesCBA.Controllers
             if (ModelState.IsValid)
             {
                 var accountInDb = _context.Get(account.Id);
-                if (account.Id == 0)
+                var glAccountNameIsUnique = _context.NameIsUnique(account.Name);
+              
+                if (account.Id != 0 && accountInDb.Name == account.Name) //check if account Name is Unchanged for update and set is unique to true
+                    glAccountNameIsUnique = true;
+
+              
+                if (account.Id == 0 && glAccountNameIsUnique)
                 {
+                    if (Request.Form["tillAccount"] == "on")
+                    {
+                        account.IsTillAccount = true;
+                    }
                     account.AccountCode = _context.GenerateGlAccountCode(account.GlAccountCategoryId);
                     _context.Save(account);
                     TempData["message"] = "GL Account Added Successfully";
                     return RedirectToAction("Index");
                 }
 
-                if (account.Id != 0)   //update account
+                if (account.Id != 0 && glAccountNameIsUnique)   //update account
                 {
                     accountInDb.Name = account.Name;
                     accountInDb.BranchId = account.BranchId;
                     _context.Update(account);
                     TempData["message"] = "Update Successful";
                     return RedirectToAction("Index");
+                }
+
+                if (!glAccountNameIsUnique)
+                {
+                    ModelState.AddModelError("nameTaken", "This Name Exist");
                 }
             }
             var branches = _userContext.GetBranches();

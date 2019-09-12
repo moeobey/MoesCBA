@@ -44,7 +44,6 @@ else
                             @if (user.IsAssigned == false && user.Role == "Teller")
                             {
                                 <button>@Html.ActionLink("Assign Till", "New", "Tellers", new { id = user.Id }, null)</button>
-
                             }
                         </td>
                     </tr>

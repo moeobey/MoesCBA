@@ -18,13 +18,13 @@ namespace CBA.Data.Implementation
        
         public Customer GetByPhoneNumber(string phoneNumber)
         {
-            var tPhoneNumber= _context.Customer.FirstOrDefault(u => u.PhoneNumber == phoneNumber);
+            var tPhoneNumber= _context.Customer.FirstOrDefault(u => u.PhoneNumber.ToLower() == phoneNumber.ToLower());
             return tPhoneNumber;
 
         }
         public Customer GetByEmail(string email)
         {
-            var tEmail = _context.Customer.FirstOrDefault(u => u.Email == email);
+            var tEmail = _context.Customer.FirstOrDefault(u => u.Email.ToLower() == email.ToLower());
             return tEmail;
 
         }

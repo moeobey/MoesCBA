@@ -40,10 +40,10 @@ namespace MoesCBA.Controllers
                 var customerInDb = _context.Get(customer.Id);
                 var emailIsUnique = _context.EmailIsUnique(customer.Email);
                 var phoneNumberIsUnique = _context.PhoneNumberIsUnique(customer.PhoneNumber);
-                if (customer.Id != 0 && customerInDb.Email == customer.Email )
-                    emailIsUnique = true;
+                if (customer.Id != 0 && customerInDb.Email == customer.Email ) //check if Email is Unchanged for update and set is unique to true
+                    emailIsUnique = true;  
                 
-                if (customer.Id != 0 && customerInDb.PhoneNumber == customer.PhoneNumber )
+                if (customer.Id != 0 && customerInDb.PhoneNumber == customer.PhoneNumber) //Check if phone number is unchanged for update and set is unique to true
                     phoneNumberIsUnique = true;
                 
                 if (phoneNumberIsUnique && emailIsUnique)
@@ -61,7 +61,7 @@ namespace MoesCBA.Controllers
                         return RedirectToAction("Index");
                     }
 
-                    if (customer.Gender != 0 && customer.Id == 0)
+                    if ( customer.Id == 0 && customer.Gender != 0) //add customer
                     {
                         customer.CustomerId = _context.GenerateCustomerId();
                         customer.Date = DateTime.Now;

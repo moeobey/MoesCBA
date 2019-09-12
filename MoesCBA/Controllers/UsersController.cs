@@ -157,7 +157,7 @@ namespace MoesCBA.Controllers
                     TempData["message"] = "Update Successful";
                     return RedirectToAction("Index");
             }
-                if (!emailIsUnique)
+            if (!emailIsUnique)
                 {
                     ModelState.AddModelError("EmailExist", "Email Already Exist");
                 }

@@ -9,13 +9,17 @@ namespace CBA.Core.Implementation
 {
    public class SavingsAccountConfig
     {
+       
         public int Id { get; set; }         
         //[Range(0.1,10)]
-        public int CInterestRate  { get; set; }
+        public decimal CInterestRate  { get; set; }
         public decimal MinBalance { get; set; }
+        public GlAccount GlAccount { get; set; }
 
-        public int InterestExpenseGlId { get; set; }
+        //interest expense gl account id
+        public int GlAccountId { get; set; }
         public bool Status { get; set; }
 
+  
     }
 }
