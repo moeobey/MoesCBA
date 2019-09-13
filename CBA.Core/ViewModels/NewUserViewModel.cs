@@ -13,10 +13,10 @@ namespace CBA.Core.ViewModels
         public IEnumerable<Branch> Branches { get; set; }
         public User User { get; set; }
         public int Id { get; set; }
-        
-     
 
-        //public IEnumerable<UserRole> UserRoles { get; set; }
+
+
+        public IEnumerable<UserRole> UserRoles { get; set; }
 
     }
  

@@ -55,6 +55,7 @@ namespace MoesCBA.Controllers
 
                 config.Status = true;
                 _context.SaveSavings(config);
+                TempData["message"] = "Configurations Added Successfully";
                 return RedirectToAction("SavingsAccount");
             }
 
@@ -79,7 +80,7 @@ namespace MoesCBA.Controllers
                     _glAccountContext.Update(glAccount);
 
                 }
-                
+                TempData["message"] = "Configurations Updated Successfully";
                 _context.UpdateSavings(config);
                 return RedirectToAction("SavingsAccount");
             }
@@ -95,7 +96,6 @@ namespace MoesCBA.Controllers
             {
                 interestExpenseGl = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
                 COTincomeGl = _glAccountContext.Get(config.COTIncomeGlId);
-
             }
             var interestExpenseGls = _glAccountContext.GetAllExpenseAccount();
             var COTincomeGls = _glAccountContext.GetAllIncomeAccount();
@@ -181,66 +181,65 @@ namespace MoesCBA.Controllers
 
         public ActionResult LoanAccount()
         {
-            var config = _context.GetSavingsConfig();
-            object glAccount = null;
+            var config = _context.GetLoanConfig();
+            object interestIncomeGl = null;
             if (config != null)
             {
-                glAccount = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
+                interestIncomeGl = _glAccountContext.Get(config.InterestIncomeGlId); //to get the gl account name
 
             }
-            var glAccounts = _glAccountContext.GetAllExpenseAccount();
-            var viewModel = new SavingsAccountConfigViewModel(config)
+            var interestIncomeGls = _glAccountContext.GetAllIncomeAccount();
+            var viewModel = new LoanAccountConfigViewModel(config)
             {
-                InterestExpenseGl = (GlAccount)glAccount,
-                InterestExpenseGls = glAccounts
+                InterestIncomeGl = (GlAccount)interestIncomeGl,
+                InterestIncomeGls = interestIncomeGls
             };
 
-            return View("SavingsAccountTypeForm", viewModel);
+            return View("LoanAccountTypeForm", viewModel);
         }
 
         [HttpPost]
-        public ActionResult SaveLoanConfig(SavingsAccountConfig config)
+        public ActionResult SaveLoanConfig(LoanAccountConfig config)
         {
 
-            var glAccount = new GlAccount();
-            var configInDb = _context.GetSavingsConfig();
-            var glAccountInDb = _glAccountContext.Get(config.InterestExpenseGlId);
+            var interestIncomeGl = new GlAccount();
+            var configInDb = _context.GetLoanConfig();
+            var interestIncomeGlInDb = _glAccountContext.Get(config.InterestIncomeGlId);
             if (config.Id == 0) //setup new configuration
             {
-                glAccountInDb.IsAssigned = true; // Update the gl account to is assigned
-                _glAccountContext.Update(glAccount);
+                interestIncomeGlInDb.IsAssigned = true; // Update the gl account to is assigned
+                _glAccountContext.Update(interestIncomeGl);
 
                 config.Status = true;
-                _context.SaveSavings(config);
-                return RedirectToAction("SavingsAccount");
+                _context.SaveLoan(config);
+                return RedirectToAction("LoanAccount");
             }
 
             if (config.Id != 0) //update current configuration
             {
-                configInDb.CInterestRate = config.CInterestRate;
-                configInDb.MinBalance = config.MinBalance;
-                if (config.InterestExpenseGlId == 0) //check if gl account is the same
+                configInDb.DInterestRate = config.DInterestRate;
+                if (config.InterestIncomeGlId == 0) //check if gl account is the same
                 {
-                    configInDb.InterestExpenseGlId = configInDb.InterestExpenseGlId;
+                    configInDb.InterestIncomeGl = configInDb.InterestIncomeGl;
                 }
                 else
                 {
-                    var newGlAccountInDb = _glAccountContext.Get(configInDb.InterestExpenseGlId); // free up the old gl account that was assigned
-                    newGlAccountInDb.IsAssigned = false;
-                    _glAccountContext.Update(glAccount);
+                    var oldGlAccountInDb = _glAccountContext.Get(configInDb.InterestIncomeGlId); // free up the old gl account that was assigned
+                    oldGlAccountInDb.IsAssigned = false;
+                    _glAccountContext.Update(interestIncomeGl);
 
-                    configInDb.InterestExpenseGlId = config.InterestExpenseGlId;
+                    configInDb.InterestIncomeGlId = config.InterestIncomeGlId;
 
 
-                    glAccountInDb.IsAssigned = true; // Update the  new gl account to is assigned
-                    _glAccountContext.Update(glAccount);
+                    interestIncomeGlInDb.IsAssigned = true; // Update the  new gl account to is assigned
+                    _glAccountContext.Update(interestIncomeGl);
 
                 }
 
-                _context.UpdateSavings(config);
-                return RedirectToAction("SavingsAccount");
+                _context.UpdateLoan(config);
+                return RedirectToAction("LoanAccount");
             }
-            return RedirectToAction("SavingsAccount");
+            return RedirectToAction("LoanAccount");
         }
     }
 }

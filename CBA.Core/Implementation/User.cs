@@ -34,6 +34,7 @@ namespace CBA.Core.Implementation
 
         public string Role { get; set; }
 
+
         public Branch Branch { get; set; }
         public int? BranchId { get; set; }
 

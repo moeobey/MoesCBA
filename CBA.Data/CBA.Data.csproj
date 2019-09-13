@@ -247,6 +247,10 @@
     <Compile Include="Migrations\201909121211344_morenamingconvention.Designer.cs">
       <DependentUpon>201909121211344_morenamingconvention.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909121419524_LoanAccountTableEdit.cs" />
+    <Compile Include="Migrations\201909121419524_LoanAccountTableEdit.Designer.cs">
+      <DependentUpon>201909121419524_LoanAccountTableEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -402,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909121211344_morenamingconvention.resx">
       <DependentUpon>201909121211344_morenamingconvention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121419524_LoanAccountTableEdit.resx">
+      <DependentUpon>201909121419524_LoanAccountTableEdit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

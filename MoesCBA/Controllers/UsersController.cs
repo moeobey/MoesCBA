@@ -33,13 +33,11 @@ namespace MoesCBA.Controllers
         public ActionResult New()
         {
             var branches = _context.GetBranches().ToList();
-            
-            //var roles = _context.GetRoles().ToList();
+            var roles = _context.GetRoles().ToList();
             var viewModel = new NewUserViewModel
             {
-                
                 Branches =  branches,
-                //UserRoles =  roles
+                UserRoles = roles
             };
 
             return View("UserForm",viewModel);
@@ -57,7 +55,7 @@ namespace MoesCBA.Controllers
                 {
                     var randomPass = _context.GenerateRandomPassword();
                     user.Password = Crypto.Hash(_context.GenerateRandomPassword());
-                    user.Role = "Teller";
+                    
                     user.Date = DateTime.Now;
                     _context.Save(user);
                     _context.SendEmail(user.Email, randomPass ,user.FullName);

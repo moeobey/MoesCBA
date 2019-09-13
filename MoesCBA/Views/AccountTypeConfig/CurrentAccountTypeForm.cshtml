@@ -5,6 +5,13 @@
 }
 
 <h2>CurrentAccountTypeForm</h2>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-success">
+        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+}
 
 @using (Html.BeginForm("SaveCurrentConfig", "AccountTypeConfig"))
 {
@@ -52,8 +59,8 @@
             @Html.DropDownListFor(m => m.COTIncomeGlId, new SelectList(Model.COTIncomeGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.COTIncomeGls)
         </div>
-        
-        
+
+        @Html.AntiForgeryToken()
         <button class="btn btn-primary">Set Configurations</button>
         @Html.HiddenFor(m => m.Id)
     </div>
@@ -62,3 +69,16 @@
 
 
 
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function () {
+          
+            setTimeout(function () {
+                $(".alert-success").fadeOut(100, null);
+            }, 3000);
+        });
+
+    </script>
+
+
+}
