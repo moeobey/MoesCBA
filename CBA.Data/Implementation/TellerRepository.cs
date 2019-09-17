@@ -23,6 +23,14 @@ namespace CBA.Data.Implementation
                 .Include(c=>c.User)
                 .Include(c=>c.GlAccount).ToList();
         }
+        public long GetTillAccount(int userId)
+        {
+            var result = _context.Tellers.Include(c=>c.GlAccount).FirstOrDefault(u => u.UserId == userId);
+            return result.GlAccount.AccountCode;
+
+        }
+
         
+
     }
 }

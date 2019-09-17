@@ -7,10 +7,10 @@ using CBA.Core.Implementation;
 
 namespace CBA.Data.Implementation
 {
-    public class GlAccountCategoryRepository: Repository<GlAccountCategory>
+    public class GlCategoryRepository: Repository<GlCategory>
     {
         readonly ApplicationDbContext _context;
-        public GlAccountCategoryRepository(ApplicationDbContext context) : base(context)
+        public GlCategoryRepository(ApplicationDbContext context) : base(context)
         {
             _context = context; 
         }
@@ -18,7 +18,7 @@ namespace CBA.Data.Implementation
         
         public string GetMainAccountType(int id)
         {
-            var mainCategory = _context.GlAccountCategories.FirstOrDefault(u => u.Id == id);
+            var mainCategory = _context.GlCategories.FirstOrDefault(u => u.Id == id);
             var mainCategoryId = "";
             if (mainCategory != null)
             {

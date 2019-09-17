@@ -11,11 +11,11 @@ namespace CBA.Core.Implementation
     {
         public int Id { get; set; }         
         //[Range(0.1,10)]
-        public int CInterestRate  { get; set; }
+        public decimal CInterestRate  { get; set; }
         public decimal MinBalance { get; set; }
         public GlAccount InterestExpenseGl { get; set; }
         public int InterestExpenseGlId { get; set; }
-        public int COT { get; set; }
+        public decimal COT { get; set; }
         public  GlAccount COTIncomeGl { get;  }
         public int COTIncomeGlId { get; set; }
         public bool Status { get; set; }

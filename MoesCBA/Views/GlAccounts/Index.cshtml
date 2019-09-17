@@ -31,6 +31,7 @@ else
                     <th>Account Code</th>
                     <th>GL category</th>
                     <th>Branch</th>
+                    <th>Balance</th>
 
                     <th>Action</th>
                 </tr>
@@ -41,8 +42,9 @@ else
                     <tr>
                         <td>@Html.ActionLink(account.Name, "Edit", "GlAccounts", new { id = account.Id }, null)</td>
                         <td>@account.AccountCode</td>
-                        <td>@account.GlAccountCategory.Name</td>
+                        <td>@account.GlCategory.Name</td>
                         <td>@account.Branch.Name</td>
+                        <td>@account.Balance</td>
 
                         <td>
                             <button data-customer-id="@account.Id" class="btn-link js-delete">Delete</button>

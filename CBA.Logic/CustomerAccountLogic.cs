@@ -33,8 +33,12 @@ namespace CBA.Logic
         }
         public string GetCustomerId(int id)
         {
-
             var values = _db.GetCustomerId(id);
+            return values;
+        }
+        public CustomerAccount GetByAccountNumber(string accountNumber)
+        {
+            var values = _db.GetByAccountNumber(accountNumber);
             return values;
         }
         public void Update(CustomerAccount account)

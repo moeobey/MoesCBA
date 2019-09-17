@@ -15,8 +15,6 @@ namespace MoesCBA.Controllers
     {
         private readonly GlAccountLogic _context = new GlAccountLogic();
         private readonly UserLogic _userContext = new UserLogic();
-       
-       
         public ActionResult Index()
         {
             var glAccounts = _context.GetAllGlAccounts();
@@ -25,11 +23,11 @@ namespace MoesCBA.Controllers
         public ActionResult New()
         {
             var branches = _userContext.GetBranches();
-            var glAccountCategories = _context.GetGlAccountCategories();
+            var glCategories = _context.GetGlCategories();
             var viewModel = new NewGlAccountViewModel()
             {
              Branches = branches,
-             GlAccountCategories = glAccountCategories
+             GlCategories = glCategories
             };
             return View("GlAccountForm", viewModel);
         }
@@ -38,19 +36,15 @@ namespace MoesCBA.Controllers
             if (ModelState.IsValid)
             {
                 var accountInDb = _context.Get(account.Id);
-                var glAccountNameIsUnique = _context.NameIsUnique(account.Name);
-              
-                if (account.Id != 0 && accountInDb.Name == account.Name) //check if account Name is Unchanged for update and set is unique to true
-                    glAccountNameIsUnique = true;
+                var glAccountNameIsUnique = _context.NameIsUnique(account.Name) || account.Id != 0 && accountInDb.Name == account.Name; //check if account Name is Unchanged for update and set is unique to true
 
-              
-                if (account.Id == 0 && glAccountNameIsUnique)
+                if (account.Id == 0 && glAccountNameIsUnique) //add account
                 {
                     if (Request.Form["tillAccount"] == "on")
                     {
                         account.IsTillAccount = true;
                     }
-                    account.AccountCode = _context.GenerateGlAccountCode(account.GlAccountCategoryId);
+                    account.AccountCode = _context.GenerateGlAccountCode(account.GlCategoryId);
                     _context.Save(account);
                     TempData["message"] = "GL Account Added Successfully";
                     return RedirectToAction("Index");
@@ -70,12 +64,13 @@ namespace MoesCBA.Controllers
                     ModelState.AddModelError("nameTaken", "This Name Exist");
                 }
             }
+
             var branches = _userContext.GetBranches();
-            var glAccountCategories = _context.GetGlAccountCategories();
+            var glCategories = _context.GetGlCategories();
             var tAccount = new NewGlAccountViewModel()
             {
                 Branches = branches,
-                GlAccountCategories = glAccountCategories
+                GlCategories = glCategories
             };
             return View("GlAccountForm", tAccount);
         }
@@ -83,11 +78,11 @@ namespace MoesCBA.Controllers
         {
             var branches = _userContext.GetBranches().ToList();
             var glAccount = _context.Get(id);
-            var glAccountCategories = _context.GetGlAccountCategories();
+            var glCategories = _context.GetGlCategories();
             var viewModel = new NewGlAccountViewModel(glAccount)
             {
                 Branches = branches,
-                GlAccountCategories = glAccountCategories
+                GlCategories = glCategories
             };
             return View("GlAccountForm", viewModel);
         }

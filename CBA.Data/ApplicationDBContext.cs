@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CBA.Core;
 using CBA.Core.Implementation;
 
 namespace CBA.Data
@@ -19,9 +20,8 @@ namespace CBA.Data
         public DbSet<Customer> Customer { get; set; }
         public DbSet<UserRole> UserRoles { get; set; } 
         public  DbSet<Branch> Branches { get; set; }
-        public DbSet<GlAccountCategory> GlAccountCategories { get; set; }
+        public DbSet<GlCategory> GlCategories { get; set; }
         public DbSet<GlAccount> GlAccounts { get; set; }
-        public DbSet<TillAccount> TillAccounts { get; set; }
         public DbSet<Teller> Tellers { get; set; }
         public DbSet<CustomerAccount> CustomerAccounts { get; set; }
 
@@ -30,6 +30,9 @@ namespace CBA.Data
         public DbSet<CurrentAccountConfig> CurrentAccountConfigs { get; set; }
 
         public DbSet<LoanAccountConfig> LoanAccountConfigs { get; set; }
+        public DbSet<GlPost> GlPost { get; set; }
+        public DbSet<TellerPost> TellerPosts { get; set; }
+        public DbSet<COTPost> CotPosts { get; set; }
 
     }
 }

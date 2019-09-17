@@ -7,6 +7,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using CBA.Core.Implementation;
 using CBA.Logic;
+using NLog;
 
 namespace MoesCBA.Controllers
 {
@@ -16,8 +17,15 @@ namespace MoesCBA.Controllers
         private readonly UserLogic _userContext = new UserLogic();
         // GET: Account
         public ActionResult Index()
-        { 
-            return View("LoginForm");
+        {
+            if (Session["Id"] != null)
+            {
+                return RedirectToAction("Index", "Users");
+            }
+            else
+            {
+             return View("LoginForm");
+            }
         }
 
         [HttpPost]

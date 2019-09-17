@@ -21,7 +21,7 @@ namespace CBA.Data.Implementation
         public IEnumerable<GlAccount> GetAllGlAccountsWithBranch()
         {
 
-            return _context.GlAccounts.Include(c=>c.Branch).Include(c=>c.GlAccountCategory).ToList();
+            return _context.GlAccounts.Include(c=>c.Branch).Include(c=>c.GlCategory).ToList();
         }
 
         public IEnumerable<GlAccount> GetAllUnassigned()
@@ -36,6 +36,14 @@ namespace CBA.Data.Implementation
             return tName;
 
         }
+        public GlAccount GetByAccCode(long accCode)
+        {
+            var account = _context.GlAccounts.FirstOrDefault(u => u.AccountCode == accCode);
+            return account;
+
+        }
+        
+
         public IEnumerable<GlAccount> GetAllExpenseAccount()
         {
 
@@ -47,6 +55,12 @@ namespace CBA.Data.Implementation
             return _context.GlAccounts.Where(u => u.AccountCode.ToString().StartsWith("4")).Where(u => u.IsAssigned == false);
         }
 
-        
+        public long GetAccCode(int id)
+        {
+            var result = _context.GlAccounts.FirstOrDefault(u=>u.Id == id);
+            var cResult = Convert.ToInt64(result.AccountCode);
+            return cResult;
+        }
+
     }
 }

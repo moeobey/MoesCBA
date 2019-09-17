@@ -1,0 +1,77 @@
+﻿@model CBA.Core.ViewModels.TellerPostViewModel
+@{
+    ViewBag.Title = "TellerPostForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>TellerPostForm</h2>
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        <p>@TempData["error"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+}
+@if (Model.CustomerAccount.AccountNumber.StartsWith("2"))
+{
+    <div class="alert alert-info">
+        <p>COT Charges Apply <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+}
+
+@using (Html.BeginForm("Save", "TellerPosts"))
+{
+    <div class=" form-signin">
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.CustomerAccount.AccountName)
+            @Html.DisplayTextFor(m => m.CustomerAccount.AccountName)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.CustomerAccount.AccountNumber)
+            @Html.DisplayTextFor(m => m.CustomerAccount.AccountNumber)
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TellerPost.Amount)
+            @Html.TextBoxFor(m => m.TellerPost.Amount, new { @class = "form-control", required = "required", type = "decimal" })
+            @Html.ValidationMessageFor(m => m.TellerPost.Amount)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TellerPost.PostType)
+            @Html.EnumDropDownListFor(m => m.TellerPost.PostType, "Select Account Type", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessage("selectAccountType", new { @class = "user-validation-error" })
+
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.TellerPost.Narration)
+            @Html.TextAreaFor(m => m.TellerPost.Narration, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.TellerPost.Narration)
+        </div>
+
+        <input type="hidden" name="accountId" value="@Model.CustomerAccount.Id" />
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </div>
+}
+
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+                    $(".alert").fadeOut(100, null);
+                },
+                3000);
+        });
+
+    </script>
+
+}

@@ -380,6 +380,7 @@
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\moes.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Users\Dashboard.cshtml" />
     <Content Include="Views\Account\LoginForm.cshtml" />
@@ -388,8 +389,8 @@
     <Content Include="Views\Users\EditUserForm.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
-    <Content Include="Views\GlAccountCategory\Index.cshtml" />
-    <Content Include="Views\GlAccountCategory\GlAccountCategoryForm.cshtml" />
+    <Content Include="Views\GlCategory\Index.cshtml" />
+    <Content Include="Views\GlCategory\GlCategoryForm.cshtml" />
     <Content Include="Views\GlAccounts\Index.cshtml" />
     <Content Include="Views\GlAccounts\GlAccountForm.cshtml" />
     <Content Include="Views\Tellers\Index.cshtml" />
@@ -401,6 +402,10 @@
     <Content Include="Views\AccountTypeConfig\SavingsAccountTypeForm.cshtml" />
     <Content Include="Views\AccountTypeConfig\CurrentAccountTypeForm.cshtml" />
     <Content Include="Views\AccountTypeConfig\LoanAccountTypeForm.cshtml" />
+    <Content Include="Views\GlPosts\Index.cshtml" />
+    <Content Include="Views\GlPosts\GlPostForm.cshtml" />
+    <Content Include="Views\TellerPosts\Index.cshtml" />
+    <Content Include="Views\TellerPosts\TellerPostForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -413,8 +418,11 @@
     <Compile Include="Controllers\AccountTypeConfigController.cs" />
     <Compile Include="Controllers\CustomersAccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\EODController.cs" />
     <Compile Include="Controllers\GlAccountsController.cs" />
-    <Compile Include="Controllers\GlAccountCategoryController.cs" />
+    <Compile Include="Controllers\GlCategoryController.cs" />
+    <Compile Include="Controllers\GlPostsController.cs" />
+    <Compile Include="Controllers\TellerPostsController.cs" />
     <Compile Include="Controllers\TellersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -550,6 +558,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\EOD\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CBA.Core\CBA.Core.csproj">

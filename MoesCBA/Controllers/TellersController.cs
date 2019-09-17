@@ -24,16 +24,15 @@ namespace MoesCBA.Controllers
         }
         public ActionResult New(int id)
         {
-                var selectedUser = _userContext.Get(id);
-                var selectedGlAccounts = _glAccountContext.GetAllUnassigned();
-                var selectedViewModel = new NewTellerViewModel
-                {
-                    User = selectedUser,
-                    GlAccount = selectedGlAccounts
+            var selectedUser = _userContext.Get(id);
+            var selectedGlAccounts = _glAccountContext.GetAllUnassigned();
+            var selectedViewModel = new NewTellerViewModel
+            {
+                User = selectedUser,
+                GlAccount = selectedGlAccounts
 
-                };
-                return View("TellerForm", selectedViewModel);
-           
+            };
+            return View("TellerForm", selectedViewModel);
         }
 
         [HttpPost]
@@ -45,7 +44,6 @@ namespace MoesCBA.Controllers
             {
                 var user = new User();
                 var glAccount = new GlAccount();
-
 
                 var userInDb = _userContext.Get(userId);
                 var glAccountInDb = _glAccountContext.Get(teller.GlAccountId);
@@ -76,7 +74,6 @@ namespace MoesCBA.Controllers
 
 
         }
-
-
     }
 }
+

@@ -12,14 +12,14 @@ namespace CBA.Logic
   public   class GlAccountLogic
     {
         private readonly GlAccountRepository _db = new GlAccountRepository(new ApplicationDbContext());
-        private readonly GlAccountCategoryRepository _category = new GlAccountCategoryRepository(new ApplicationDbContext());
+        private readonly GlCategoryRepository _category = new GlCategoryRepository(new ApplicationDbContext());
 
         public IEnumerable<GlAccount> GetAllGlAccounts()
         {
             var value = _db.GetAllGlAccountsWithBranch();
             return value;
         }
-        public IEnumerable<GlAccountCategory> GetGlAccountCategories()
+        public IEnumerable<GlCategory> GetGlCategories()
         {
             return _category.GetAll();
         }
@@ -31,8 +31,18 @@ namespace CBA.Logic
         }
         public GlAccount Get(int id)
         {
-
             var values = _db.Get(id);
+            return values;
+        }
+        public long GetAccCode(int id)
+        {
+            var value = _db.GetAccCode(id);
+            return value;
+        }
+        
+        public GlAccount GetByAccCode(long accCode)
+        {
+            var values = _db.GetByAccCode(accCode);
             return values;
         }
         public void Update(GlAccount account)
@@ -57,7 +67,7 @@ namespace CBA.Logic
         
 
 
-        public int GenerateGlAccountCode(int categoryId)
+        public long GenerateGlAccountCode(int categoryId)
         {
             var ids = _db.GetAll().OrderByDescending(b => b.Id);
             var accountId = "0000001";
@@ -72,19 +82,19 @@ namespace CBA.Logic
             {
                 case "Asset":
                     var assetValue = "1" + accountId;
-                    return Convert.ToInt32(assetValue);
+                    return Convert.ToInt64(assetValue);
                 case "Liability":
                     var liabilityValue = "2" + accountId;
-                    return Convert.ToInt32(liabilityValue);
+                    return Convert.ToInt64(liabilityValue);
                 case "Capital":
                     var capitalValue = "3" + accountId;
-                    return Convert.ToInt32(capitalValue);
+                    return Convert.ToInt64(capitalValue);
                 case "Income":
                     var incomeValue = "4" + accountId;
-                    return Convert.ToInt32(incomeValue);
+                    return Convert.ToInt64(incomeValue);
                 case "Expense":
                     var expenseValue = "5" + accountId;
-                    return Convert.ToInt32(expenseValue);
+                    return Convert.ToInt64(expenseValue);
 
                 default:
                     return 0;

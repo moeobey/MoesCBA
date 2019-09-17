@@ -12,7 +12,7 @@ namespace CBA.Core.ViewModels
         public IEnumerable<GlAccount> InterestIncomeGls { get; set; }
         public int Id { get; set; }
         //[Range(0.1,10)]
-        public int DInterestRate { get; set; }
+        public decimal DInterestRate { get; set; }
 
         public GlAccount InterestIncomeGl { get; set; }
         public int InterestIncomeGlId { get; set; }

@@ -18,7 +18,7 @@ namespace CBA.Core.ViewModels
         public int InterestExpenseGlId { get; set; }
         public decimal MinBalance { get; set; }
 
-        public int COT { get; set; }
+        public decimal COT { get; set; }
         public GlAccount COTIncomeGl { get; set; }
         public int COTIncomeGlId { get; set; }
         public bool Status { get; set; }

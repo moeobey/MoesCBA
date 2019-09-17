@@ -22,8 +22,14 @@ namespace CBA.Logic
             var values = _db.GetWithAll();
             return values;
         }
-
+        public long GetTillAccount(int userId)
+        {
+            var result = _db.GetTillAccount(userId);
+            return result;
+        }
         
+
+
 
     }
 }

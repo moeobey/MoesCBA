@@ -14,7 +14,7 @@ namespace CBA.Core.Implementation
         Expense = 5
 
     }
-   public class GlAccountCategory
+   public class GlCategory
     {
         public int Id { get; set; }
         public string Name { get; set; }

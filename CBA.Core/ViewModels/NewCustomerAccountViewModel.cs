@@ -27,6 +27,8 @@ namespace CBA.Core.ViewModels
         public DateTime CreatedAt { get; set; }
 
         public decimal Interest { get; set; }
+
+        public decimal Lien { get; set; }
         public NewCustomerAccountViewModel()
         {
             Id = 0;
@@ -43,6 +45,7 @@ namespace CBA.Core.ViewModels
             IsOpen = account.IsOpen;
             CreatedAt = account.CreatedAt;
             Interest = account.Interest;
+            Lien = account.Lien;
 
         }
 

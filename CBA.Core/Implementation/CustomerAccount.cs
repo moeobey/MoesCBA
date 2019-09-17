@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CBA.Core.Implementation
 {
+   
     public enum AccountType
     {
         Savings = 1,
@@ -31,6 +32,7 @@ namespace CBA.Core.Implementation
         public bool IsOpen { get; set; }
         public DateTime CreatedAt { get; set; }
 
+        public decimal Lien { get; set; }
         public decimal Interest { get; set; }
 
         

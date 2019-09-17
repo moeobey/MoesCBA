@@ -28,7 +28,13 @@ namespace CBA.Data.Implementation
             return customer.CustomerId;
 
         }
-        
+        public CustomerAccount GetByAccountNumber(string accountNumber)
+        {
+            var account = _context.CustomerAccounts.FirstOrDefault(u => u.AccountNumber == accountNumber);
+            return account;
+
+        }
+
 
     }
 }

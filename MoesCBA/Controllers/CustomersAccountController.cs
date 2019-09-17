@@ -64,6 +64,7 @@ namespace MoesCBA.Controllers
                 {
                     accountInDb.AccountName = account.AccountName;
                     accountInDb.BranchId = account.BranchId;
+                    accountInDb.Lien = account.Lien;
                     _context.Update(account);
                     TempData["message"] = "Update Successful";
                     return RedirectToAction("Index");

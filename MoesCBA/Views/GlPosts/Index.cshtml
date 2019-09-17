@@ -1,0 +1,76 @@
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<CBA.Core.Implementation.GlPost>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+
+@if (TempData["success"] != null){
+    <div class="alert alert-success">
+        <p>@TempData["success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+    </div>
+}
+@if (!Model.Any())
+{
+    <p>We don't have any Users yet</p>
+}
+else
+{
+    if (Session["Role"].ToString() == "Admin")
+    {
+        <h2>Users</h2>  
+        <table id="users" class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Debit Account Name</th>
+                    <th>Debit Account Code</th>
+                    <th>Amount to Debit</th>
+                    <th>Credit Account Name</th>
+                    <th>Credit Account Code</th>
+                    <th>Amount to Credit</th>
+                    <th>Narration</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var post in Model)
+            {
+                <tr>
+                    <td>@post.GlAccountToDebit.Name</td>
+                    <td>@post.GlAccountToDebit.AccountCode</td>
+                    <td>@post.Amount</td>
+                    <td>@post.GlAccountToCredit.Name</td>
+                    <td>@post.GlAccountToCredit.AccountCode</td>
+                    <td>@post.Amount</td>
+                    <td>@post.Narration</td>
+                    <td>@post.PostedAt</td>
+                    
+                        <td>@Html.ActionLink("View", "Details", "GlPosts", new { id = post.Id }, null)</td>
+
+                    
+                </tr>
+
+            }
+            </tbody>
+        </table>
+    }
+}
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function () {
+            $("#users").DataTable();
+            setTimeout(function () {
+                $(".alert-danger").fadeOut(100, null);                            
+            }, 3000);
+        });
+
+    </script>
+
+
+}
+

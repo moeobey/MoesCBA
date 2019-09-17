@@ -29,26 +29,29 @@
         <div class="form-group">
             @if (Model.Id == 0)
             {
-                @Html.LabelFor(m => m.GlAccountCategories)
-                @Html.DropDownListFor(m => m.GlAccountCategoryId, new SelectList(Model.GlAccountCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required"})
-                @Html.ValidationMessageFor(m => m.GlAccountCategoryId)
+                @Html.LabelFor(m => m.GlCategories)
+                @Html.DropDownListFor(m => m.GlCategoryId, new SelectList(Model.GlCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required"})
+                @Html.ValidationMessageFor(m => m.GlCategoryId)
             }
             @if (Model.Id != 0)
             {
-                @Html.LabelFor(m => m.GlAccountCategories)
-                @Html.DropDownListFor(m => m.GlAccountCategoryId, new SelectList(Model.GlAccountCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required", disabled="true"})
-                @Html.ValidationMessageFor(m => m.GlAccountCategoryId)
+                @Html.LabelFor(m => m.GlCategories)
+                @Html.DropDownListFor(m => m.GlCategoryId, new SelectList(Model.GlCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required", disabled="true"})
+                @Html.ValidationMessageFor(m => m.GlCategoryId)
             }
 
            
         </div>
-        <div class="form-group">
-             <div class="checkbox mb-3">
-                 <label>
-                     <input name="tillAccount" type="checkbox" > This is a Till Account
-                 </label>
+        @if (Model.Id == 0)
+        {
+            <div class="form-group">
+                <div class="checkbox mb-3">
+                    <label>
+                        <input name="tillAccount" type="checkbox"> This is a Till Account
+                    </label>
+                </div>
             </div>
-        </div>
+        }
 
         @Html.HiddenFor(m => m.Id)
         @Html.AntiForgeryToken()

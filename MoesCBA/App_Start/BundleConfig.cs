@@ -36,6 +36,7 @@ namespace MoesCBA.App_Start
                 .Include("~/Scripts/DataTables/dataTables.bootstrap.js")
                 .Include("~/Content/js/adminlte.js")
                 .Include("~/Scripts/bootbox.js")
+                .Include("~/Scripts/moes.js")
                 .Include("~/Content/js/init.js"));
 
 #if DEBUG

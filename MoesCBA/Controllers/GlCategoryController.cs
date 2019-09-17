@@ -10,9 +10,9 @@ namespace MoesCBA.Controllers
 {
     [CheckSession]
     [CheckRole]
-    public class GlAccountCategoryController : Controller
+    public class GlCategoryController : Controller
     {
-        private readonly GlAccountCategoryLogic _context = new GlAccountCategoryLogic();
+        private readonly GlCategoryLogic _context = new GlCategoryLogic();
         // GET: GlAccountCategory
        
         public ActionResult Index()
@@ -22,13 +22,13 @@ namespace MoesCBA.Controllers
         }
         public ActionResult New()
         {
-            var category = new GlAccountCategory
+            var category = new GlCategory
             {
                 Id = 0
             };
-            return View("GlAccountCategoryForm", category);
+            return View("GlCategoryForm", category);
         }
-        public ActionResult Save( GlAccountCategory category)
+        public ActionResult Save( GlCategory category)
         {
             if (ModelState.IsValid)
             {
@@ -56,11 +56,11 @@ namespace MoesCBA.Controllers
                     
                 }
             }
-            var tCategory = new GlAccountCategory
+            var tCategory = new GlCategory
             {
                 Id = 0
             };
-            return View("GlAccountCategoryForm", tCategory);
+            return View("GlCategoryForm", tCategory);
         }
         public ActionResult Edit(int id)
         {
@@ -68,8 +68,7 @@ namespace MoesCBA.Controllers
             if (category == null)
                 return HttpNotFound();
 
-            return View("GlAccountCategoryForm", category);
+            return View("GlCategoryForm", category);
         }
-
     }
 }

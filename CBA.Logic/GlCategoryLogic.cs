@@ -9,27 +9,27 @@ using CBA.Data.Implementation;
 
 namespace CBA.Logic
 {
-   public class GlAccountCategoryLogic
+   public class GlCategoryLogic
     {
-        private readonly GlAccountCategoryRepository _db = new GlAccountCategoryRepository(new ApplicationDbContext());
+        private readonly GlCategoryRepository _db = new GlCategoryRepository(new ApplicationDbContext());
      
-        public void Save(GlAccountCategory category)
+        public void Save(GlCategory category)
         {
     
             _db.Add(category);
             _db.Save(category);
         }
-        public GlAccountCategory Get(int id)
+        public GlCategory Get(int id)
         {
 
             var values = _db.Get(id);
             return values;
         }
-        public void Update(GlAccountCategory category)
+        public void Update(GlCategory category)
         {
             _db.Save(category);
         }
-        public IEnumerable<GlAccountCategory> GetAll()
+        public IEnumerable<GlCategory> GetAll()
         {
             var values = _db.GetAll();
             return values;

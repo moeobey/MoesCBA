@@ -20,7 +20,7 @@
 
         <div class="form-group">
             @Html.LabelFor(m => m.DInterestRate)
-            @Html.TextBoxFor(m => m.DInterestRate, new { @class = "form-control", required = "required", type = "number", min = "1", max = "10" })
+            @Html.TextBoxFor(m => m.DInterestRate, new { @class = "form-control", required = "required", type = "number", min = "0", step ="any" })
             @Html.ValidationMessageFor(m => m.DInterestRate)
         </div>
 
@@ -29,7 +29,7 @@
             <div class="form-group">
 
                 @Html.LabelFor(m => m.InterestIncomeGls, new { })
-                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
+                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control", required="" })
                 @Html.ValidationMessageFor(m => m.InterestIncomeGls)
 
             </div>

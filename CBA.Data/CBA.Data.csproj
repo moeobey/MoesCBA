@@ -50,15 +50,18 @@
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Implementation\BranchRepository.cs" />
+    <Compile Include="Implementation\COTPostRepository.cs" />
     <Compile Include="Implementation\CurrentAccountConfigRepository.cs" />
     <Compile Include="Implementation\CustomerAccountRepository.cs" />
     <Compile Include="Implementation\CustomerRepository.cs" />
-    <Compile Include="Implementation\GlAccountCategoryRepository.cs" />
+    <Compile Include="Implementation\GlCategoryRepository.cs" />
     <Compile Include="Implementation\GlAccountRepository.cs" />
+    <Compile Include="Implementation\GlPostingRepository.cs" />
     <Compile Include="Implementation\LoanAccountConfigRepository.cs" />
     <Compile Include="Implementation\Repository.cs" />
     <Compile Include="Implementation\RolesRepository.cs" />
     <Compile Include="Implementation\SavingAccountConfigRepository.cs" />
+    <Compile Include="Implementation\TellerPostRepository.cs" />
     <Compile Include="Implementation\TellerRepository.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
@@ -251,6 +254,70 @@
     <Compile Include="Migrations\201909121419524_LoanAccountTableEdit.Designer.cs">
       <DependentUpon>201909121419524_LoanAccountTableEdit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909130733446_RefactoringGlCategory.cs" />
+    <Compile Include="Migrations\201909130733446_RefactoringGlCategory.Designer.cs">
+      <DependentUpon>201909130733446_RefactoringGlCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909131403343_CreateGlPostTable.cs" />
+    <Compile Include="Migrations\201909131403343_CreateGlPostTable.Designer.cs">
+      <DependentUpon>201909131403343_CreateGlPostTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909131529348_test.cs" />
+    <Compile Include="Migrations\201909131529348_test.Designer.cs">
+      <DependentUpon>201909131529348_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161006391_ChangeTypeOfAccountCode.cs" />
+    <Compile Include="Migrations\201909161006391_ChangeTypeOfAccountCode.Designer.cs">
+      <DependentUpon>201909161006391_ChangeTypeOfAccountCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161058413_ChangeTypeOfAccountCodeid.cs" />
+    <Compile Include="Migrations\201909161058413_ChangeTypeOfAccountCodeid.Designer.cs">
+      <DependentUpon>201909161058413_ChangeTypeOfAccountCodeid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161118520_ChangeTypeOfAccountCodes.cs" />
+    <Compile Include="Migrations\201909161118520_ChangeTypeOfAccountCodes.Designer.cs">
+      <DependentUpon>201909161118520_ChangeTypeOfAccountCodes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161243573_CreateTellerPostingTable.cs" />
+    <Compile Include="Migrations\201909161243573_CreateTellerPostingTable.Designer.cs">
+      <DependentUpon>201909161243573_CreateTellerPostingTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161340015_AddTellerIdToTellerTable.cs" />
+    <Compile Include="Migrations\201909161340015_AddTellerIdToTellerTable.Designer.cs">
+      <DependentUpon>201909161340015_AddTellerIdToTellerTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161630409_routineUpdate.cs" />
+    <Compile Include="Migrations\201909161630409_routineUpdate.Designer.cs">
+      <DependentUpon>201909161630409_routineUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909170955097_addLienToCustomerAccount.cs" />
+    <Compile Include="Migrations\201909170955097_addLienToCustomerAccount.Designer.cs">
+      <DependentUpon>201909170955097_addLienToCustomerAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171131096_CreateCOTPostTable.cs" />
+    <Compile Include="Migrations\201909171131096_CreateCOTPostTable.Designer.cs">
+      <DependentUpon>201909171131096_CreateCOTPostTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171135562_CreateCOTPostsTable.cs" />
+    <Compile Include="Migrations\201909171135562_CreateCOTPostsTable.Designer.cs">
+      <DependentUpon>201909171135562_CreateCOTPostsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171152411_CreateCOTPostsTab.cs" />
+    <Compile Include="Migrations\201909171152411_CreateCOTPostsTab.Designer.cs">
+      <DependentUpon>201909171152411_CreateCOTPostsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171233209_UpdateCurrentConfig.cs" />
+    <Compile Include="Migrations\201909171233209_UpdateCurrentConfig.Designer.cs">
+      <DependentUpon>201909171233209_UpdateCurrentConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171257293_UpdateCurrentConfigtype.cs" />
+    <Compile Include="Migrations\201909171257293_UpdateCurrentConfigtype.Designer.cs">
+      <DependentUpon>201909171257293_UpdateCurrentConfigtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171443163_dropDuplicate.cs" />
+    <Compile Include="Migrations\201909171443163_dropDuplicate.Designer.cs">
+      <DependentUpon>201909171443163_dropDuplicate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -409,6 +476,54 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909121419524_LoanAccountTableEdit.resx">
       <DependentUpon>201909121419524_LoanAccountTableEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909130733446_RefactoringGlCategory.resx">
+      <DependentUpon>201909130733446_RefactoringGlCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909131403343_CreateGlPostTable.resx">
+      <DependentUpon>201909131403343_CreateGlPostTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909131529348_test.resx">
+      <DependentUpon>201909131529348_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161006391_ChangeTypeOfAccountCode.resx">
+      <DependentUpon>201909161006391_ChangeTypeOfAccountCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161058413_ChangeTypeOfAccountCodeid.resx">
+      <DependentUpon>201909161058413_ChangeTypeOfAccountCodeid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161118520_ChangeTypeOfAccountCodes.resx">
+      <DependentUpon>201909161118520_ChangeTypeOfAccountCodes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161243573_CreateTellerPostingTable.resx">
+      <DependentUpon>201909161243573_CreateTellerPostingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161340015_AddTellerIdToTellerTable.resx">
+      <DependentUpon>201909161340015_AddTellerIdToTellerTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161630409_routineUpdate.resx">
+      <DependentUpon>201909161630409_routineUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909170955097_addLienToCustomerAccount.resx">
+      <DependentUpon>201909170955097_addLienToCustomerAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171131096_CreateCOTPostTable.resx">
+      <DependentUpon>201909171131096_CreateCOTPostTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171135562_CreateCOTPostsTable.resx">
+      <DependentUpon>201909171135562_CreateCOTPostsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171152411_CreateCOTPostsTab.resx">
+      <DependentUpon>201909171152411_CreateCOTPostsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171233209_UpdateCurrentConfig.resx">
+      <DependentUpon>201909171233209_UpdateCurrentConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171257293_UpdateCurrentConfigtype.resx">
+      <DependentUpon>201909171257293_UpdateCurrentConfigtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171443163_dropDuplicate.resx">
+      <DependentUpon>201909171443163_dropDuplicate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

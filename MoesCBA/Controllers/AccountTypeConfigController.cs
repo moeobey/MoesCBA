@@ -56,7 +56,6 @@ namespace MoesCBA.Controllers
                 config.Status = true;
                 _context.SaveSavings(config);
                 TempData["message"] = "Configurations Added Successfully";
-                return RedirectToAction("SavingsAccount");
             }
 
             if (config.Id != 0) //update current configuration
@@ -75,14 +74,12 @@ namespace MoesCBA.Controllers
 
                     configInDb.InterestExpenseGlId = config.InterestExpenseGlId;
 
-                  
                     glAccountInDb.IsAssigned = true; // Update the  new gl account to is assigned
                     _glAccountContext.Update(glAccount);
 
                 }
                 TempData["message"] = "Configurations Updated Successfully";
                 _context.UpdateSavings(config);
-                return RedirectToAction("SavingsAccount");
             }
             return RedirectToAction("SavingsAccount");
         }

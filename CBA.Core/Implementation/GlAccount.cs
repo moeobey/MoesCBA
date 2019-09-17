@@ -13,12 +13,12 @@ namespace CBA.Core.Implementation
         public int Id { get; set; }
 
         public string Name { get; set; }
-        public GlAccountCategory GlAccountCategory { get; set; }
-        public int GlAccountCategoryId { get; set; }
+        public GlCategory GlCategory { get; set; }
+        public int GlCategoryId { get; set; }
 
         public Branch Branch { get; set; }
         public int BranchId { get; set; }
-        public int AccountCode { get; set; }
+        public long AccountCode { get; set; }
         public bool IsAssigned { get; set; }
         public decimal Balance { get; set; }
 

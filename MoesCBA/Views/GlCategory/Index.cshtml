@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CBA.Core.Implementation.GlAccountCategory>
+﻿@model IEnumerable<CBA.Core.Implementation.GlCategory>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -21,7 +21,7 @@ else
 {
     if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
     {
-        <h2>Gl Account Categories</h2>
+        <h2>Gl Categories</h2>
         <table id="category" class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -34,7 +34,7 @@ else
                 @foreach (var category in Model)
                 {
                     <tr>
-                        <td>@Html.ActionLink(category.Name, "Edit", "GlAccountCategory", new { id = category.Id }, null)</td>
+                        <td>@Html.ActionLink(category.Name, "Edit", "GlCategory", new { id = category.Id }, null)</td>
                         
                         <td>@category.MainAccountCategory</td>
 

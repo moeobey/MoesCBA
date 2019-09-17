@@ -53,10 +53,12 @@
     <Compile Include="AccountLogic.cs" />
     <Compile Include="CustomerAccountLogic.cs" />
     <Compile Include="CustomerLogic.cs" />
-    <Compile Include="GlAccountCategoryLogic.cs" />
+    <Compile Include="GlCategoryLogic.cs" />
     <Compile Include="GlAccountLogic.cs" />
+    <Compile Include="GlPostingLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TellerLogic.cs" />
+    <Compile Include="TellerPostLogic.cs" />
     <Compile Include="UserLogic.cs" />
   </ItemGroup>
   <ItemGroup>

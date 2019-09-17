@@ -12,14 +12,14 @@ namespace MoesCBA.Controllers
 {
         [CheckSession]
         public class UsersController : Controller
-    {
+        {
         
         private readonly UserLogic _context = new UserLogic();
         // GET: Users
-        //[CheckRole]
+       
         public ActionResult Index()
         {
-            var users = _context.GetAllWithBranch();
+            var users = _context.GetAllWithBranch(); //get the branch along with the users
             
                 return View("Dashboard", users);
         }
@@ -42,6 +42,7 @@ namespace MoesCBA.Controllers
 
             return View("UserForm",viewModel);
         }
+
         [CheckRole]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -55,13 +56,11 @@ namespace MoesCBA.Controllers
                 {
                     var randomPass = _context.GenerateRandomPassword();
                     user.Password = Crypto.Hash(_context.GenerateRandomPassword());
-                    
                     user.Date = DateTime.Now;
                     _context.Save(user);
                     _context.SendEmail(user.Email, randomPass ,user.FullName);
                     return RedirectToAction("Index");
                 }
-
                 if (!usernameIsUnique)
                 {
                     ModelState.AddModelError("username", "Username is Taken");
@@ -73,20 +72,19 @@ namespace MoesCBA.Controllers
             }
             var viewModel = new NewUserViewModel
             {
+                UserRoles = _context.GetRoles().ToList(),
                 Branches = _context.GetBranches().ToList()
 
             };
 
-         
-            //ViewBag.msg = "Incorrect Username or Password";
+            ViewBag.msg = "Incorrect Username or Password";
             return View("UserForm", viewModel);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdatePassword(User user)
         {
-            if (Session["id"] != null)
-            {
                 var userInDb = _context.Get((int)Session["id"]);
                 if (String.CompareOrdinal(userInDb.Password, Crypto.Hash(user.Password.Trim())) == 0)
                 {
@@ -111,10 +109,6 @@ namespace MoesCBA.Controllers
                     ModelState.AddModelError("PasswordIncorrect", "Incorrect Password");
                     return View("ChangePasswordForm");
                 }
-            }
-
-
-            return RedirectToAction("LogOut", "Account");
         }
 
         [CheckRole]
@@ -131,6 +125,7 @@ namespace MoesCBA.Controllers
             };
             return View("EditUserForm", viewModel);
         }
+
         [CheckRole]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -145,8 +140,7 @@ namespace MoesCBA.Controllers
             }
             if (emailIsUnique)
             {
-                    //var userInDb = _context.Get(user.Id);
-                    userInDb.FullName = user.FullName;
+                userInDb.FullName = user.FullName;
                     userInDb.Email = user.Email;
                     userInDb.BranchId = user.BranchId;
                     userInDb.PhoneNumber = user.PhoneNumber;
@@ -156,9 +150,9 @@ namespace MoesCBA.Controllers
                     return RedirectToAction("Index");
             }
             if (!emailIsUnique)
-                {
+            {
                     ModelState.AddModelError("EmailExist", "Email Already Exist");
-                }
+            }
             
             var viewModel = new NewUserViewModel
             {
@@ -168,13 +162,5 @@ namespace MoesCBA.Controllers
             return View("EditUserForm", viewModel);
         }
 
-
-
-
-
-
-
-       
-        
     }
 }

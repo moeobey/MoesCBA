@@ -11,14 +11,14 @@ namespace CBA.Core.ViewModels
    public class NewGlAccountViewModel
     {
         public IEnumerable<Branch> Branches { get; set; }
-        public IEnumerable<GlAccountCategory> GlAccountCategories { get; set; }
+        public IEnumerable<GlCategory> GlCategories { get; set; }
 
         public int? Id { get; set; }
         public string Name { get; set; }
 
-        public int? GlAccountCategoryId { get; set; }
+        public int? GlCategoryId { get; set; }
         public int? BranchId { get; set; }
-        public int AccountCode { get; set; }
+        public long AccountCode { get; set; }
         public bool IsAssigned { get; set; }
         public SqlMoney Balance { get; set; }
         public NewGlAccountViewModel()
@@ -30,7 +30,7 @@ namespace CBA.Core.ViewModels
         {
             Id = glAccount.Id;
             Name = glAccount.Name;
-            GlAccountCategoryId = glAccount.GlAccountCategoryId;
+            GlCategoryId = glAccount.GlCategoryId;
             BranchId = glAccount.BranchId;
             AccountCode = glAccount.AccountCode;
             IsAssigned = glAccount.IsAssigned;

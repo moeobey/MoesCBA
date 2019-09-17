@@ -1,20 +1,20 @@
-﻿@model CBA.Core.Implementation.GlAccountCategory
+﻿@model CBA.Core.Implementation.GlCategory
 @{
-    ViewBag.Title = "GlAccountCategoryForm";
+    ViewBag.Title = "GlCategoryForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2></h2>
 
 
-@using (Html.BeginForm("Save", "GlAccountCategory"))
+@using (Html.BeginForm("Save", "GlCategory"))
 {
 
 <div class=" form-signin">
     @if (Model.Id == 0)
     {
         <div class="text-center  mb-4">
-            <h1>Add GL Account Category</h1>
+            <h1>Add GL Category</h1>
         </div>
     }
     @if (Model.Id != 0)
