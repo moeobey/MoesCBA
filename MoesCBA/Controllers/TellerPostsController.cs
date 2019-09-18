@@ -23,13 +23,13 @@ namespace MoesCBA.Controllers
         public ActionResult Index()
         {
             var customerAccounts = _customerAccContext.GetAllCustomersAccounts();
-            ViewBag.GlBalance = _context.GetByTillBalance(Convert.ToInt32(Session["Id"]));
+            ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             return View(customerAccounts);
         }
 
         public ActionResult ViewPosts()
         {
-            ViewBag.GlBalance = _context.GetByTillBalance(Convert.ToInt32(Session["Id"]));
+            ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             var posts = _context.GetAllPosts(Convert.ToInt32(Session["Id"]));
             return View(posts);
         }
@@ -70,10 +70,12 @@ namespace MoesCBA.Controllers
         }
         public ActionResult BuyCash()
         {
+            ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             return View("BuyCashForm");
         }
         public ActionResult SellCash()
         {
+            ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             return View("SellCashForm");
         }
         [HttpPost]

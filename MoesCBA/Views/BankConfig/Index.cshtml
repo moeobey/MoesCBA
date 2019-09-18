@@ -1,0 +1,16 @@
+﻿@using CBA.Core.Implementation
+@model CBA.Core.Implementation.BankConfiguration
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@if  (Model.IsBusinessOpen){
+    <div>Business Is Open</div>
+}
+@if (!Model.IsBusinessOpen)
+{
+    <div>Business Is Closed</div>
+}
+

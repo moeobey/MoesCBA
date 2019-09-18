@@ -15,6 +15,24 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 @* BEGIN Messages *@
+                @if(Session["setup"] != null)
+                {
+                <li class="dropdown notifications-menu">
+                    <a href="@Url.Action("SetupConfig", "BankConfig")"><i class="fa fa-link"></i> <span>Setup Bank </span></a>
+                </li>
+                }
+                @if(Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null)
+                {
+                    <li class="dropdown notifications-menu">
+                        <a href="@Url.Action("CloseBusiness", "BankConfig")"><i class="fa fa-link"></i> <span>Close  Business </span></a>
+                    </li>
+                }
+                @if(!Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null )
+                {
+                    <li class="dropdown notifications-menu">
+                        <a href="@Url.Action("OpenBusiness", "BankConfig")"><i class="fa fa-link"></i> <span>Open Business </span></a>
+                    </li>
+                }
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope-o"></i>

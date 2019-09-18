@@ -17,6 +17,7 @@ namespace CBA.Logic
         private readonly GlAccountLogic _glAccountContext = new GlAccountLogic();
         private readonly CustomerAccountLogic _customerAccountContext = new CustomerAccountLogic();
         private readonly TellerLogic _tellerContext = new TellerLogic();
+        private  readonly  GlPostingLogic _glPostContext  = new GlPostingLogic();
         private  readonly  AccountTypeConfigLogic _configContext = new AccountTypeConfigLogic();
         private readonly COTPostRepository _COTPostContext = new COTPostRepository(new ApplicationDbContext());
 
@@ -186,17 +187,30 @@ namespace CBA.Logic
         {
             var result = "";
             var tillAccount = _tellerContext.GetTillAccount(tellerId);
-            var vaultAccCode = _glAccountContext.GetVaultAccCode();
-            if (vaultAccCode != 0)  // check if vault exist
+            var glId = _glAccountContext.GetByAccCode(tillAccount).Id;
+            var vault = _glAccountContext.GetVault();
+            if (vault.AccountCode != 0)  // check if vault exist
             {
-                var creditFeedback = IsGlCreditable(vaultAccCode, amount);
+                var creditFeedback = IsGlCreditable(vault.AccountCode, amount);
 
 
                 if (creditFeedback == "Success")
                 {
-                    CreditGl(vaultAccCode, amount);
+                    CreditGl(vault.AccountCode, amount);
                     DebitGl(tillAccount, amount);
-                    result = creditFeedback;
+                    //log Transaction in Gl Post Log
+                     var glPost  = new GlPost
+                     {
+                         GlAccountToCreditId = vault.Id,
+                         GlAccountToDebitId = glId,
+                         Amount = amount ,
+                         Narration = "Buy Cash",
+                         UserId = tellerId,
+                         PostedAt = DateTime.Now
+                     };
+                    _glPostContext.Save(glPost);
+               
+                result = creditFeedback;
                 }
                 else
                 {
@@ -215,14 +229,27 @@ namespace CBA.Logic
         {
             var result = "";
             var tillAccount = _tellerContext.GetTillAccount(tellerId);
-            var vaultAccCode = _glAccountContext.GetVaultAccCode();
-            if (vaultAccCode != 0) // check if vault exist
+            var glId = _glAccountContext.GetByAccCode(tillAccount).Id;
+            var vault = _glAccountContext.GetVault();
+            if (vault.AccountCode != 0) // check if vault exist
             {
                 var creditFeedback = IsGlCreditable(tillAccount, amount);
                 if (creditFeedback == "Success")
                 {
                     CreditGl(tillAccount, amount);
-                    DebitGl(vaultAccCode, amount);
+                    DebitGl(vault.AccountCode, amount);
+                    //log Transaction in Gl Post Log
+                    var glPost = new GlPost
+                    {
+                        GlAccountToCreditId = vault.Id,
+                        GlAccountToDebitId = glId,
+                        Amount = amount,
+                        Narration = "Sell Cash",
+                        UserId = tellerId,
+                        PostedAt = DateTime.Now
+                    };
+                    _glPostContext.Save(glPost);
+
                     result = creditFeedback;
                 }
                 else
@@ -239,7 +266,7 @@ namespace CBA.Logic
             return result;
         }
 
-        public decimal GetByTillBalance(int tellerId)
+        public decimal GetTillBalance(int tellerId)
         {
 
             var glId = _tellerContext.GetTillAccount(Convert.ToInt32(tellerId));

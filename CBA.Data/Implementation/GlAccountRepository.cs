@@ -61,14 +61,13 @@ namespace CBA.Data.Implementation
             var cResult = Convert.ToInt64(result.AccountCode);
             return cResult;
         }
-        public long GetVaultAccCode()
+        public GlAccount GetVault()
         {
             var result = _context.GlAccounts
                 .Where(c=>c.Name.ToLower().Contains("vault"))
                 .FirstOrDefault(a => a.GlCategory.Name.ToLower() =="cash asset");
-            long cResult = 0;
-            cResult = result != null ? Convert.ToInt64(result.AccountCode) : 0;
-            return cResult;
+            
+            return result;
         }
         
 

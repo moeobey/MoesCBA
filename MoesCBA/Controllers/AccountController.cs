@@ -15,6 +15,7 @@ namespace MoesCBA.Controllers
     {
         private readonly AccountLogic _context = new AccountLogic();
         private readonly UserLogic _userContext = new UserLogic();
+        private  readonly  BankConfigLogic _bankConfigContext = new BankConfigLogic();
         // GET: Account
         public ActionResult Index()
         {
@@ -42,10 +43,22 @@ namespace MoesCBA.Controllers
                 Session["Role"] = curUser.Role;
                 if ((string) Session["Role"] == $"Admin")
                 {
+                    var bankConfig = _bankConfigContext.GetConfig();
+                    if (bankConfig == null)
+                    {
+                        Session["setup"] = "start";
+                    }
+                    else
+                    {
+                        Session["isBusinessOpen"] = bankConfig != null && bankConfig.IsBusinessOpen;
+
+                    }
+
                     return RedirectToAction("Index", "Users");
                 }
                 else if ((string) Session["Role"] == $"Teller" && curUser.PasswordStatus == false) 
                 {
+                    
                     return RedirectToAction("ChangePassword", "Users");
                     //change password page
                     //return RedirectToAction("Index", "Users");

@@ -39,9 +39,9 @@ namespace CBA.Logic
             var value = _db.GetAccCode(id);
             return value;
         }
-        public long GetVaultAccCode()
+        public GlAccount GetVault()
         {
-            var value = _db.GetVaultAccCode();
+            var value = _db.GetVault();
             return value;
         }
         

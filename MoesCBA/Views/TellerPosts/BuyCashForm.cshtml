@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>BuyCashForm</h2>
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-error">
@@ -15,7 +14,7 @@
 
 @using (Html.BeginForm("Buy", "TellerPosts"))
 {
-
+    <h2>Gl Balance: @ViewBag.GlBalance</h2>
     <div class=" form-signin">
         <div class="form-group">
             <label for="amount">Amount</label>

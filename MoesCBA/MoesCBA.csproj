@@ -409,6 +409,7 @@
     <Content Include="Views\TellerPosts\ViewPosts.cshtml" />
     <Content Include="Views\TellerPosts\BuyCashForm.cshtml" />
     <Content Include="Views\TellerPosts\SellCashForm.cshtml" />
+    <Content Include="Views\BankConfig\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -562,7 +563,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\BankConfig\" />
     <Folder Include="Views\EOD\" />
   </ItemGroup>
   <ItemGroup>

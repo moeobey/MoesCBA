@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="Implementation\BankConfigRepository.cs" />
     <Compile Include="Implementation\BranchRepository.cs" />
     <Compile Include="Implementation\COTPostRepository.cs" />
     <Compile Include="Implementation\CurrentAccountConfigRepository.cs" />

@@ -13,10 +13,10 @@ namespace CBA.Logic
     {
         private readonly GlPostingRepository _db = new GlPostingRepository(new ApplicationDbContext());
         private readonly GlAccountLogic _glAccountContext = new GlAccountLogic(); 
-        public void Save(GlPost post)
+        public void Save(GlPost glPost)
         {
-            _db.Add(post);
-            _db.Save(post);
+            _db.Add(glPost);
+            _db.Save(glPost);
         }
 
         public IEnumerable<GlPost> GetAllPosts()
