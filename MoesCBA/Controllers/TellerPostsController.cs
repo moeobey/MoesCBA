@@ -33,6 +33,8 @@ namespace MoesCBA.Controllers
             var posts = _context.GetAllPosts(Convert.ToInt32(Session["Id"]));
             return View(posts);
         }
+        [CheckBusinessOpen]
+
         public ActionResult New(int id)
         {
             var customerAccount = _customerAccContext.Get(id);
@@ -43,6 +45,8 @@ namespace MoesCBA.Controllers
             return View("TellerPostForm", viewModel);
         }
         [HttpPost]
+        [CheckBusinessOpen]
+
         public ActionResult Save(TellerPost tellerPost)
         { 
             tellerPost.CustomerAccountId = Convert.ToInt32(Request.Form["accountId"]);

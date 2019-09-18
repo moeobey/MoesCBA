@@ -21,7 +21,7 @@
                     <a href="@Url.Action("SetupConfig", "BankConfig")"><i class="fa fa-link"></i> <span>Setup Bank </span></a>
                 </li>
                 }
-                @if(Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null)
+                @if(Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null )
                 {
                     <li class="dropdown notifications-menu">
                         <a href="@Url.Action("CloseBusiness", "BankConfig")"><i class="fa fa-link"></i> <span>Close  Business </span></a>
@@ -31,6 +31,9 @@
                 {
                     <li class="dropdown notifications-menu">
                         <a href="@Url.Action("OpenBusiness", "BankConfig")"><i class="fa fa-link"></i> <span>Open Business </span></a>
+                    </li>
+                    <li class="dropdown notifications-menu">
+                        <a href="@Url.Action("RunEOD", "EOD")"><i class="fa fa-link"></i> <span>Run EOD Business </span></a>
                     </li>
                 }
                 <li class="dropdown messages-menu">

@@ -9,7 +9,7 @@ using CBA.Logic;
 namespace MoesCBA.Controllers
 {
     [CheckSession]
-    [CheckRole]
+
     public class BankConfigController : Controller
     {
         private  readonly  BankConfigLogic _context = new BankConfigLogic();
@@ -19,7 +19,7 @@ namespace MoesCBA.Controllers
             var bankConfig = _context.GetConfig();
             return View(bankConfig);
         }
-
+        [CheckRole]
         public ActionResult SetupConfig()
         {
            var bankConfig = new BankConfiguration
@@ -36,7 +36,8 @@ namespace MoesCBA.Controllers
             _context.Save(bankConfig);
             return RedirectToAction("Index");
         }
-    
+        [CheckRole]
+
         public ActionResult CloseBusiness()
         {
             var bankConfig = _context.GetConfig();
@@ -51,7 +52,8 @@ namespace MoesCBA.Controllers
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
+        [CheckRole]
+
         public ActionResult OpenBusiness()
         {
             var bankConfig = _context.GetConfig();
@@ -60,7 +62,6 @@ namespace MoesCBA.Controllers
                 bankConfig.IsBusinessOpen = true;
                 _context.Update(bankConfig);
                 Session["isBusinessOpen"] = true;
-
             }
             return RedirectToAction("Index");
 

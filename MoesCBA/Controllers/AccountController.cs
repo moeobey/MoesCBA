@@ -45,23 +45,16 @@ namespace MoesCBA.Controllers
                 {
                     var bankConfig = _bankConfigContext.GetConfig();
                     if (bankConfig == null)
-                    {
                         Session["setup"] = "start";
-                    }
                     else
-                    {
-                        Session["isBusinessOpen"] = bankConfig != null && bankConfig.IsBusinessOpen;
-
-                    }
+                        Session["isBusinessOpen"] =  bankConfig.IsBusinessOpen;
+                
 
                     return RedirectToAction("Index", "Users");
                 }
                 else if ((string) Session["Role"] == $"Teller" && curUser.PasswordStatus == false) 
                 {
-                    
                     return RedirectToAction("ChangePassword", "Users");
-                    //change password page
-                    //return RedirectToAction("Index", "Users");
                 }
                 else if ((string)Session["Role"] == $"Teller" && curUser.PasswordStatus == true)
                 {

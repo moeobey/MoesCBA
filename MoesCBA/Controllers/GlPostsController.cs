@@ -22,6 +22,7 @@ namespace MoesCBA.Controllers
             var glPosts = _context.GetAllPosts();
             return View(glPosts);
         }
+        [CheckBusinessOpen]
 
         public ActionResult New()
         {
@@ -33,8 +34,11 @@ namespace MoesCBA.Controllers
 
             return View("GlPostForm", viewModel);
         }
+        [CheckBusinessOpen]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Save(GlPost glPost)
         {
             
