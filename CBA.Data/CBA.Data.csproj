@@ -318,6 +318,18 @@
     <Compile Include="Migrations\201909171443163_dropDuplicate.Designer.cs">
       <DependentUpon>201909171443163_dropDuplicate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909171525382_addTellerId.cs" />
+    <Compile Include="Migrations\201909171525382_addTellerId.Designer.cs">
+      <DependentUpon>201909171525382_addTellerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171528516_removeTellerId.cs" />
+    <Compile Include="Migrations\201909171528516_removeTellerId.Designer.cs">
+      <DependentUpon>201909171528516_removeTellerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181011359_AddBankConfigurations.cs" />
+    <Compile Include="Migrations\201909181011359_AddBankConfigurations.Designer.cs">
+      <DependentUpon>201909181011359_AddBankConfigurations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -524,6 +536,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909171443163_dropDuplicate.resx">
       <DependentUpon>201909171443163_dropDuplicate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171525382_addTellerId.resx">
+      <DependentUpon>201909171525382_addTellerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171528516_removeTellerId.resx">
+      <DependentUpon>201909171528516_removeTellerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181011359_AddBankConfigurations.resx">
+      <DependentUpon>201909181011359_AddBankConfigurations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

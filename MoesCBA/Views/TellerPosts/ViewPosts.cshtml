@@ -1,0 +1,63 @@
+﻿@using CBA.Core.Implementation
+@model IEnumerable<CBA.Core.Implementation.TellerPost>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (TempData["Success"]  != null)
+{
+<div class="alert alert-success">
+    <p>@TempData["Success"]  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+</div>
+}
+
+@if (!Model.Any())
+{
+    <p>We don't have any Posts yet</p>
+}
+else
+{
+    <h2>Till Account Balance: @ViewBag.GlBalance</h2>
+
+    <table id="customersAccount" class="table table-bordered table-hover">
+        <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>Account Number</th>
+            <th>Date</th>
+            <th>Debit Amount</th>
+            <th>Credit Amount</th>
+            <th>Narration</th>
+           
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var post in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(post.CustomerAccount.AccountName, "New", "TellerPosts")</td>
+                <td>@post.CustomerAccount.AccountNumber</td>
+                <td>@post.PostedAt</td>
+                <th>@post.Amount</th>
+                <th>@post.Amount</th>
+                <th>@post.Narration</th>
+                
+
+            </tr>
+
+        }
+        </tbody>
+    </table>
+    
+}
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function () {
+            $("#customersAccount").DataTable();
+        });
+
+    </script>
+
+
+}

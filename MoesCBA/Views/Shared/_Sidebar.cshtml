@@ -147,6 +147,9 @@
         <li class="@Url.IsLinkActive("Index", "TellerPosts")">
             <a href="@Url.Action("Index", "TellerPosts")"><i class="fa fa-link"></i> <span>Post Transaction </span></a>
         </li>
+        <li class="@Url.IsLinkActive("ViewPosts", "TellerPosts")">
+            <a href="@Url.Action("ViewPosts", "TellerPosts")"><i class="fa fa-link"></i> <span>View Posts </span></a>
+        </li>
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-link"></i> <span> Vault</span>
@@ -155,11 +158,11 @@
                 </span>
             </a>
             <ul class="treeview-menu">
-                <li class="@Url.IsLinkActive("New", "GlPosts")">
-                    <a href="@Url.Action("New", "GlPosts")"><i class="fa fa-link"></i> <span>Buy Money</span></a>
+                <li class="@Url.IsLinkActive("BuyCash", "TellerPosts")">
+                    <a href="@Url.Action("BuyCash", "TellerPosts")"><i class="fa fa-link"></i> <span>Buy Money</span></a>
                 </li>
-                <li class="@Url.IsLinkActive("Index", "GlPosts")">
-                    <a href="@Url.Action("Index", "GlPosts")"><i class="fa fa-link"></i> <span>Sell Money </span></a>
+                <li class="@Url.IsLinkActive("SellCash", "TellerPosts")">
+                    <a href="@Url.Action("SellCash", "TellerPosts")"><i class="fa fa-link"></i> <span>Sell Money </span></a>
                 </li>
 
             </ul>

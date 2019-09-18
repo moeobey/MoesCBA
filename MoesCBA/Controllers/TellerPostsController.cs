@@ -23,12 +23,16 @@ namespace MoesCBA.Controllers
         public ActionResult Index()
         {
             var customerAccounts = _customerAccContext.GetAllCustomersAccounts();
-           var glId = _tellerContext.GetTillAccount(Convert.ToInt32(Session["Id"]));
-            ViewBag.GlBalance = _glAccountContext.GetByAccCode(glId).Balance;   //for the tellers till balance
-
+            ViewBag.GlBalance = _context.GetByTillBalance(Convert.ToInt32(Session["Id"]));
             return View(customerAccounts);
         }
 
+        public ActionResult ViewPosts()
+        {
+            ViewBag.GlBalance = _context.GetByTillBalance(Convert.ToInt32(Session["Id"]));
+            var posts = _context.GetAllPosts(Convert.ToInt32(Session["Id"]));
+            return View(posts);
+        }
         public ActionResult New(int id)
         {
             var customerAccount = _customerAccContext.Get(id);
@@ -38,7 +42,6 @@ namespace MoesCBA.Controllers
             };
             return View("TellerPostForm", viewModel);
         }
-
         [HttpPost]
         public ActionResult Save(TellerPost tellerPost)
         { 
@@ -65,6 +68,51 @@ namespace MoesCBA.Controllers
 
             return RedirectToAction("Index");
         }
+        public ActionResult BuyCash()
+        {
+            return View("BuyCashForm");
+        }
+        public ActionResult SellCash()
+        {
+            return View("SellCashForm");
+        }
+        [HttpPost]
+        public ActionResult Buy()
+        {
+            var tellerId = Convert.ToInt32(Session["id"]);
+           var  amount = Convert.ToDecimal(Request.Form["amount"]);
+            var buyCash = _context.BuyCash(amount, tellerId);
+            if (buyCash == "Success")
+            {
+                TempData["Success"] = "Buy Cash Successful";
+                return RedirectToAction("ViewPosts");
+
+            }
+            else
+            {
+                TempData["Error"] = buyCash;
+                return View("BuyCashForm");
+            }
+        }
+        [HttpPost]
+        public ActionResult Sell()
+        {
+            var tellerId = Convert.ToInt32(Session["id"]);
+            var amount = Convert.ToDecimal(Request.Form["amount"]);
+            var sellCash = _context.SellCash(amount, tellerId);
+            if (sellCash == "Success")
+            {
+                TempData["Success"] = "Sell Cash Successful";
+                return RedirectToAction("ViewPosts");
+
+            }
+            else
+            {
+                TempData["Error"] = sellCash;
+                return View("SellCashForm");
+            }
+        }
+
 
     }
 }

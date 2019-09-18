@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using CBA.Core;
@@ -32,7 +33,10 @@ namespace CBA.Data
         public DbSet<LoanAccountConfig> LoanAccountConfigs { get; set; }
         public DbSet<GlPost> GlPost { get; set; }
         public DbSet<TellerPost> TellerPosts { get; set; }
+
+        public  DbSet<BankConfiguration> BankConfigurations { get; set; }
         public DbSet<COTPost> CotPosts { get; set; }
+        
 
     }
 }

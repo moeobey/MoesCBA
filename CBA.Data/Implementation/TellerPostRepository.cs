@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CBA.Core.Implementation;
+using  System.Data.Entity;
 
 namespace CBA.Data.Implementation
 {
@@ -14,5 +15,12 @@ namespace CBA.Data.Implementation
         {
             _context = context;
         }
+        public IEnumerable<TellerPost> GetAllPosts(int tellerId)
+        {
+
+            return _context.TellerPosts.Include(c => c.CustomerAccount).Where(c=>c.TellerId == tellerId).ToList();
+        }
+
+
     }
 }

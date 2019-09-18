@@ -406,6 +406,9 @@
     <Content Include="Views\GlPosts\GlPostForm.cshtml" />
     <Content Include="Views\TellerPosts\Index.cshtml" />
     <Content Include="Views\TellerPosts\TellerPostForm.cshtml" />
+    <Content Include="Views\TellerPosts\ViewPosts.cshtml" />
+    <Content Include="Views\TellerPosts\BuyCashForm.cshtml" />
+    <Content Include="Views\TellerPosts\SellCashForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -416,6 +419,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountTypeConfigController.cs" />
+    <Compile Include="Controllers\BankConfigController.cs" />
     <Compile Include="Controllers\CustomersAccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\EODController.cs" />
@@ -558,6 +562,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\BankConfig\" />
     <Folder Include="Views\EOD\" />
   </ItemGroup>
   <ItemGroup>

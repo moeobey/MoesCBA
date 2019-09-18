@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Implementation\BankConfiguration.cs" />
     <Compile Include="Implementation\COTPost.cs" />
     <Compile Include="Implementation\GlPost.cs" />
     <Compile Include="Implementation\Branch.cs" />

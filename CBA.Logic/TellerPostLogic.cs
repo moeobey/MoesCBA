@@ -25,14 +25,18 @@ namespace CBA.Logic
             _db.Add(tellerPost);
             _db.Save(tellerPost);
         }
-        private void DebitTill(long tillAccount, decimal amount)
+        public IEnumerable<TellerPost> GetAllPosts(int tellerId)
+        {
+            return _db.GetAllPosts(tellerId);
+        }
+        private void DebitGl(long tillAccount, decimal amount)
         {
             var gl = new GlAccount();
             var glAccount = _glAccountContext.GetByAccCode(tillAccount);
             glAccount.Balance = glAccount.Balance + amount;
             _glAccountContext.Update(gl);
         }
-        private void CreditTill(long tillAccount, decimal amount)
+        private void CreditGl(long tillAccount, decimal amount)
         {
             var account = new GlAccount();
             var glAccount = _glAccountContext.GetByAccCode(tillAccount);
@@ -78,6 +82,7 @@ namespace CBA.Logic
                 AccountToDebitId = customer.Id,
                 Amount = cotValue,
                 PostedAt =  DateTime.Now,
+                //TellerId =  
             };
             _COTPostContext.Add(COTPost);
             _COTPostContext.Save(COTPost);
@@ -108,11 +113,11 @@ namespace CBA.Logic
 
             return result;
         }
-        private string IsTillCreditable(long tillAccountCode, decimal amount)
+        private string IsGlCreditable(long tillAccountCode, decimal amount)
         {
             var result = "";
             var glAccount = _glAccountContext.GetByAccCode(tillAccountCode);
-            result = glAccount.Balance >= amount ? "Success" : $"Insufficient Funds In {glAccount.Name} (Till Account)";
+            result = glAccount.Balance >= amount ? "Success" : $"Insufficient Funds In {glAccount.Name}";
             return result;
         }
         public string PostEntry(TellerPost tellerPost)
@@ -125,7 +130,7 @@ namespace CBA.Logic
 
             if (tellerPost.PostType == PostType.Deposit)        //for deposits
             {
-               DebitTill(tillAccount, amount);
+               DebitGl(tillAccount, amount);
                CreditCustomer(customer, amount);
                result = "Success";
             }
@@ -137,7 +142,7 @@ namespace CBA.Logic
                     var debitFeedback = IsCustomerDebitable(customer, amount); //check if customer account can be debited
                     if (debitFeedback == "Success")
                     {
-                        var creditFeedback = IsTillCreditable(tillAccount, amount); // check if till is creditable 
+                        var creditFeedback = IsGlCreditable(tillAccount, amount); // check if till is creditable 
                         if (creditFeedback == "Success")
                         {
                             if (customer.AccountType == AccountType.Current)
@@ -145,7 +150,7 @@ namespace CBA.Logic
                                 RemoveCOT(customer, amount);
                             }
                             DebitCustomer(customer, amount);
-                            CreditTill(tillAccount, amount);
+                            CreditGl(tillAccount, amount);
                           
                             result = creditFeedback;
                         }
@@ -175,6 +180,73 @@ namespace CBA.Logic
             }
             
             return result;
+        }
+
+        public string BuyCash(decimal amount, int tellerId)
+        {
+            var result = "";
+            var tillAccount = _tellerContext.GetTillAccount(tellerId);
+            var vaultAccCode = _glAccountContext.GetVaultAccCode();
+            if (vaultAccCode != 0)  // check if vault exist
+            {
+                var creditFeedback = IsGlCreditable(vaultAccCode, amount);
+
+
+                if (creditFeedback == "Success")
+                {
+                    CreditGl(vaultAccCode, amount);
+                    DebitGl(tillAccount, amount);
+                    result = creditFeedback;
+                }
+                else
+                {
+                    //insufficient funds in vault
+                    result = creditFeedback;
+                }
+            }
+            else
+            {
+                result = "Vault Doesn't Exist";
+            }
+
+            return result;
+        }
+        public string SellCash(decimal amount, int tellerId)
+        {
+            var result = "";
+            var tillAccount = _tellerContext.GetTillAccount(tellerId);
+            var vaultAccCode = _glAccountContext.GetVaultAccCode();
+            if (vaultAccCode != 0) // check if vault exist
+            {
+                var creditFeedback = IsGlCreditable(tillAccount, amount);
+                if (creditFeedback == "Success")
+                {
+                    CreditGl(tillAccount, amount);
+                    DebitGl(vaultAccCode, amount);
+                    result = creditFeedback;
+                }
+                else
+                {
+                    //insufficient funds in vault
+                    result = creditFeedback;
+                }
+            }
+            else
+            {
+                result = "Vault Doesn't Exist";
+            }
+
+            return result;
+        }
+
+        public decimal GetByTillBalance(int tellerId)
+        {
+
+            var glId = _tellerContext.GetTillAccount(Convert.ToInt32(tellerId));
+            var result = _glAccountContext.GetByAccCode(glId).Balance;
+            return result;
+
+
         }
     }
 }
