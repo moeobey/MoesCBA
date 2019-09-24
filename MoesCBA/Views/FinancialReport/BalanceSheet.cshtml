@@ -1,0 +1,81 @@
+﻿@model CBA.Core.ViewModels.BalanceSheetViewModel
+@{
+    ViewBag.Title = "BalanceSheet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-bold text-center">BALANCE SHEET</h1>
+<h2 class="badge-dark">Assets</h2></>
+<table class="table table-borderless table-dark table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-10">Asset Name</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var report in Model.AssetAccounts)
+        {
+            <tr>
+                <td>@report.Name</td>
+                <td>@report.Balance</td>
+            </tr>
+        }
+    <tr class="bg-success">
+        <td>Total</td>
+        <td>@Model.AssetTotal</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2 class="badge-dark">LIABILITIES</h2></>
+<table class="table table-borderless table-dark table-hover table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-10">Liability Name</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var report in Model.LiabilityAccounts)
+        {
+            <tr>
+                <td>@report.Name</td>
+                <td>@report.Balance</td>
+            </tr>
+        }
+    <tr class="bg-success">
+        <td>Total</td>
+        <td>@Model.LiabilityTotal</td>
+    </tr>
+    </tbody>
+</table>
+
+<h2 class="badge-dark">CAPITAL</h2></>
+<table class="table table-borderless table-dark table-hover">
+    <thead>
+    <tr>
+        <th class="col-md-10">Capital Name</th>
+        <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var report in Model.CapitalAccounts)
+    {
+        <tr>
+            <td>@report.Name</td>
+            <td>@report.Balance</td>
+        </tr>
+    }
+    <tr class="bg-success">
+        <td>Total</td>
+        <td>@Model.CapitalTotal</td>
+    </tr>
+    </tbody>
+    <tr class="bg-success">
+        <td>Asset Balance: @Model.AssetTotal</td>
+        <td>Liability + Capital: @Model.CLSum</td>
+    </tr>
+</table>
+
+

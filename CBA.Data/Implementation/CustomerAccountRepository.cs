@@ -22,6 +22,19 @@ namespace CBA.Data.Implementation
 
             return _context.CustomerAccounts.Include(c => c.Branch).OrderByDescending(c=>c.Id).ToList();
         }
+        public IEnumerable<CustomerAccount> GetAllExceptLoan()
+        {
+
+            return _context.CustomerAccounts.Where(c=>c.AccountType != AccountType.Loan).ToList();
+        }
+
+        public IEnumerable<CustomerAccount> GetByAccountType(AccountType accountType)
+        {
+
+            return _context.CustomerAccounts.Where(c => c.AccountType == accountType).ToList();
+        }
+        
+
         public string GetCustomerId(int id)
         {
             var customer = _context.CustomerAccounts.FirstOrDefault(u => u.Id == id);
@@ -34,6 +47,19 @@ namespace CBA.Data.Implementation
             return account;
 
         }
+      
+        public IEnumerable<CustomerAccount> GetOpenAccounts()
+        {
+
+            return _context.CustomerAccounts.Include(c => c.Branch).Where(c=>c.IsOpen).Where(c=>c.AccountType != AccountType.Loan).ToList();
+        }
+        public IEnumerable<CustomerAccount> GetLoanAccounts()
+        {
+
+            return _context.CustomerAccounts.Where(c => c.AccountType == AccountType.Loan).ToList();
+        }
+        
+
 
 
     }

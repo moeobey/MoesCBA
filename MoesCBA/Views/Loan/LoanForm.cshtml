@@ -1,0 +1,53 @@
+﻿@model CBA.Core.Implementation.Loan
+@{
+    ViewBag.Title = "LoanForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>LoanForm</h2>
+
+
+@using (Html.BeginForm("Save", "Loan"))
+{
+
+<div class=" form-signin">
+
+    @*<div> @Model.CustomerAccountId</div>*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.CustomerAccount.AccountName)
+        @Html.DisplayTextFor(m => m.CustomerAccount.AccountName)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LoanAmount)
+        @Html.TextBoxFor(m => m.LoanAmount, new { @class = "form-control", required = "required", min = "2000" })
+        @Html.ValidationMessageFor(m => m.LoanAmount)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.RepaymentPlan)
+        @Html.EnumDropDownListFor(m => m.RepaymentPlan, "Select Account Type", new { @class = "form-control", required = "required" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LoanTerms)
+        @Html.EnumDropDownListFor(m => m.LoanTerms, "Select Account Type", new { @class = "form-control", required = "required" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DurationInMonths)
+        @Html.TextBoxFor(m => m.DurationInMonths, new { @class = "form-control", required = "required", Type = "number" })
+        @Html.ValidationMessageFor(m => m.DurationInMonths)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Narration)
+        @Html.TextAreaFor(m => m.Narration, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(m => m.Narration)
+    </div>
+    
+    <input type="hidden" name="customerId" value="@Model.CustomerAccount.Id"/>
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+</div>
+}
+

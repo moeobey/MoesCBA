@@ -36,6 +36,10 @@ namespace CBA.Data
 
         public  DbSet<BankConfiguration> BankConfigurations { get; set; }
         public DbSet<COTPost> CotPosts { get; set; }
+
+        public DbSet<Loan> Loans { get; set; }
+        public DbSet<TransactionLog> TransactionLogs { get; set; }
+
         
 
     }

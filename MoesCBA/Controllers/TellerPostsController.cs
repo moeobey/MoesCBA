@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CBA.Core.Implementation;
 using CBA.Core.ViewModels;
 using CBA.Logic;
+using MoesCBA.Models;
 
 namespace MoesCBA.Controllers
 {
@@ -16,13 +17,14 @@ namespace MoesCBA.Controllers
         private readonly  TellerPostLogic _context = new TellerPostLogic();
         private readonly  TellerLogic _tellerContext = new TellerLogic();
         private readonly GlAccountLogic _glAccountContext = new GlAccountLogic();
+        private readonly AccountTypeConfigLogic _accountTypeConfigContext = new AccountTypeConfigLogic();
 
 
 
         // GET: TellerPosts
         public ActionResult Index()
         {
-            var customerAccounts = _customerAccContext.GetAllCustomersAccounts();
+            var customerAccounts = _customerAccContext.GetOpenAccounts();
             ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             return View(customerAccounts);
         }
@@ -34,7 +36,6 @@ namespace MoesCBA.Controllers
             return View(posts);
         }
         [CheckBusinessOpen]
-
         public ActionResult New(int id)
         {
             var customerAccount = _customerAccContext.Get(id);
@@ -46,13 +47,33 @@ namespace MoesCBA.Controllers
         }
         [HttpPost]
         [CheckBusinessOpen]
-
         public ActionResult Save(TellerPost tellerPost)
         { 
             tellerPost.CustomerAccountId = Convert.ToInt32(Request.Form["accountId"]);
             tellerPost.TellerId = Convert.ToInt32(Session["Id"]);
-            var postEntry = _context.PostEntry(tellerPost);
+            var customerAccount = _customerAccContext.Get(Convert.ToInt32(Request.Form["accountId"]));
+            var currentConfig = _accountTypeConfigContext.GetCurrentConfig();
+            if (currentConfig == null)      //check if current account configurations have been set
+            {
+                TempData["error"] = "Account Configuration Not Set";
+                var viewModel = new TellerPostViewModel
+                {
+                    CustomerAccount = customerAccount,
+                };
+                return View("TellerPostForm", viewModel);
+            }
+            //check if customer account is open
 
+            if (!customerAccount.IsOpen)
+            {
+                TempData["error"] = "Customer Account is Closed Set";
+                var viewModel = new TellerPostViewModel
+                {
+                    CustomerAccount = customerAccount,
+                };
+                return View("TellerPostForm", viewModel);
+            }
+            var postEntry = _context.PostEntry(tellerPost);
             if (postEntry == "Success")
             {
                 tellerPost.PostedAt = DateTime.Now;
@@ -62,7 +83,7 @@ namespace MoesCBA.Controllers
             else
             {
                 TempData["error"] = postEntry;
-                var customerAccount = _customerAccContext.Get(tellerPost.CustomerAccountId);
+                
                 var viewModel = new TellerPostViewModel
                 {
                     CustomerAccount = customerAccount,
@@ -72,16 +93,22 @@ namespace MoesCBA.Controllers
 
             return RedirectToAction("Index");
         }
+        [CheckBusinessOpen]
+
         public ActionResult BuyCash()
         {
             ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             return View("BuyCashForm");
         }
+        [CheckBusinessOpen]
+
         public ActionResult SellCash()
         {
             ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
             return View("SellCashForm");
         }
+        [CheckBusinessOpen]
+
         [HttpPost]
         public ActionResult Buy()
         {
@@ -101,6 +128,8 @@ namespace MoesCBA.Controllers
             }
         }
         [HttpPost]
+        [CheckBusinessOpen]
+
         public ActionResult Sell()
         {
             var tellerId = Convert.ToInt32(Session["id"]);

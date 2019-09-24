@@ -45,5 +45,9 @@ namespace CBA.Data.Implementation
         {
             _context.SaveChanges();
         }
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

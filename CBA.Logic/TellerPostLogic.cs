@@ -20,6 +20,7 @@ namespace CBA.Logic
         private  readonly  GlPostingLogic _glPostContext  = new GlPostingLogic();
         private  readonly  AccountTypeConfigLogic _configContext = new AccountTypeConfigLogic();
         private readonly COTPostRepository _COTPostContext = new COTPostRepository(new ApplicationDbContext());
+        private readonly TransactionLogLogic _logContext = new TransactionLogLogic();
 
         public void Save(TellerPost tellerPost)
         {
@@ -35,6 +36,8 @@ namespace CBA.Logic
             var gl = new GlAccount();
             var glAccount = _glAccountContext.GetByAccCode(tillAccount);
             glAccount.Balance = glAccount.Balance + amount;
+            _logContext.LogTransaction(glAccount, amount, TransactionType.Debit);
+
             _glAccountContext.Update(gl);
         }
         private void CreditGl(long tillAccount, decimal amount)
@@ -42,25 +45,18 @@ namespace CBA.Logic
             var account = new GlAccount();
             var glAccount = _glAccountContext.GetByAccCode(tillAccount);
             glAccount.Balance = glAccount.Balance - amount;
+            _logContext.LogTransaction(glAccount, amount, TransactionType.Credit);
+
             _glAccountContext.Update(account);
         }
-        private void DebitCustomer(CustomerAccount customerAccount, decimal amount)
-        {
-            var customer = new CustomerAccount();
-            customerAccount.Balance = customerAccount.Balance - amount;
-            _customerAccountContext.Update(customer);
-        }
-        private void CreditCustomer(CustomerAccount customer, decimal amount)
-        {
-            var account = new CustomerAccount();
-            customer.Balance += amount;
-            _customerAccountContext.Update(account);
-        }
+        
         private void CreditIncomeGl(int incomeGlId, decimal  COT )
         {
             var account = new GlAccount();
             var glAccount = _glAccountContext.Get(incomeGlId);
             glAccount.Balance = glAccount.Balance + COT;
+            _logContext.LogTransaction(glAccount, COT, TransactionType.Credit);
+
             _glAccountContext.Update(account);
         }
         private  decimal CalculateCOT(decimal cot, decimal amount)
@@ -73,7 +69,7 @@ namespace CBA.Logic
             var COT = _configContext.GetCurrentConfig().COT;
             var cotValue = CalculateCOT(COT, amount);
             var incomeGlId = _configContext.GetCurrentConfig().COTIncomeGlId;
-            DebitCustomer(customer, cotValue);
+            _customerAccountContext.DebitCustomer(customer, cotValue);
             CreditIncomeGl( incomeGlId, cotValue);
 
             //update Log
@@ -87,6 +83,7 @@ namespace CBA.Logic
             };
             _COTPostContext.Add(COTPost);
             _COTPostContext.Save(COTPost);
+          
 
         }
         private string IsCustomerDebitable(CustomerAccount customer, decimal amount)
@@ -132,7 +129,7 @@ namespace CBA.Logic
             if (tellerPost.PostType == PostType.Deposit)        //for deposits
             {
                DebitGl(tillAccount, amount);
-               CreditCustomer(customer, amount);
+               _customerAccountContext.CreditCustomer(customer, amount);
                result = "Success";
             }
             else if(tellerPost.PostType == PostType.Withdrawal) //for withdrawals
@@ -146,11 +143,12 @@ namespace CBA.Logic
                         var creditFeedback = IsGlCreditable(tillAccount, amount); // check if till is creditable 
                         if (creditFeedback == "Success")
                         {
+                            
                             if (customer.AccountType == AccountType.Current)
                             {
                                 RemoveCOT(customer, amount);
                             }
-                            DebitCustomer(customer, amount);
+                            _customerAccountContext.DebitCustomer(customer, amount);
                             CreditGl(tillAccount, amount);
                           
                             result = creditFeedback;

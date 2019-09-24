@@ -28,5 +28,12 @@ namespace CBA.Logic
         {
             _db.Save(config);
         }
+
+        public void IncreaseFinancialDate()
+        {
+            var config = GetConfig();
+            config.FinancialDate = config.FinancialDate.AddDays(1);
+            _db.Save(config);
+        }
     }
 }

@@ -47,8 +47,8 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Implementation\BankConfiguration.cs" />
-    <Compile Include="Implementation\CheckBusinessOpen.cs" />
     <Compile Include="Implementation\COTPost.cs" />
+    <Compile Include="Implementation\TransactionLog.cs" />
     <Compile Include="Implementation\GlPost.cs" />
     <Compile Include="Implementation\Branch.cs" />
     <Compile Include="Implementation\CheckRole.cs" />
@@ -58,6 +58,7 @@
     <Compile Include="Implementation\GlAccount.cs" />
     <Compile Include="Implementation\GlCategory.cs" />
     <Compile Include="Implementation\CurrentAccountConfig.cs" />
+    <Compile Include="Implementation\Loan.cs" />
     <Compile Include="Implementation\LoanAccountConfig.cs" />
     <Compile Include="Implementation\SavingsAccountConfig.cs" />
     <Compile Include="Implementation\Teller.cs" />
@@ -66,15 +67,20 @@
     <Compile Include="Implementation\UserRole.cs" />
     <Compile Include="Interface\IPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BalanceSheetViewModel.cs" />
     <Compile Include="ViewModels\CurrentAccountConfigViewModel.cs" />
     <Compile Include="ViewModels\GlPostViewModel.cs" />
     <Compile Include="ViewModels\LoanAccountConfigViewModel.cs" />
+    <Compile Include="ViewModels\LoanViewModel.cs" />
+    <Compile Include="ViewModels\PlViewModel.cs" />
     <Compile Include="ViewModels\SavingsAccountConfigViewModel.cs" />
     <Compile Include="ViewModels\NewCustomerAccountViewModel.cs" />
     <Compile Include="ViewModels\NewGlAccountViewModel.cs" />
     <Compile Include="ViewModels\NewTellerViewModel.cs" />
     <Compile Include="ViewModels\NewUserViewModel.cs" />
     <Compile Include="ViewModels\TellerPostViewModel.cs" />
+    <Compile Include="ViewModels\TransactionsVIewModel.cs" />
+    <Compile Include="ViewModels\TrialBalanceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="entityframework">

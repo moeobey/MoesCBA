@@ -41,6 +41,7 @@ namespace MoesCBA.Controllers
                 Session["Password"] = curUser.Password;
                 Session["FullName"] = curUser.FullName;
                 Session["Role"] = curUser.Role;
+                Session["FinancialDate"] = _bankConfigContext.GetConfig().FinancialDate;
                 if ((string) Session["Role"] == $"Admin")
                 {
                     var bankConfig = _bankConfigContext.GetConfig();

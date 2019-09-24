@@ -49,6 +49,12 @@ namespace CBA.Data.Implementation
 
             return _context.GlAccounts.Where(u => u.AccountCode.ToString().StartsWith("5")).Where(u=>u.IsAssigned == false);
         }
+        public IEnumerable<GlAccount> GetAllLiabilityAccount()
+        {
+
+            return _context.GlAccounts.Where(u => u.AccountCode.ToString().StartsWith("2")).Where(u => u.IsAssigned == false);
+        }
+        
         public IEnumerable<GlAccount> GetAllIncomeAccount()
         {
 
@@ -63,11 +69,24 @@ namespace CBA.Data.Implementation
         }
         public GlAccount GetVault()
         {
+            //var valutCode = System.Configuration.ConfigurationManager.AppSettings["Vault"];
             var result = _context.GlAccounts
                 .Where(c=>c.Name.ToLower().Contains("vault"))
                 .FirstOrDefault(a => a.GlCategory.Name.ToLower() =="cash asset");
             
             return result;
+        }
+        public IEnumerable<GlAccount> GetAllAssetAccounts()
+        {
+            var assetAccount =  _context.GlAccounts.Where(u => u.GlCategory.MainAccountCategory == MainAccountCategory.Asset).ToList();
+        
+            return assetAccount;
+        }
+        public List<GlAccount> GetByMainCategory(MainAccountCategory mainCategory)
+        {
+            var accounts = _context.GlAccounts.Where(u => u.GlCategory.MainAccountCategory == mainCategory).ToList();
+
+            return accounts;
         }
         
 

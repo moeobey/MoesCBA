@@ -1,0 +1,63 @@
+﻿@using CBA.Core.Implementation
+@model CBA.Core.ViewModels.TrialBalanceViewModel
+@{
+    ViewBag.Title = "TrialBalance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-bold text-center">Trial Balance</h1>
+<h2 class="badge-dark">Assets</h2></>
+<table class="table table-borderless table-dark table-hover">
+    <div class="col-md-12">
+        <thead>
+        <tr>
+            <th class="col-md-5">Account</th>
+            <th class="col-md-3">Account Type</th>
+            <th class="col-md-2">Debit (&#8358) </th>
+            <th class="col-md-2">Credit (&#8358) </th>
+           
+        </tr>
+        </thead>
+    </div>
+
+    <div class="row">
+        <tbody>
+            <div class="col-md-4">
+                @foreach (var transaction in Model.TransactionLogs)
+                {
+                <tr>
+                    <td>@transaction.Name</td>
+                    <td>@transaction.MainAccountCategory</td>
+                    @if (transaction.TransactionType == TransactionType.Debit)
+                    {
+                        <td>@transaction.Amount</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    @if (transaction.TransactionType == TransactionType.Credit)
+                    {
+                        <td>@transaction.Amount</td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                </tr>
+                }
+                <tr>
+                    <td><b>Total</b></td>
+                    <td></td>
+                    <td>@Model.DebitTotal</td>
+                    <td>@Model.CreditTotal</td>
+                </tr>
+
+            </div>
+        </tbody>
+
+        <tbody>
+    </div>
+
+   
+</table>

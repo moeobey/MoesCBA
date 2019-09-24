@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using CBA.Core.Implementation;
 using CBA.Core.ViewModels;
 using CBA.Logic;
+using MoesCBA.Models;
 
 namespace MoesCBA.Controllers
 {
@@ -34,8 +35,8 @@ namespace MoesCBA.Controllers
 
             return View("GlPostForm", viewModel);
         }
-        [CheckBusinessOpen]
 
+        [CheckBusinessOpen]
         [HttpPost]
         [ValidateAntiForgeryToken]
 

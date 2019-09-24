@@ -12,12 +12,15 @@ namespace CBA.Core.ViewModels
         public int Id { get; set; }
         public decimal CInterestRate { get; set; }
         public IEnumerable<GlAccount> InterestExpenseGls { get; set; } 
+        public IEnumerable<GlAccount> InterestPayableGls { get; set; } 
         public IEnumerable<GlAccount> COTIncomeGls { get; set; }
 
         public GlAccount InterestExpenseGl { get; set; }
         public int InterestExpenseGlId { get; set; }
         public decimal MinBalance { get; set; }
 
+        public GlAccount InterestPayableGl { get; set; }
+        public int InterestPayableGlId { get; set; }
         public decimal COT { get; set; }
         public GlAccount COTIncomeGl { get; set; }
         public int COTIncomeGlId { get; set; }
@@ -39,6 +42,7 @@ namespace CBA.Core.ViewModels
                 InterestExpenseGlId = config.InterestExpenseGlId;
                 COTIncomeGl = config.COTIncomeGl;
                 COTIncomeGlId = config.COTIncomeGlId;
+                InterestPayableGlId = (int) config.InterestPayableGlId;
                 COT = config.COT;
                 MinBalance = config.MinBalance;
                 Status = config.Status;

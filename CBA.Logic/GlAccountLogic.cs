@@ -44,8 +44,6 @@ namespace CBA.Logic
             var value = _db.GetVault();
             return value;
         }
-        
-
         public GlAccount GetByAccCode(long accCode)
         {
             var values = _db.GetByAccCode(accCode);
@@ -65,14 +63,17 @@ namespace CBA.Logic
             var values = _db.GetAllExpenseAccount();
             return values;
         }
+        public IEnumerable<GlAccount> GetAllLiabilityAccount()
+        {
+            var values = _db.GetAllLiabilityAccount();
+            return values;
+        }
+        
         public IEnumerable<GlAccount> GetAllIncomeAccount()
         {
             var values = _db.GetAllIncomeAccount();
             return values;
         }
-        
-
-
         public long GenerateGlAccountCode(int categoryId)
         {
             var ids = _db.GetAll().OrderByDescending(b => b.Id);
@@ -124,6 +125,7 @@ namespace CBA.Logic
 
             return isUnique;
         }
+
 
         
     }

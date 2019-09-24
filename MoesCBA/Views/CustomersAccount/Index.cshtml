@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CBA.Core.Implementation.CustomerAccount>
+﻿@using CBA.Core.Implementation
+@model IEnumerable<CBA.Core.Implementation.CustomerAccount>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,12 +46,16 @@ else
                         <td>@customersAccount.AccountType</td>
                         <td>@customersAccount.Balance</td>
                         <td>
-                            @if(customersAccount.IsOpen){
+                            @if(customersAccount.IsOpen && customersAccount.AccountType != AccountType.Loan){
                                 <button data-customer-id="@customersAccount.Id" class="btn-link js-delete">Close Account</button>
+                                <a>@Html.ActionLink("Take Loan", "New", "loan", new { id = customersAccount.Id }, null)</a>
+
+                                 
                             }
-                            @if(!customersAccount.IsOpen){
+                            @if(!customersAccount.IsOpen && customersAccount.AccountType != AccountType.Loan){
                                 <button data-customer-id="@customersAccount.Id" class="btn-link js-open">Open Account</button>
                             }
+
                         </td>
                     </tr>
 

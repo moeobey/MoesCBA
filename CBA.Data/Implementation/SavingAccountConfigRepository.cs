@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CBA.Core.Implementation;
+using System.Data.Entity;
 
 namespace CBA.Data.Implementation
 {
@@ -17,7 +18,7 @@ namespace CBA.Data.Implementation
        
         public SavingsAccountConfig GetAllSavings()
         {
-            return  _context.SavingsAccountConfigs.FirstOrDefault();
+            return  _context.SavingsAccountConfigs.Include(c=>c.InterestExpenseGl).Include(c=>c.InterestPayableGl).FirstOrDefault();
            
 
         }

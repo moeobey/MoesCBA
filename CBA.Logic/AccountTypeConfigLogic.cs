@@ -60,5 +60,27 @@ namespace CBA.Logic
         {
             _loanAccContext.Save(loanConfig);
         }
+
+        public string IsAccountConfigurationSet()
+        {
+            var result = "";
+            if (GetCurrentConfig() == null)
+            {
+                result = "Savings Account Configurations not Set";
+            }
+            else if (GetCurrentConfig() == null)
+            {
+                result = "Current Account Configurations not set";
+            }
+            else if(GetLoanConfig() == null)
+            {
+                result = "Loan Account Configurations not set";
+            }
+            else
+            {
+                result = "Success";
+            }
+            return result;
+        }
     }
 }

@@ -12,7 +12,9 @@ namespace CBA.Logic
    public class GlPostingLogic
     {
         private readonly GlPostingRepository _db = new GlPostingRepository(new ApplicationDbContext());
-        private readonly GlAccountLogic _glAccountContext = new GlAccountLogic(); 
+        private readonly GlAccountLogic _glAccountContext = new GlAccountLogic();
+        private readonly TransactionLogLogic _logContext = new TransactionLogLogic();
+
         public void Save(GlPost glPost)
         {
             _db.Add(glPost);
@@ -86,47 +88,53 @@ namespace CBA.Logic
 
         }
 
-        public void CreditGlAccount(long accountCode, decimal amount)
+        public void CreditGlAccount(GlAccount account, decimal amount)
         {
             var gl = new GlAccount();
-            var glAccount = _glAccountContext.GetByAccCode(accountCode);
+            var glAccount = _glAccountContext.GetByAccCode(account.AccountCode);
 
-            if (GetAccountMainCategory(accountCode) == "Asset" || GetAccountMainCategory(accountCode) == "Expense")
+            if (GetAccountMainCategory(account.AccountCode) == "Asset" || GetAccountMainCategory(account.AccountCode) == "Expense")
             {
                 glAccount.Balance = glAccount.Balance - amount;
-                _glAccountContext.Update(gl);
             }
             else
             {
                 glAccount.Balance = glAccount.Balance + amount;
-                _glAccountContext.Update(gl);
             }
+
+            _logContext.LogTransaction(account, amount, TransactionType.Credit);
+            _glAccountContext.Update(gl);
+
         }
 
-        public void DebitGlAccount(long accountCode, decimal amount)
+        public void DebitGlAccount(GlAccount account, decimal amount)
         {
             var gl = new GlAccount();
-            var glAccount = _glAccountContext.GetByAccCode(accountCode);
+            var glAccount = _glAccountContext.GetByAccCode(account.AccountCode);
             
-            if (GetAccountMainCategory(accountCode) == "Asset" || GetAccountMainCategory(accountCode) == "Expense")
+            if (GetAccountMainCategory(account.AccountCode) == "Asset" || GetAccountMainCategory(account.AccountCode) == "Expense")
             {
-                glAccount.Balance = glAccount.Balance + amount;
-                _glAccountContext.Update(gl);
+                glAccount.Balance += amount;
             }
             else
             {
-                glAccount.Balance = glAccount.Balance - amount;
-                _glAccountContext.Update(gl);
+                glAccount.Balance -= amount;
             }
-            
+
+            _logContext.LogTransaction(account, amount, TransactionType.Debit);
+            _glAccountContext.Update(gl);
+
+
         }
 
         public string PostEntry(GlPost glPost)
         {
             string result = "";
 
-            var accountToCredit =   _glAccountContext.GetAccCode(Convert.ToInt32(glPost.GlAccountToCreditId));
-          var accountToDebit =   _glAccountContext.GetAccCode(Convert.ToInt32(glPost.GlAccountToDebitId));
+            var glAccountToCredit =   _glAccountContext.Get(Convert.ToInt32(glPost.GlAccountToCreditId));
+            var accountToCredit = glAccountToCredit.AccountCode;
+          var glAccountToDebit =   _glAccountContext.Get(Convert.ToInt32(glPost.GlAccountToDebitId));
+          var accountToDebit = glAccountToDebit.AccountCode;
 
             if (GetAccountMainCategory(accountToCredit) == "Asset" || GetAccountMainCategory(accountToCredit) == "Expense") //special case for credit gl accounts do credit then debit
             {
@@ -136,8 +144,8 @@ namespace CBA.Logic
                     var debitFeedback = IsDebitable(accountToDebit, glPost.Amount);
                     if (debitFeedback == "Success")
                     {//do the update
-                        CreditGlAccount(accountToCredit, glPost.Amount);
-                        DebitGlAccount(accountToDebit, glPost.Amount);
+                        CreditGlAccount(glAccountToCredit, glPost.Amount);
+                        DebitGlAccount(glAccountToDebit, glPost.Amount);
                         result = debitFeedback;
 
                     }
@@ -163,8 +171,8 @@ namespace CBA.Logic
                     var creditFeedback = IsCreditable(accountToCredit, glPost.Amount);
                     if (creditFeedback == "Success")
                     {
-                        CreditGlAccount(accountToCredit, glPost.Amount);
-                        DebitGlAccount(accountToDebit, glPost.Amount);
+                        CreditGlAccount(glAccountToCredit, glPost.Amount);
+                        DebitGlAccount(glAccountToDebit, glPost.Amount);
                         result = creditFeedback;
                     }
                     else

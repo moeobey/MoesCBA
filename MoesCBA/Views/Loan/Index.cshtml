@@ -1,0 +1,60 @@
+﻿@model IEnumerable<CBA.Core.Implementation.Loan>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Loans</h2>
+
+
+@if (!Model.Any())
+{
+    <p>We don't have any Loans yet</p>
+}
+else
+{
+ 
+
+    <table id="customersAccount" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Account Name</th>
+                <th>Account Number</th>
+                <th>Date</th>
+                <th> Amount</th>
+                <th> Amount Due</th>
+                <th>Narration</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var loan in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(loan.Name, "Show", "Loan")</td>
+                    <td>@loan.AccountNumber</td>
+                    <td>@loan.StartDate</td>
+                    <th>@loan.LoanAmount</th>
+                    <th>@loan.LoanAmountRemaining</th>
+                    <th>@loan.Narration</th>
+                    <th>View</th>
+
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function() {
+            $("#customersAccount").DataTable();
+        });
+
+    </script>
+}
+
+

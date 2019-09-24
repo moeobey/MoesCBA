@@ -26,16 +26,22 @@ namespace MoesCBA.Controllers
         {
             var config = _context.GetSavingsConfig();
             object glAccount = null;
+            object interestPayableGl = null;
             if (config != null)
             {
                  glAccount = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
+                 interestPayableGl = _glAccountContext.Get(Convert.ToInt32(config.InterestPayableGlId));
 
             }
             var glAccounts = _glAccountContext.GetAllExpenseAccount();
+            var interestPayableGls = _glAccountContext.GetAllLiabilityAccount();
             var viewModel = new SavingsAccountConfigViewModel(config)
             {
                 InterestExpenseGl = (GlAccount) glAccount,
-                InterestExpenseGls = glAccounts
+                InterestPayableGl = (GlAccount) interestPayableGl,
+                InterestExpenseGls = glAccounts,
+                InterestPayableGls = interestPayableGls
+                
             };
             
            return View("SavingsAccountTypeForm", viewModel);
@@ -56,12 +62,16 @@ namespace MoesCBA.Controllers
                 config.Status = true;
                 _context.SaveSavings(config);
                 TempData["message"] = "Configurations Added Successfully";
+                return RedirectToAction("SavingsAccount");
+
             }
 
-            if (config.Id != 0) //update current configuration
+            if (config.Id != 0) //update current savings configuration
             {
                 configInDb.CInterestRate = config.CInterestRate;
                 configInDb.MinBalance = config.MinBalance;
+                configInDb.InterestPayableGlId = config.InterestPayableGlId;
+
                 if (config.InterestExpenseGlId == 0) //check if gl account is the same
                 {
                     configInDb.InterestExpenseGlId = configInDb.InterestExpenseGlId;
@@ -88,18 +98,22 @@ namespace MoesCBA.Controllers
         {
             var config = _context.GetCurrentConfig();
             object interestExpenseGl = null;
+            object interestPayableGl = null;
             object COTincomeGl = null;
             if (config != null)
             {
                 interestExpenseGl = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
+                interestPayableGl = _glAccountContext.Get(Convert.ToInt32(config.InterestPayableGlId));
                 COTincomeGl = _glAccountContext.Get(config.COTIncomeGlId);
             }
             var interestExpenseGls = _glAccountContext.GetAllExpenseAccount();
+            var interestPayableGls = _glAccountContext.GetAllLiabilityAccount();
             var COTincomeGls = _glAccountContext.GetAllIncomeAccount();
             var viewModel = new CurrentAccountConfigViewModel(config)
             {
                 InterestExpenseGl = (GlAccount)interestExpenseGl,
                 InterestExpenseGls = interestExpenseGls,
+                InterestPayableGls =  interestPayableGls,
                 COTIncomeGl = (GlAccount) COTincomeGl,
                 COTIncomeGls = COTincomeGls
             };
@@ -131,6 +145,7 @@ namespace MoesCBA.Controllers
                 configInDb.CInterestRate = config.CInterestRate;
                 configInDb.MinBalance = config.MinBalance;
                 configInDb.COT = config.COT;
+                configInDb.InterestPayableGlId = config.InterestPayableGlId;
 
                 if (config.InterestExpenseGlId == 0) //check if any of the  gl accounts are the same
                 {

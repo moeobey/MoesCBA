@@ -101,10 +101,25 @@
                     </li>
                 </ul>
             </li>
-
-            <li class="@Url.IsLinkActive("Index", "CustomersAccount")">
-                <a href="@Url.Action("Index", "CustomersAccount")"><i class="fa fa-link"></i> <span>Customers Account </span></a>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>Customer Accounts</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("Index", "CustomersAccount")">
+                        <a href="@Url.Action("Index", "CustomersAccount")"><i class="fa fa-link"></i> <span>Customers Account </span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("Index", "Loan")">
+                        <a href="@Url.Action("Index", "Loan")"><i class="fa fa-link"></i> <span>Loans </span></a>
+                    </li>
+                </ul>
             </li>
+
+
+          
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-link"></i> <span> Account Type Management</span>
@@ -141,6 +156,27 @@
 
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-link"></i> <span>Financial Report</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("BalanceSheet", "FinancialReport")">
+                        <a href="@Url.Action("BalanceSheet", "FinancialReport")"><i class="fa fa-link"></i> <span> Balance Sheet </span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("PLReport", "FinancialReport")">
+                        <a href="@Url.Action("PLReport", "FinancialReport")"><i class="fa fa-link"></i> <span>P & L Report </span></a>
+                    </li>
+                      <li class="@Url.IsLinkActive("TrialBalance", "FinancialReport")">
+                        <a href="@Url.Action("TrialBalance", "FinancialReport")"><i class="fa fa-link"></i> <span>P & L Report </span></a>
+                    </li>
+
+                </ul>
+            </li>
+
            
         }
     @if (Session["Role"] != null && Session["Role"].ToString() == "Teller")

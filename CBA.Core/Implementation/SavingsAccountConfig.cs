@@ -17,6 +17,9 @@ namespace CBA.Core.Implementation
         public GlAccount InterestExpenseGl { get; set; }
 
         public int InterestExpenseGlId { get; set; }
+        public GlAccount InterestPayableGl { get; set; }
+
+        public int? InterestPayableGlId { get; set; }
         public bool Status { get; set; }
 
   

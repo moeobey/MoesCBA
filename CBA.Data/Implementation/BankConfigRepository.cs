@@ -20,5 +20,7 @@ namespace CBA.Data.Implementation
             return _context.BankConfigurations.FirstOrDefault();
 
         }
+
+      
     }
 }

@@ -7,6 +7,18 @@
 
 @using (Html.BeginForm("Save", "CustomersAccount"))
 {
+    if (@Model.Id != 0 && Model.IsOpen)
+     {
+         <div class="text-center  mb-4">
+             <h1>Customer Account is Open</h1>
+         </div>
+     }
+    if (@Model.Id != 0 && !Model.IsOpen)
+    {
+        <div class="text-center  mb-4">
+            <h1>Customer Account is Closed</h1>
+        </div>
+    }
 
     <div class=" form-signin">
         @if (@Model.Id == 0)
@@ -15,6 +27,7 @@
                 <h1>Open Account</h1>
             </div>
         }
+       
         else
         {
             <div class="text-center  mb-4">
@@ -72,6 +85,7 @@
 
         @Html.AntiForgeryToken()
         <button type="submit" class="btn btn-primary">Save</button>
+      
 
     </div>
 }

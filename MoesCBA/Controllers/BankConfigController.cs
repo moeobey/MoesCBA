@@ -36,35 +36,6 @@ namespace MoesCBA.Controllers
             _context.Save(bankConfig);
             return RedirectToAction("Index");
         }
-        [CheckRole]
-
-        public ActionResult CloseBusiness()
-        {
-            var bankConfig = _context.GetConfig();
-            if (bankConfig.IsBusinessOpen )
-            {
-                bankConfig.IsBusinessOpen = false;
-                _context.Update(bankConfig);
-                Session["isBusinessOpen"] = false;
-
-            }
-
-            return RedirectToAction("Index");
-        }
-
-        [CheckRole]
-
-        public ActionResult OpenBusiness()
-        {
-            var bankConfig = _context.GetConfig();
-            if (!bankConfig.IsBusinessOpen)
-            {
-                bankConfig.IsBusinessOpen = true;
-                _context.Update(bankConfig);
-                Session["isBusinessOpen"] = true;
-            }
-            return RedirectToAction("Index");
-
-        }
+        
     }
 }

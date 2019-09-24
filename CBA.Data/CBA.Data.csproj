@@ -35,6 +35,7 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Helpers">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -55,15 +56,18 @@
     <Compile Include="Implementation\CurrentAccountConfigRepository.cs" />
     <Compile Include="Implementation\CustomerAccountRepository.cs" />
     <Compile Include="Implementation\CustomerRepository.cs" />
+    <Compile Include="Implementation\EodRepository.cs" />
     <Compile Include="Implementation\GlCategoryRepository.cs" />
     <Compile Include="Implementation\GlAccountRepository.cs" />
     <Compile Include="Implementation\GlPostingRepository.cs" />
     <Compile Include="Implementation\LoanAccountConfigRepository.cs" />
+    <Compile Include="Implementation\LoanRepository.cs" />
     <Compile Include="Implementation\Repository.cs" />
     <Compile Include="Implementation\RolesRepository.cs" />
     <Compile Include="Implementation\SavingAccountConfigRepository.cs" />
     <Compile Include="Implementation\TellerPostRepository.cs" />
     <Compile Include="Implementation\TellerRepository.cs" />
+    <Compile Include="Implementation\TransactionLogRepository.cs" />
     <Compile Include="Implementation\UserRepository.cs" />
     <Compile Include="Interface\IRepository.cs" />
     <Compile Include="Interface\IUserRepository.cs" />
@@ -331,6 +335,58 @@
     <Compile Include="Migrations\201909181011359_AddBankConfigurations.Designer.cs">
       <DependentUpon>201909181011359_AddBankConfigurations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909190958221_AddLoanTable.cs" />
+    <Compile Include="Migrations\201909190958221_AddLoanTable.Designer.cs">
+      <DependentUpon>201909190958221_AddLoanTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191831463_UpdateLoansTabel.cs" />
+    <Compile Include="Migrations\201909191831463_UpdateLoansTabel.Designer.cs">
+      <DependentUpon>201909191831463_UpdateLoansTabel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191913155_updateloans.cs" />
+    <Compile Include="Migrations\201909191913155_updateloans.Designer.cs">
+      <DependentUpon>201909191913155_updateloans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191942003_UpdateLoansTable.cs" />
+    <Compile Include="Migrations\201909191942003_UpdateLoansTable.Designer.cs">
+      <DependentUpon>201909191942003_UpdateLoansTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191947169_RollBackChanges.cs" />
+    <Compile Include="Migrations\201909191947169_RollBackChanges.Designer.cs">
+      <DependentUpon>201909191947169_RollBackChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909201052599_editLoanAccouunt.cs" />
+    <Compile Include="Migrations\201909201052599_editLoanAccouunt.Designer.cs">
+      <DependentUpon>201909201052599_editLoanAccouunt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909222340004_CreateEodLogTable.cs" />
+    <Compile Include="Migrations\201909222340004_CreateEodLogTable.Designer.cs">
+      <DependentUpon>201909222340004_CreateEodLogTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909230614340_EditLoanTable.cs" />
+    <Compile Include="Migrations\201909230614340_EditLoanTable.Designer.cs">
+      <DependentUpon>201909230614340_EditLoanTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231722393_createTransactionLogTable.cs" />
+    <Compile Include="Migrations\201909231722393_createTransactionLogTable.Designer.cs">
+      <DependentUpon>201909231722393_createTransactionLogTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231912308_updatesss.cs" />
+    <Compile Include="Migrations\201909231912308_updatesss.Designer.cs">
+      <DependentUpon>201909231912308_updatesss.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909232051117_updateCurrentAccountConfig.cs" />
+    <Compile Include="Migrations\201909232051117_updateCurrentAccountConfig.Designer.cs">
+      <DependentUpon>201909232051117_updateCurrentAccountConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241619376_UpdateTransactionTable.cs" />
+    <Compile Include="Migrations\201909241619376_UpdateTransactionTable.Designer.cs">
+      <DependentUpon>201909241619376_UpdateTransactionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241759190_UpdateTransactionTables.cs" />
+    <Compile Include="Migrations\201909241759190_UpdateTransactionTables.Designer.cs">
+      <DependentUpon>201909241759190_UpdateTransactionTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -546,6 +602,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909181011359_AddBankConfigurations.resx">
       <DependentUpon>201909181011359_AddBankConfigurations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909190958221_AddLoanTable.resx">
+      <DependentUpon>201909190958221_AddLoanTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191831463_UpdateLoansTabel.resx">
+      <DependentUpon>201909191831463_UpdateLoansTabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191913155_updateloans.resx">
+      <DependentUpon>201909191913155_updateloans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191942003_UpdateLoansTable.resx">
+      <DependentUpon>201909191942003_UpdateLoansTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191947169_RollBackChanges.resx">
+      <DependentUpon>201909191947169_RollBackChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909201052599_editLoanAccouunt.resx">
+      <DependentUpon>201909201052599_editLoanAccouunt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909222340004_CreateEodLogTable.resx">
+      <DependentUpon>201909222340004_CreateEodLogTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909230614340_EditLoanTable.resx">
+      <DependentUpon>201909230614340_EditLoanTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231722393_createTransactionLogTable.resx">
+      <DependentUpon>201909231722393_createTransactionLogTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231912308_updatesss.resx">
+      <DependentUpon>201909231912308_updatesss.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909232051117_updateCurrentAccountConfig.resx">
+      <DependentUpon>201909232051117_updateCurrentAccountConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241619376_UpdateTransactionTable.resx">
+      <DependentUpon>201909241619376_UpdateTransactionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241759190_UpdateTransactionTables.resx">
+      <DependentUpon>201909241759190_UpdateTransactionTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

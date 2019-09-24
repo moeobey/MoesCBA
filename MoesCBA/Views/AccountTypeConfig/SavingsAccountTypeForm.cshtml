@@ -40,6 +40,7 @@
                 @Html.ValidationMessageFor(m => m.InterestExpenseGls)
 
             </div>
+        
         }
         @if (Model.Id != 0)
         {
@@ -56,6 +57,13 @@
 
             </div>
         }
+        <div class="form-group">
+
+            @Html.LabelFor(m => m.InterestPayableGls, new { })
+            @Html.DropDownListFor(m => m.InterestPayableGlId, new SelectList(Model.InterestPayableGls, "id", "Name"), "Select Interest Payable GL ", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.InterestPayableGls)
+
+        </div>
 
         @Html.AntiForgeryToken()
         <button class="btn btn-primary">Set Configurations</button>

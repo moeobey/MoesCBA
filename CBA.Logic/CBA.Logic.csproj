@@ -54,12 +54,16 @@
     <Compile Include="BankConfigLogic.cs" />
     <Compile Include="CustomerAccountLogic.cs" />
     <Compile Include="CustomerLogic.cs" />
+    <Compile Include="EodLogic.cs" />
     <Compile Include="GlCategoryLogic.cs" />
     <Compile Include="GlAccountLogic.cs" />
     <Compile Include="GlPostingLogic.cs" />
+    <Compile Include="LoanLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TellerLogic.cs" />
     <Compile Include="TellerPostLogic.cs" />
+    <Compile Include="TransactionLogLogic.cs" />
+    <Compile Include="TransactionReportLogic.cs" />
     <Compile Include="UserLogic.cs" />
   </ItemGroup>
   <ItemGroup>

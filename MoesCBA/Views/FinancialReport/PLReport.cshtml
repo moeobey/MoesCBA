@@ -1,0 +1,63 @@
+﻿@model CBA.Core.ViewModels.PlViewModel
+@{
+    ViewBag.Title = "BalanceSheet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-bold text-center">P&L Report</h1>
+<table class="table table-borderless table-dark table-hover">
+    <thead>
+        <tr>
+            <th class="col-md-6"><h2 class="badge-dark"></h2></th>
+            <th>Schedule</th>
+            <th>Year Ended (@Model.Date.ToString("dd-MMM-yyyy "))</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td ><h4 class="font-weight-bolder"><b>INCOME</b></h4></td>
+    </tr>
+    @foreach (var report in Model.IncomeGls)
+    {
+    <tr>
+        <td>@report.Name</td>
+        <td></td>
+
+        <td>@report.Balance</td>
+    </tr>
+    }
+    <tr>
+        <td></td>
+        <td><b>Total</b></td>
+        <td >@Model.IncomeTotal</td>
+    </tr>
+    <tr>
+        <td ><h4 class="font-weight-bolder"><b>Expense</b></h4></td>
+    </tr>
+    @foreach (var report in Model.ExpenseGls)
+    {
+        <tr>
+            <td>@report.Name</td>
+            <td></td>
+
+            <td>@report.Balance</td>
+        </tr>
+    }
+    <tr>
+        <td></td>
+        <td><b>Total</b></td>
+        <td >@Model.ExpenseTotal</td>
+    </tr>
+    <tr>
+        <td ><h4 class="font-weight-bolder"><b>Profit/Loss</b></h4></td>
+    </tr>
+    
+    <tr>
+        <td></td>
+        <td><b>Total</b></td>
+        <td >@Model.Profit</td>
+    </tr>
+
+  
+    </tbody>
+</table>

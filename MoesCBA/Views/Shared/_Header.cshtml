@@ -1,4 +1,5 @@
-﻿<header class="main-header">
+﻿@using Microsoft.Ajax.Utilities
+<header class="main-header">
     @* BEGIN Logo *@
     <a href="@Url.Action("Index", "Users")" class="logo">
         @* Mini logo for sidebar 50x50 pixels *@
@@ -15,6 +16,7 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 @* BEGIN Messages *@
+
                 @if(Session["setup"] != null)
                 {
                 <li class="dropdown notifications-menu">
@@ -24,16 +26,24 @@
                 @if(Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null )
                 {
                     <li class="dropdown notifications-menu">
-                        <a href="@Url.Action("CloseBusiness", "BankConfig")"><i class="fa fa-link"></i> <span>Close  Business </span></a>
+                        <a href="@Url.Action("CloseBusiness", "EOD")"><i class="fa fa-link"></i> <span>Close  Business </span></a>
                     </li>
                 }
                 @if(!Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null )
                 {
                     <li class="dropdown notifications-menu">
-                        <a href="@Url.Action("OpenBusiness", "BankConfig")"><i class="fa fa-link"></i> <span>Open Business </span></a>
+                        <a href="@Url.Action("OpenBusiness", "EOD")"><i class="fa fa-link"></i> <span>Open Business </span></a>
                     </li>
-                    <li class="dropdown notifications-menu">
+                    @*<li class="dropdown notifications-menu">
                         <a href="@Url.Action("RunEOD", "EOD")"><i class="fa fa-link"></i> <span>Run EOD Business </span></a>
+                    </li>*@
+                }
+                @if(Session["FinancialDate"] != null)
+                {
+                    <li class="dropdown notifications-menu">
+                       
+
+                        <a href="#"><i class="fa fa-link"></i> <span> @Session["FinancialDate"].ToString().AsDateTime().ToShortDateString()</span></a>
                     </li>
                 }
                 <li class="dropdown messages-menu">

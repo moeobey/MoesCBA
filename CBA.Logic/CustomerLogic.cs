@@ -61,7 +61,7 @@ namespace CBA.Logic
             {
                 var lastCustomerId = ids.First().Id;
                 lastCustomerId++;
-                customerId = lastCustomerId.ToString().PadLeft(9, '0');
+                customerId = lastCustomerId.ToString().PadLeft(6, '0');
             }
             return customerId;
         }
