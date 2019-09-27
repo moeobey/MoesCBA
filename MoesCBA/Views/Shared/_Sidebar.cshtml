@@ -16,8 +16,8 @@
         @* BEGIN Menu *@
     <ul class="sidebar-menu" data-widget="tree">
         <li class="header">HEADER</li>
-        @if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
-        {
+            @if (Session["Role"] != null && Session["Role"].ToString() == "Admin")
+            {
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-link"></i> <span>Users</span>
@@ -171,7 +171,7 @@
                         <a href="@Url.Action("PLReport", "FinancialReport")"><i class="fa fa-link"></i> <span>P & L Report </span></a>
                     </li>
                       <li class="@Url.IsLinkActive("TrialBalance", "FinancialReport")">
-                        <a href="@Url.Action("TrialBalance", "FinancialReport")"><i class="fa fa-link"></i> <span>P & L Report </span></a>
+                        <a href="@Url.Action("TrialBalance", "FinancialReport")"><i class="fa fa-link"></i> <span>Trial Balance </span></a>
                     </li>
 
                 </ul>

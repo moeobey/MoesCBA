@@ -1,12 +1,25 @@
 ﻿@using Microsoft.Ajax.Utilities
 <header class="main-header">
     @* BEGIN Logo *@
-    <a href="@Url.Action("Index", "Users")" class="logo">
+@if (Session["Role"] != null && (Session["Role"].ToString() == "Admin" ||Session["Role"].ToString() == "Super" ))
+{
+    <a href="@Url.Action("AdminDashboard", "Users")" class="logo">
         @* Mini logo for sidebar 50x50 pixels *@
         <span class="logo-mini"><b>A</b>LT</span>
         @* Logo for regular state and mobile devices *@
         <span class="logo-lg"><b>Moes</b>CBA</span>
     </a>
+}
+else
+{
+    <a href="@Url.Action("TellerDashboard", "Users")" class="logo">
+        @* Mini logo for sidebar 50x50 pixels *@
+        <span class="logo-mini"><b>A</b>LT</span>
+        @* Logo for regular state and mobile devices *@
+        <span class="logo-lg"><b>Moes</b>CBA</span>
+    </a>
+}
+
     @* END Logo *@
     @* BEGIN Header *@
     <nav class="navbar navbar-static-top" role="navigation">
@@ -26,13 +39,13 @@
                 @if(Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null )
                 {
                     <li class="dropdown notifications-menu">
-                        <a href="@Url.Action("CloseBusiness", "EOD")"><i class="fa fa-link"></i> <span>Close  Business </span></a>
+                        <a href="@Url.Action("CloseBusiness", "EOD")"><i class="fa fa-power-off"></i> <span>Close  Business </span></a>
                     </li>
                 }
                 @if(!Convert.ToBoolean(Session["isBusinessOpen"]) && Session["isBusinessOpen"] != null )
                 {
-                    <li class="dropdown notifications-menu">
-                        <a href="@Url.Action("OpenBusiness", "EOD")"><i class="fa fa-link"></i> <span>Open Business </span></a>
+                    <li class="dropdown notifications-menu bg_darkGreen">
+                        <a href="@Url.Action("OpenBusiness", "EOD")"><i class="fa fa-adjust"></i> <span>Open  Business </span></a>
                     </li>
                     @*<li class="dropdown notifications-menu">
                         <a href="@Url.Action("RunEOD", "EOD")"><i class="fa fa-link"></i> <span>Run EOD Business </span></a>

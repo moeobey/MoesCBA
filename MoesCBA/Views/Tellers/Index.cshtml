@@ -28,9 +28,7 @@ else
                 <th>Teller Name</th>
                 <th>Till Account</th>
                 <th>Till Account Balance</th>
-              
 
-             
             </tr>
             </thead>
             <tbody>
@@ -39,9 +37,8 @@ else
                 <tr>
                     <td>@teller.User.FullName</td>
                     <td>@teller.GlAccount.Name</td>
-                    <td>@teller.GlAccount.Balance</td>
+                    <td>@Html.DisplayFor(a=>teller.GlAccount.Balance)</td>
 
-                 
                 </tr>
 
             }

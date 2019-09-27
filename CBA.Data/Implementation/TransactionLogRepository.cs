@@ -20,23 +20,30 @@ namespace CBA.Data.Implementation
         public IEnumerable<TransactionLog> GetAllLogs()
         {
 
-            return _context.TransactionLogs
+            return _context.TransactionLogs.OrderBy(c=>c.MainAccountCategory)
                 .ToList();
         }
-        public List<TransactionLog> GetDebitLogs()
+        public IEnumerable<TransactionLog> GetLogsByPeriod(string startDate, string endDate)
         {
+            var start = Convert.ToDateTime(startDate);
+            var end = Convert.ToDateTime(endDate);
+            var transactions  = new List<TransactionLog>();
+            if (start <= end)
+            {
+                var logs = GetAllLogs().ToList();
+                foreach (var log in logs)
+                {
+                    if (log.Date.Date >= start && log.Date.Date <= end)
+                    {
+                        transactions.Add(log);
+                    }
+                }
+            }
 
-            return _context.TransactionLogs.Where(c=>c.TransactionType == TransactionType.Debit)
-                .ToList();
-        }
-        public List<TransactionLog> GetCreditLogs()
-        {
+            return transactions;
 
-            return _context.TransactionLogs
-                .Where(c => c.TransactionType == TransactionType.Debit)
-                .ToList();
         }
-        
+
 
     }
 }

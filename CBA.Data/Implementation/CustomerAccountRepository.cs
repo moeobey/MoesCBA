@@ -58,8 +58,16 @@ namespace CBA.Data.Implementation
 
             return _context.CustomerAccounts.Where(c => c.AccountType == AccountType.Loan).ToList();
         }
-        
-
+        public bool GetLoanStatus(int id)
+        {
+            var isLoanComplete = _context.Loans.Where(c => c.IsLoanPaymentComplete == false).FirstOrDefault(c => c.CustomerAccountId == id);
+            if (isLoanComplete == null)
+            {
+                return true;
+            }
+            return false;
+            
+        }
 
 
     }

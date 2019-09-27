@@ -79,7 +79,6 @@
     <Compile Include="ViewModels\NewTellerViewModel.cs" />
     <Compile Include="ViewModels\NewUserViewModel.cs" />
     <Compile Include="ViewModels\TellerPostViewModel.cs" />
-    <Compile Include="ViewModels\TransactionsVIewModel.cs" />
     <Compile Include="ViewModels\TrialBalanceViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,7 @@
 else
 {
    
-        <h2>Till Account Balance: @ViewBag.GlBalance</h2>
+        <h2>Till Account Balance: @Math.Round(ViewBag.GlBalance,2)</h2>
         <table id="customersAccount" class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -37,7 +37,7 @@ else
                     <tr>
                         <td>@Html.ActionLink(customersAccount.AccountName, "New", "TellerPosts", new { id = customersAccount.Id }, null)</td>
                         <td>@customersAccount.AccountNumber</td>
-                        <td>@customersAccount.Balance</td>
+                        <td>@Html.DisplayFor(a=>customersAccount.Balance)</td>
                         <td><button data-customer-id="@customersAccount.Id" class="btn-link js-delete">Select</button></td>
                     </tr>
 

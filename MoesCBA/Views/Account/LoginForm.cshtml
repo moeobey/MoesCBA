@@ -9,40 +9,43 @@
 
 
 @Styles.Render("~/Bundles/css")
-@using (Html.BeginForm("AuthenticateUser", "Account"))
-{
-   
-    <div class=" form-signin">
-        <div class="text-center  mb-4">
-            <h1>Login</h1>
-        </div>
-        @if(ViewBag.msg != null)
-        {
-            <div class=" alert alert-danger">
-                <strong>@ViewBag.msg</strong>
+<div class="limiter" >
+    <div class="container-login100">
+        <div class="wrap-login100">
+            @using (Html.BeginForm("AuthenticateUser", "Account",FormMethod.Post,new{@class ="login100-form validate-form p-l-55 p-r-55 p-t-178"}))
+            {
+
+                <div class=" form-signin">
+                 <span class="login100-form-title">
+						Sign In
+					</span>
+
+                    @if (ViewBag.msg != null)
+                    {
+                        <div class=" alert alert-danger">
+                            <strong>@ViewBag.msg</strong>
+                        </div>
+                    }
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+
+                        @Html.TextBoxFor(m => m.Username, new { @class = "input100", placeholder = "username", required = "required" })
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                        @Html.PasswordFor(m => m.Password, new { @class = "input100", placeholder = "password", required = "required" })
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+                    <div class="container-login100-form-btn ">
+                        <button class="login100-form-btn  m-b-40 bg_lightGreen">Sign in</button>
+                    </div>
+
+                </div>
+
+            }
             </div>
-        }
-        <div class="form-group">
-
-            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "username", required = "required" })
         </div>
-        <div class="form-group">
-
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "password", required = "required" })
-        </div>
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        @Html.AntiForgeryToken()
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <p class="mt-5 mb-3 text-muted text-center">&copy; 2019</p>
-     
     </div>
-
-}
-
 
 

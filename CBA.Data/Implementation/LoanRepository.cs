@@ -20,8 +20,16 @@ namespace CBA.Data.Implementation
 
             return _context.Loans.Include(c =>c.CustomerAccount).ToList();
         }
+        public IEnumerable<Loan> GetAllUnpaidLoans()
+        {
 
-        
+            return _context.Loans.Where(c=>c.IsLoanPaymentComplete == false).Include(c => c.CustomerAccount).ToList();
+        }
+
+        public Loan GetByCustomerId(int id)
+        {
+            return _context.Loans.Include(c=>c.CustomerAccount).FirstOrDefault(c => c.CustomerAccountId == id);
+        }
 
 
 

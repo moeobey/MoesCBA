@@ -14,8 +14,10 @@
         </tr>
     </thead>
     <tbody>
-    <tr>
-        <td ><h4 class="font-weight-bolder"><b>INCOME</b></h4></td>
+    <tr class="bg_cyan">
+        <td ><b>INCOME</b></td>
+        <td></td>
+        <td></td>
     </tr>
     @foreach (var report in Model.IncomeGls)
     {
@@ -23,16 +25,18 @@
         <td>@report.Name</td>
         <td></td>
 
-        <td>@report.Balance</td>
+        <td>@Math.Round(report.Balance,2)</td>
     </tr>
     }
-    <tr>
+    <tr class="bg_green">
         <td></td>
         <td><b>Total</b></td>
         <td >@Model.IncomeTotal</td>
     </tr>
-    <tr>
-        <td ><h4 class="font-weight-bolder"><b>Expense</b></h4></td>
+    <tr class="bg_cyan">
+        <td><b>Expense</b></td>
+        <td></td>
+        <td></td>
     </tr>
     @foreach (var report in Model.ExpenseGls)
     {
@@ -40,22 +44,20 @@
             <td>@report.Name</td>
             <td></td>
 
-            <td>@report.Balance</td>
+            <td>@Math.Round(report.Balance,2)</td>
         </tr>
     }
-    <tr>
+    <tr class="bg_cyan">
         <td></td>
         <td><b>Total</b></td>
         <td >@Model.ExpenseTotal</td>
     </tr>
-    <tr>
-        <td ><h4 class="font-weight-bolder"><b>Profit/Loss</b></h4></td>
-    </tr>
+   
     
-    <tr>
-        <td></td>
+    <tr class="bg_green">
+        <td><b>Profit/Loss</b></td>
         <td><b>Total</b></td>
-        <td >@Model.Profit</td>
+        <td><b>@Model.Profit</b></td>
     </tr>
 
   

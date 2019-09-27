@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace CBA.Core.Implementation
 {
@@ -28,6 +30,7 @@ namespace CBA.Core.Implementation
         public decimal LoanAmount { get; set; }
         public decimal LoanAmountRemaining { get; set; }
         public decimal LoanPayable { get; set; }
+     
         public decimal Interest { get; set; }
         public decimal InterestRemaining { get; set; }
         public decimal InterestPayable { get; set; }

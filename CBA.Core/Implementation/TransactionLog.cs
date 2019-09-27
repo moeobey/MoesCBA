@@ -15,6 +15,7 @@ namespace CBA.Core.Implementation
         public int Id { get; set; }
         public string Name { get; set; }
         public MainAccountCategory MainAccountCategory { get; set; }
+        public long AccountCode { get; set; }
         public decimal Amount { get; set; }
         public TransactionType TransactionType { get; set; }
 

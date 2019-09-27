@@ -51,7 +51,7 @@ namespace MoesCBA.Controllers
                         Session["isBusinessOpen"] =  bankConfig.IsBusinessOpen;
                 
 
-                    return RedirectToAction("Index", "Users");
+                    return RedirectToAction("AdminDashboard", "Users");
                 }
                 else if ((string) Session["Role"] == $"Teller" && curUser.PasswordStatus == false) 
                 {
@@ -60,12 +60,12 @@ namespace MoesCBA.Controllers
                 else if ((string)Session["Role"] == $"Teller" && curUser.PasswordStatus == true)
                 {
                     //user has changed password
-                    return RedirectToAction("Index", "Users");
+                    return RedirectToAction("TellerDashboard", "Users");
                 }
                 else
                 {
                     //user has  no role
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("TellerDashboard", "Account");
                 }
             }
 

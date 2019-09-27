@@ -16,6 +16,16 @@ namespace CBA.Data
         {
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Properties<Decimal>().Configure(config => config.HasPrecision(20, 10));
+            modelBuilder.Entity<SavingsAccountConfig>().Property(c=>c.CInterestRate).HasPrecision(20, 2);
+            modelBuilder.Entity<SavingsAccountConfig>().Property(c=>c.MinBalance).HasPrecision(20, 2);
+            modelBuilder.Entity<CurrentAccountConfig>().Property(c=>c.MinBalance).HasPrecision(20, 2);
+            modelBuilder.Entity<CurrentAccountConfig>().Property(c=>c.MinBalance).HasPrecision(20, 2);
+            modelBuilder.Entity<LoanAccountConfig>().Property(c=>c.DInterestRate).HasPrecision(20, 2);
+        }
+       
         public DbSet<User> User { get; set; }
         
         public DbSet<Customer> Customer { get; set; }

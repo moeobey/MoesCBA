@@ -387,6 +387,18 @@
     <Compile Include="Migrations\201909241759190_UpdateTransactionTables.Designer.cs">
       <DependentUpon>201909241759190_UpdateTransactionTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909250917392_updateTransctions.cs" />
+    <Compile Include="Migrations\201909250917392_updateTransctions.Designer.cs">
+      <DependentUpon>201909250917392_updateTransctions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909261145133_UpdateDecimalPrecision.cs" />
+    <Compile Include="Migrations\201909261145133_UpdateDecimalPrecision.Designer.cs">
+      <DependentUpon>201909261145133_UpdateDecimalPrecision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909261319276_UpdateDecimalPrecisionForAccountConfig.cs" />
+    <Compile Include="Migrations\201909261319276_UpdateDecimalPrecisionForAccountConfig.Designer.cs">
+      <DependentUpon>201909261319276_UpdateDecimalPrecisionForAccountConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -641,6 +653,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909241759190_UpdateTransactionTables.resx">
       <DependentUpon>201909241759190_UpdateTransactionTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909250917392_updateTransctions.resx">
+      <DependentUpon>201909250917392_updateTransctions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909261145133_UpdateDecimalPrecision.resx">
+      <DependentUpon>201909261145133_UpdateDecimalPrecision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909261319276_UpdateDecimalPrecisionForAccountConfig.resx">
+      <DependentUpon>201909261319276_UpdateDecimalPrecisionForAccountConfig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

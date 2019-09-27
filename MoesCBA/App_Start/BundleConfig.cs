@@ -14,6 +14,7 @@ namespace MoesCBA.App_Start
                 .Include("~/Content/css/bootstrap-datepicker3.min.css")
                 .Include("~/Content/css/font-awesome.min.css", new CssRewriteUrlTransformAbsolute())
                 .Include("~/Content/css/icheck/blue.min.css", new CssRewriteUrlTransformAbsolute())
+                .Include("~/Content/moesFont/font-awesome-4.7.0/css/font-awesome.min.css")
                 .Include("~/Content/css/AdminLTE.css", new CssRewriteUrlTransformAbsolute())
                 .Include("~/Content/css/moes.css")
                 .Include("~/Content/DataTables/css/dataTables.bootstrap.css")

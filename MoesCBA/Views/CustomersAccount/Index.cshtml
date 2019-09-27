@@ -44,7 +44,7 @@ else
                         <td>@customersAccount.AccountNumber</td>
                         <td>@customersAccount.Branch.Name</td>
                         <td>@customersAccount.AccountType</td>
-                        <td>@customersAccount.Balance</td>
+                        <td>@Html.DisplayFor(a=>customersAccount.Balance)</td>
                         <td>
                             @if(customersAccount.IsOpen && customersAccount.AccountType != AccountType.Loan){
                                 <button data-customer-id="@customersAccount.Id" class="btn-link js-delete">Close Account</button>

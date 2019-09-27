@@ -1,0 +1,68 @@
+﻿@model IEnumerable<CBA.Core.Implementation.User>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["message"] != null){
+        <div class="alert alert-success">
+            <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+        </div>
+    }
+    @if (!Model.Any())
+    {
+        <p>We don't have any Users yet</p>
+    }
+    else
+    {
+        if (Session["Role"].ToString() == "Admin")
+        {
+            <h2>Users</h2>
+            <table id="users" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>FullName</th>
+                        <th>Branch</th>
+                        <th>Email</th>
+                        <th>Username</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@Html.ActionLink(user.FullName, "Edit", "Users", new { id = user.Id }, null)</td>
+                            <td>@user.Branch.Name</td>
+                            <td>@user.Email</td>
+                            <td>@user.Username</td>
+
+                            <td>
+                                <button data-customer-id="@user.Id" class="btn-link js-delete">Delete</button>
+                                @if (user.IsAssigned == false && user.Role == "Teller")
+                                {
+                                    <button>@Html.ActionLink("Assign Till", "New", "Tellers", new { id = user.Id }, null)</button>
+                                }
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+    }
+    @section ViewSpecificJavascript{
+        <script>
+            $(document).ready(function () {
+                $("#users").DataTable();
+                setTimeout(function () {
+                    $(".alert-success").fadeOut(100, null);
+                }, 3000);
+            });
+
+        </script>
+
+
+    }

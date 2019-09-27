@@ -16,12 +16,18 @@ namespace MoesCBA.Controllers
         
         private readonly UserLogic _context = new UserLogic();
         // GET: Users
-       
+        public ActionResult AdminDashboard()
+        {
+            return View("AdminDashboard");
+        } public ActionResult TellerDashboard()
+        {
+            return View("TellerDashboard");
+        }
         public ActionResult Index()
         {
             var users = _context.GetAllWithBranch(); //get the branch along with the users
             
-                return View("Dashboard", users);
+                return View("Index", users);
         }
         [CheckSession]
         public ActionResult ChangePassword()

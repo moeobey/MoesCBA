@@ -15,6 +15,7 @@ namespace CBA.Logic
         private readonly CustomerAccountRepository _db = new CustomerAccountRepository(new ApplicationDbContext());
         private readonly LoanRepository _loanDb = new LoanRepository(new ApplicationDbContext());
         private readonly TransactionLogLogic _logContext = new TransactionLogLogic();
+        private readonly LoanLogic _loanContext = new LoanLogic();
 
         public void Save(CustomerAccount customer)
         {
@@ -118,8 +119,11 @@ namespace CBA.Logic
 
             _db.Save(account);
         }
-      
-        
+
+        public bool CheckForLoanStatus(CustomerAccount customer)
+        {
+            return _db.GetLoanStatus(customer.Id);
+        }
 
     }
 }

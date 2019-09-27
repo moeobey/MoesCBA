@@ -5,7 +5,14 @@
 }
 
 <h2>Loans</h2>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        <p>@TempData["Success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
 
+    </div>
+
+}
 
 @if (!Model.Any())
 {
@@ -13,7 +20,7 @@
 }
 else
 {
- 
+
 
     <table id="customersAccount" class="table table-bordered table-hover">
         <thead>
@@ -32,13 +39,14 @@ else
             @foreach (var loan in Model)
             {
                 <tr>
-                    <td>@Html.ActionLink(loan.Name, "Show", "Loan")</td>
+                    <td>@loan.Name</td> 
                     <td>@loan.AccountNumber</td>
                     <td>@loan.StartDate</td>
-                    <th>@loan.LoanAmount</th>
-                    <th>@loan.LoanAmountRemaining</th>
-                    <th>@loan.Narration</th>
-                    <th>View</th>
+                    <td>@Html.DisplayFor(a => loan.LoanAmount)</td>
+                    <td>@Html.DisplayFor(a => loan.LoanAmountRemaining)</td>
+                    <td>@loan.Narration</td>
+                    <td>@Html.ActionLink("View", "Details", "Loan", new{id = loan.CustomerAccountId}, null)</td>
+
 
 
                 </tr>
@@ -50,7 +58,7 @@ else
 }
 @section ViewSpecificJavascript{
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#customersAccount").DataTable();
         });
 

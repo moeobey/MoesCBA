@@ -13,18 +13,16 @@ namespace CBA.Logic
     public class TransactionLogLogic
     {
         private readonly TransactionLogRepository _db = new TransactionLogRepository(new ApplicationDbContext());
-        //private readonly GlPostingLogic _glAccContext = new GlPostingLogic();
 
         public void LogTransaction(GlAccount glAccount, decimal amount,TransactionType transactionType)
         {
-            //_glAccContext.GetAccountMainCategory(glAccount.AccountCode);
-
             var transaction = new TransactionLog()
             {
                 Name = glAccount.Name,
                 Amount = amount,
                 Date = DateTime.Now,
                 TransactionType = transactionType,
+                AccountCode = glAccount.AccountCode,
                 MainAccountCategory =GetMainCategory(glAccount),
 
             };
@@ -36,7 +34,6 @@ namespace CBA.Logic
         {
             var gl = glAccount.AccountCode.ToString();
 
-            
             if (gl.StartsWith("1"))
             {
                 return MainAccountCategory.Asset;
@@ -66,6 +63,7 @@ namespace CBA.Logic
                 Name = customerAccount.AccountName,
                 Amount = amount,
                 Date = DateTime.Now,
+                AccountCode = Convert.ToInt64(customerAccount.AccountNumber),
                 TransactionType = transactionType,
                 MainAccountCategory = customerAccount.AccountType == AccountType.Loan
                     ? MainAccountCategory.Asset
@@ -80,16 +78,12 @@ namespace CBA.Logic
             var values = _db.GetAllLogs();
             return values;
         }
-        public List<TransactionLog> GetDebitLogs()
+        public IEnumerable<TransactionLog> GetLogsByPeriod(string startDate, string endDate)
         {
-            var values = _db.GetDebitLogs();
+            var values = _db.GetLogsByPeriod(startDate, endDate).ToList();
             return values;
         }
-        public List<TransactionLog> GetCreditLogs()
-        {
-            var values = _db.GetCreditLogs();
-            return values;
-        }
+        
 
     }
 }

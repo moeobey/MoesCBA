@@ -44,7 +44,7 @@ else
                         <td>@account.AccountCode</td>
                         <td>@account.GlCategory.Name</td>
                         <td>@account.Branch.Name</td>
-                        <td>@account.Balance</td>
+                        <td>@Html.DisplayFor(a=>account.Balance)</td>
 
                         <td>
                             <button data-customer-id="@account.Id" class="btn-link js-delete">Delete</button>

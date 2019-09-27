@@ -46,35 +46,37 @@ namespace CBA.Logic
         public void SaveLoanInterestAccrued()
         {
             var loanGl = _glAccContext.Get(_configContext.GetLoanConfig().InterestIncomeGlId);
-            var loanAcc = _loanAccContext.GetAllLoans();
+            var loanAcc = _loanAccContext.GetAllUnpaidLoans();
             if (loanAcc != null)
             {
                 foreach (var account in loanAcc)
                 {
                     var customerLoanAccount = _customerAccContext.GetByAccountNumber(account.AccountNumber);
-                    //compute interest
-                    _customerAccContext.DebitCustomer(account.CustomerAccount, account.InterestPayable);
-                    _glPostContext.CreditGlAccount(loanGl, account.InterestPayable);
-                    //log transaction at EodLog table ...
+
+                    if (account.DurationInMonths * 30 != account.DayCount) //check if loan duration is over
+                    {
+                        //compute interest
+                        _customerAccContext.DebitCustomer(account.CustomerAccount, account.InterestPayable);
+                        _glPostContext.CreditGlAccount(loanGl, account.InterestPayable);
+                        //reduce loan interest remaining
+                        account.InterestRemaining -= account.InterestPayable;
 
 
-                    //reduce loan interest remaining
-                    account.InterestRemaining -= account.InterestPayable;
+                        //compute loan repayment
+                        _customerAccContext.DebitCustomer(account.CustomerAccount, account.LoanPayable);
+                        _customerAccContext.CreditCustomer(customerLoanAccount, account.LoanPayable);
+                        //reduce loan amount remaining
+                        account.LoanAmountRemaining -= account.LoanPayable;
 
+                    }
+
+                    if (account.DurationInMonths * 30 == account.DayCount)
+                        account.IsLoanPaymentComplete = true;
                     
+                    //increase day count if loan is not repaid
+                    if (account.DurationInMonths * 30 != account.DayCount)
+                        account.DayCount++;
 
-                    //compute loan repayment
-                    _customerAccContext.DebitCustomer(account.CustomerAccount, account.LoanPayable);
-                    _customerAccContext.CreditCustomer(customerLoanAccount, account.LoanPayable);
-
-                    //log transaction at EodLog table ...
-                   
-
-                    //reducing loan amount remaining
-                    account.LoanAmountRemaining -= account.LoanPayable;
-
-                    //increase day count
-                    account.DayCount++;
                     _loanAccContext.Update(account);
                 }
             }
@@ -103,15 +105,17 @@ namespace CBA.Logic
                         {
                             monthlyInterestRemaining = customerAccount.Balance * (currentConfig.CInterestRate / 100) *
                                                        (daysLeftInMonth / (decimal) daysInMonth[presentMonth - 1]);
-                            interestPayable = monthlyInterestRemaining / daysLeftInMonth;
+                            if (daysLeftInMonth != 0)//to avoid divide by 0 error
+                            {
+                                interestPayable = monthlyInterestRemaining / daysLeftInMonth;
+
+                            }
                             //increment customer Interest accrued and disburse if its month end
                             customerAccount.Interest += interestPayable;
 
                             //credit the interest payable gl (it will be recorded at the of the month) and debit interest expense account
                             _glPostContext.DebitGlAccount(currentConfig.InterestExpenseGl, interestPayable);
                             _glPostContext.CreditGlAccount(currentConfig.InterestPayableGl, interestPayable);
-                            //log transaction...
-
                         }
                     }
                     else
@@ -121,15 +125,16 @@ namespace CBA.Logic
                             //for Savings account
                             monthlyInterestRemaining = customerAccount.Balance * (savingsConfig.CInterestRate / 100) *
                                                        (daysLeftInMonth / (decimal)daysInMonth[presentMonth - 1]);
-                            interestPayable = monthlyInterestRemaining / daysLeftInMonth;
+                            if (daysLeftInMonth != 0)//to avoid divide by 0 error
+                            {
+                                interestPayable = monthlyInterestRemaining / daysLeftInMonth;
+                            }
                             //increment customer Interest accrued and disburse if its month end
                             customerAccount.Interest += interestPayable;
 
                             //credit the interest payable gl for record purpose and debit interest expense account
                             _glPostContext.DebitGlAccount(savingsConfig.InterestExpenseGl, interestPayable);
                             _glPostContext.CreditGlAccount(savingsConfig.InterestPayableGl, interestPayable);
-
-                            //log transaction...
                         }
                     }
                     _customerAccContext.Update(customerAccount);
@@ -140,18 +145,12 @@ namespace CBA.Logic
                     foreach (var customerAccount in customerAccounts)
                     {
                         _customerAccContext.CreditCustomer(customerAccount, customerAccount.Interest);
-                        if (customerAccount.AccountType == AccountType.Current)
-                        {
-                            _glPostContext.DebitGlAccount(currentConfig.InterestPayableGl, customerAccount.Interest);
-                        }
-                        else
-                        {
-                            _glPostContext.DebitGlAccount(savingsConfig.InterestPayableGl, customerAccount.Interest);
-                        }
+                        _glPostContext.DebitGlAccount(
+                            customerAccount.AccountType == AccountType.Current
+                                ? currentConfig.InterestPayableGl
+                                : savingsConfig.InterestPayableGl, customerAccount.Interest);
                         //reset customers interest accrued;
                         customerAccount.Interest = 0;
-
-                        //log transaction ...
                         _customerAccContext.Update(customerAccount);
                     }
                 }

@@ -46,13 +46,13 @@ else
                     <td>@post.Amount</td>
                     <td>@post.GlAccountToCredit.Name</td>
                     <td>@post.GlAccountToCredit.AccountCode</td>
-                    <td>@post.Amount</td>
+                    <td>@Html.DisplayFor(a => post.Amount)</td>
                     <td>@post.Narration</td>
                     <td>@post.PostedAt</td>
-                    
-                        <td>@Html.ActionLink("View", "Details", "GlPosts", new { id = post.Id }, null)</td>
 
-                    
+                    <td>@Html.ActionLink("View", "Details", "GlPosts", new { id = post.Id }, null)</td>
+
+
                 </tr>
 
             }

@@ -1,63 +1,118 @@
 ﻿@using CBA.Core.Implementation
-@model CBA.Core.ViewModels.TrialBalanceViewModel
+@model IEnumerable<CBA.Core.ViewModels.TrialBalanceViewModel>
 @{
-    ViewBag.Title = "TrialBalance";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="text-bold text-center">Trial Balance</h1>
-<h2 class="badge-dark">Assets</h2></>
-<table class="table table-borderless table-dark table-hover">
-    <div class="col-md-12">
-        <thead>
-        <tr>
-            <th class="col-md-5">Account</th>
-            <th class="col-md-3">Account Type</th>
-            <th class="col-md-2">Debit (&#8358) </th>
-            <th class="col-md-2">Credit (&#8358) </th>
-           
-        </tr>
-        </thead>
-    </div>
 
-    <div class="row">
-        <tbody>
-            <div class="col-md-4">
-                @foreach (var transaction in Model.TransactionLogs)
-                {
-                <tr>
-                    <td>@transaction.Name</td>
-                    <td>@transaction.MainAccountCategory</td>
-                    @if (transaction.TransactionType == TransactionType.Debit)
-                    {
-                        <td>@transaction.Amount</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-                    @if (transaction.TransactionType == TransactionType.Credit)
-                    {
-                        <td>@transaction.Amount</td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-                </tr>
-                }
-                <tr>
-                    <td><b>Total</b></td>
-                    <td></td>
-                    <td>@Model.DebitTotal</td>
-                    <td>@Model.CreditTotal</td>
-                </tr>
 
+@if (ViewBag.StartDate != null && ViewBag.EndDate != null)
+{
+    if (Convert.ToDateTime(ViewBag.StartDate) > Convert.ToDateTime(ViewBag.EndDate))
+    {
+        <div class="alert alert-danger">
+            Start Date is Greater Than End Date
+        </div>
+    }
+    
+        if (ViewBag.StartDate == ViewBag.EndDate && Convert.ToDateTime(ViewBag.StartDate) == DateTime.Today)
+        {
+            <div class="text-center headline">
+                <h3>Trial Balance For Today Transactions</h3>
             </div>
-        </tbody>
+        }
+        else
+        {
+            <div class="text-center headline">
+                <h3>Trial Balance From @ViewBag.StartDate to @ViewBag.EndDate</h3>
+            </div>
+        }
+    
 
-        <tbody>
+}
+else
+{
+    <div class="text-center headline">
+        <h3>Trial Balance From Inception</h3>
+    </div>
+}
+<h1 class="text-bold text-center margin-bottom">Trial Balance</h1>
+@using (Html.BeginForm("TrialBalance", "FinancialReport"))
+{
+    <div class="margin-bottom  date-selection row">
+    
+               
+        <div class="form-group col-md-4 col-md-offset-1">
+            @*<label>Date:</label>*@
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input  name="startDate" type="date" class="form-control pull-right ">
+                           
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            @*<label>Date:</label>*@
+            <div class="input-group date">
+                <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                </div>
+                <input name="EndDate" type="date" class="form-control pull-right ">
+                           
+            </div>
+        </div>
+        <div class="form-group col-md-2">
+            <button class="btn color_white bg_orange">Get</button>
+        </div>
+      
+        @*<input name="startDate" type="date" , class=" datepicker datepicker-inline form-text" height="20" placeholder="start date" required/>
+        <input name="EndDate" type="date" , class="datepicker datepicker-inline" placeholder="end date" required/>*@
     </div>
 
-   
+}
+<table class="table table-borderless table-dark table-hover ">
+
+    <thead>
+    <tr class="bg_cyan table_head">
+
+        <th class="col-md-5 table_row">Account</th>
+        <th class="col-md-3 table_row">Account Type</th>
+        <th class="col-md-2 table_row">Debit (&#8358) </th>
+        <th class="col-md-2 table_row">Credit (&#8358) </th>
+
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var transaction in Model)
+        {
+            <tr>
+                <td>@transaction.AccountName</td>
+                <td>@transaction.MainCategory</td>
+                @if (transaction.DebitTotal == 0)
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>@Math.Round(transaction.DebitTotal,2)</td>
+                }
+                @if (transaction.CreditTotal == 0)
+                {
+                    <td></td>
+                }
+                else
+                {
+
+                    <td>@Math.Round(transaction.CreditTotal,2)</td>
+                }
+            </tr>
+        }
+        <tr class="bg_green">
+            <td><b>Total</b></td>
+            <td></td>
+            <td><b>@Math.Round(ViewBag.DebitTotal,2)</b></td>
+            <td><b>@Math.Round(ViewBag.CreditTotal,2)</b></td>
+        </tr>
+    </tbody>
 </table>

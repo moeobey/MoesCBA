@@ -9,9 +9,10 @@ namespace CBA.Core.ViewModels
 {
     public class TrialBalanceViewModel
     {
-      
-        public IEnumerable<TransactionLog> TransactionLogs { get; set; }
 
+        public MainAccountCategory MainCategory { get; set; }
+        public string AccountName { get; set; }
+        public  long AccountCode { get; set; }
         public decimal DebitTotal { get; set; }
         public decimal CreditTotal { get; set; }
 

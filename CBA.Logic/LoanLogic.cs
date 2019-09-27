@@ -16,6 +16,10 @@ namespace CBA.Logic
         {
             return _db.GetAllLoans();
         }
+        public IEnumerable<Loan> GetAllUnpaidLoans()
+        {
+            return _db.GetAllUnpaidLoans();
+        }
         public void Save(Loan loan)
         {
             _db.Add(loan);
@@ -25,6 +29,13 @@ namespace CBA.Logic
         {
             _db.Save(account);
         }
+
+        public Loan GetByCustomerId(int id)
+        {
+            return _db.GetByCustomerId(id);
+        }
+
+
 
     }
 }

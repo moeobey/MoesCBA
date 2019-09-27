@@ -1,0 +1,66 @@
+﻿@model CBA.Core.Implementation.Loan
+@{
+    ViewBag.Title = "Loan Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class=" pull-right">@Html.ActionLink("go to loan table", "Index", "Loan", new{@class="color_orange"})</div>
+<div></div>
+<div class="">
+    <table class="table cap details bg_whitish ">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr class="">
+                <td><b>account name</b><br /></td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr class="">
+                <td><b>Account Number</b></td>
+                <td>@Model.AccountNumber</td>
+            </tr>
+            <tr>
+                <td><b>Loan Amount Taken</b></td>
+                <td>@Math.Round(Model.LoanAmount, 2)</td>
+            </tr>
+            <tr>
+                <td><b>Interest</b></td>
+                <td>@Math.Round(Model.Interest, 2)</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Loan Amount Due </b><br />
+                    <small>Interest Included</small>
+                </td>
+                <td>@Math.Round(Model.LoanAmountRemaining + Model.InterestRemaining, 2)</td>
+
+            </tr>
+            <tr>
+                <td>
+                    <b>Loan Amount Repayment Daily</b><br />
+                    <small>Interest Included</small>
+                </td>
+                <td>@Math.Round(Model.LoanPayable + Model.InterestPayable, 2)</td>
+            </tr>
+
+
+            <tr>
+                <td><b>Duration</b></td>
+                <td>@Model.DurationInMonths Month(s)</td>
+            </tr>
+            <tr>
+                <td><b>Start Date </b></td>
+                <td>@Model.StartDate.ToLongDateString() </td>
+            </tr>
+            <tr class="p-b-40">
+                <td><b>End Date</b> </td>
+                <td>@Model.EndDate.ToLongDateString()</td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+
+</div>
