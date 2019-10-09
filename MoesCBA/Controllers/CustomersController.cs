@@ -57,7 +57,7 @@ namespace MoesCBA.Controllers
                         customerInDb.Gender = customer.Gender;
                         //customer.
                         _context.Update(customer);
-                        TempData["message"] = "Update Successful";
+                        TempData["Success"] = "Update Successful";
                         return RedirectToAction("Index");
                     }
 
@@ -66,7 +66,7 @@ namespace MoesCBA.Controllers
                         customer.CustomerId = _context.GenerateCustomerId();
                         customer.Date = DateTime.Now;
                         _context.Save(customer);
-                        TempData["message"] = "Customer Successfully Added";
+                        TempData["Success"] = "Customer Successfully Added";
 
                         return RedirectToAction("Index");
                     }
@@ -97,6 +97,11 @@ namespace MoesCBA.Controllers
                 return HttpNotFound();
             
             return View("CustomerForm", customer);
+        }
+        public ActionResult Details(int id)
+        {
+            var customer = _context.Get(id);
+            return View(customer);
         }
 
     }

@@ -4,13 +4,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success">
-        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
 
+<div class="row">
+    <div class="col-md-6">
+        <h1>
+            <b>
+                Gl Account
+            </b>
+        </h1>
     </div>
-}
+    <div class="option_span  col-md-offset-11 col-md-6 m-b-15">
+
+        @Html.ActionLink("  Add Account ", "New", "GlAccounts", null, new {@class = "fa fa-plus add_button bg_lightBlue m-b-10"})
+        <span><b></b></span>
+    </div>
+</div>
 
 @if (!Model.Any())
 {
@@ -23,8 +31,8 @@ else
     if (Session["Role"].ToString() == "Admin")
     {
 
-        <h2>GL Accounts</h2>
-        <table id="accounts" class="table table-bordered table-hover">
+
+        <table id="table" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Account Name</th>
@@ -40,14 +48,17 @@ else
                 @foreach (var account in Model)
                 {
                     <tr>
-                        <td>@Html.ActionLink(account.Name, "Edit", "GlAccounts", new { id = account.Id }, null)</td>
+                        <td>@account.Name</td>
                         <td>@account.AccountCode</td>
                         <td>@account.GlCategory.Name</td>
                         <td>@account.Branch.Name</td>
-                        <td>@Html.DisplayFor(a=>account.Balance)</td>
-
+                        <td>@Html.DisplayFor(a => account.Balance)</td>
                         <td>
-                            <button data-customer-id="@account.Id" class="btn-link js-delete">Delete</button>
+                            <div class="option_span pull-left">
+                                @Html.ActionLink(" ", "Edit", "GlAccounts", new { id = account.Id }, new { @class = "fa fa-pencil table_extra" })
+                                @Html.ActionLink(" ", "Details", "GlAccounts", new { id = account.Id }, new { @class = "fa fa-eye table_extra" })
+                                @Html.ActionLink(" ", "Delete", "GlAccounts", new { id = account.Id }, new { @class = "fa fa-trash table_extra" })
+                            </div>
                         </td>
                     </tr>
 
@@ -58,16 +69,5 @@ else
 
 
 }
-@section ViewSpecificJavascript{
-    <script>
-        $(document).ready(function() {
-            $("#accounts").DataTable();
-            setTimeout(function() {
-                    $(".alert-success").fadeOut(100, null);
-                },
-                3000);
-        });
 
-    </script>
-}
 

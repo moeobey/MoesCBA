@@ -1,68 +1,70 @@
-﻿@model IEnumerable<CBA.Core.Implementation.User>
+﻿@using WebHelpers.Mvc5
+@model IEnumerable<CBA.Core.Implementation.User>
 @{
-    ViewBag.Title = "Index";
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (TempData["message"] != null){
-        <div class="alert alert-success">
-            <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+<div class="row">
+    <div class="col-md-6">
+        <h1>
+            <b>
+                Users
+            </b>
+        </h1>
+    </div>
+    <div class="option_span  col-md-offset-11 col-md-6 m-b-15">
 
-        </div>
-    }
-    @if (!Model.Any())
-    {
-        <p>We don't have any Users yet</p>
-    }
-    else
-    {
-        if (Session["Role"].ToString() == "Admin")
-        {
-            <h2>Users</h2>
-            <table id="users" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>FullName</th>
-                        <th>Branch</th>
-                        <th>Email</th>
-                        <th>Username</th>
+        @Html.ActionLink("  Add User", "New", "Users", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
+    </div>
+</div> 
+@if (!Model.Any())
+{
+    <p>We don't have any Users yet</p>
+}
+else
+{
+  
+    <table id="table" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Branch</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>User Role</th>
 
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var user in Model)
-                    {
-                        <tr>
-                            <td>@Html.ActionLink(user.FullName, "Edit", "Users", new { id = user.Id }, null)</td>
-                            <td>@user.Branch.Name</td>
-                            <td>@user.Email</td>
-                            <td>@user.Username</td>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.FullName</td>
+                    <td>@user.Branch.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Username</td>
+                    <td>@user.Role</td>
+                    @*<li class=">*@
 
-                            <td>
-                                <button data-customer-id="@user.Id" class="btn-link js-delete">Delete</button>
-                                @if (user.IsAssigned == false && user.Role == "Teller")
-                                {
-                                    <button>@Html.ActionLink("Assign Till", "New", "Tellers", new { id = user.Id }, null)</button>
-                                }
-                            </td>
-                        </tr>
+                    @*Html.ActionLink(user.FullName, "Edit", "Users", new { id = user.Id }, null)*@
+                    <td>
+                        <div class="option_span pull-left">
+                            @Html.ActionLink(" ", "Edit", "Users", new { id = user.Id }, new { @class = "fa fa-pencil table_extra" })
+                            @Html.ActionLink(" ", "Details", "Users", new { id = user.Id }, new { @class = "fa fa-eye table_extra" })
+                            @Html.ActionLink(" ", "Edit", "Users", new { id = user.Id }, new { @class = "fa fa-trash table_extra" })
 
-                    }
-                </tbody>
-            </table>
-        }
-    }
-    @section ViewSpecificJavascript{
-        <script>
-            $(document).ready(function () {
-                $("#users").DataTable();
-                setTimeout(function () {
-                    $(".alert-success").fadeOut(100, null);
-                }, 3000);
-            });
+                        </div>
+                        @if (user.IsAssigned == false && user.Role == "Teller")
+                        {
+                            @Html.ActionLink("Assign Till", "New", "Tellers", new { id = user.Id, }, new { @class = "table_extra" })
+                        }
+                    </td>
+                </tr>
 
-        </script>
+            }
+        </tbody>
+    </table>
+}
 
-
-    }

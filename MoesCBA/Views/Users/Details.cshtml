@@ -1,0 +1,68 @@
+﻿@model CBA.Core.Implementation.User
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class=" pull-right ">@Html.ActionLink("go to User table", "Index", "User", new{@class="table_extra"})</div>
+<div class=" pull-right">@Html.ActionLink("Edit", "Edit", "Users",new{@Model.Id}, new{@class="color_orange table_extra"})</div>
+<div class="">
+<table class="table cap details  ">
+    <thead>
+
+    </thead>
+    <tbody>
+    <tr class="">
+        <td><b>Name</b></td>
+        <td>@Model.FullName</td>
+    </tr>
+    <tr class="">
+        <td><b>User Name</b></td>
+        <td>@Model.Username</td>
+    </tr>
+    <tr>
+        <td><b>Phone Number</b></td>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+    <tr>
+        <td><b>Role</b></td>
+        <td>@Model.Role</td>
+    </tr>
+    <tr>
+        <td>
+            <b>Branch </b>
+           
+        </td>
+        <td>@Model.Branch.Name</td>
+
+    </tr>
+    <tr>
+        <td>
+            <b>Email </b>
+
+        </td>
+        <td>@Model.Email</td>
+    </tr>
+
+
+    <tr>
+    
+        <td>
+            <b>Created At </b>
+           
+        </td>
+        <td>@Model.Date</td>
+    </tr>
+    <tr>
+    
+           <td>
+               <b>Has Till Account </b>
+           
+           </td>
+           <td>@Model.IsAssigned</td>
+       </tr>
+
+    </tbody>
+</table>
+
+    </div>

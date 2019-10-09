@@ -15,13 +15,65 @@ namespace MoesCBA.Controllers
         {
         
         private readonly UserLogic _context = new UserLogic();
-        // GET: Users
+        private readonly CustomerAccountLogic _customerAccContext  = new CustomerAccountLogic();
+        private readonly TransactionReportLogic _transactionReportContext  = new TransactionReportLogic();
+        private readonly GlAccountLogic _glAccountContext  = new GlAccountLogic();
+        private readonly LoanLogic _loanContext  = new LoanLogic();
+        private readonly TellerPostLogic _tellerContext = new TellerPostLogic();
         public ActionResult AdminDashboard()
         {
-            return View("AdminDashboard");
+            var numberOfCustomerAccounts = 0;
+            var numberOfGlAccounts = 0;
+            var numberOfLoans = 0;
+            decimal profit = 0;
+
+            if (_customerAccContext.GetAllCustomersAccounts() != null)
+            {
+                 numberOfCustomerAccounts = _customerAccContext.GetAllCustomersAccounts().Count();
+            }
+
+            if (_glAccountContext.GetAll() != null)
+            {
+                numberOfGlAccounts = _glAccountContext.GetAll().Count();
+            }
+            if (_loanContext.GetAllLoans() != null)
+            {
+                numberOfLoans = _loanContext.GetAllLoans().Count();
+            }
+
+            if (_transactionReportContext.GetProfitOrLoss() != 0)
+            {
+                 profit = _transactionReportContext.GetProfitOrLoss();
+            }
+            var viewModel = new AdminDashboardViewModel
+            {
+                NumberOfCustomerAccounts = numberOfCustomerAccounts,
+                Profit = profit,
+                NumberOfGlAccounts = numberOfGlAccounts,
+                NumberOfLoans = numberOfLoans,
+            };
+            return View("AdminDashboard", viewModel);
         } public ActionResult TellerDashboard()
         {
-            return View("TellerDashboard");
+            var numberOfTellerPosting = 0;
+            decimal tillBalance = 0;
+
+            if (_tellerContext.GetAllPosts(Convert.ToInt32(Session["Id"])) != null)
+            {
+                numberOfTellerPosting = _tellerContext.GetAllPosts(Convert.ToInt32(Session["Id"])).Count();
+            }
+
+            if (_tellerContext.GetTillBalance(Convert.ToInt32(Session["Id"])) != 0)
+            {
+                tillBalance = _tellerContext.GetTillBalance(Convert.ToInt32(Session["Id"]));
+            }
+
+            var viewModel = new TellerDashboardViewModel
+            {
+                NumberOfPosting = numberOfTellerPosting,
+                TillAccountBalance =  tillBalance,
+            };
+            return View("TellerDashboard", viewModel );
         }
         public ActionResult Index()
         {
@@ -64,6 +116,7 @@ namespace MoesCBA.Controllers
                     user.Password = Crypto.Hash(_context.GenerateRandomPassword());
                     user.Date = DateTime.Now;
                     _context.Save(user);
+                    TempData["Success"] = $"{user.Role} Added changed";
                     _context.SendEmail(user.Email, randomPass ,user.FullName);
                     return RedirectToAction("Index");
                 }
@@ -101,7 +154,7 @@ namespace MoesCBA.Controllers
                         userInDb.Password = Crypto.Hash(newPassword);
                         userInDb.PasswordStatus = true;
                         _context.Update(user);
-                        TempData["message"] = "password successfully changed";
+                        TempData["Success"] = "password successfully changed";
                         return RedirectToAction("Index", "Users");
                     }
                     else
@@ -152,7 +205,7 @@ namespace MoesCBA.Controllers
                     userInDb.PhoneNumber = user.PhoneNumber;
                     _context.Update(user);
 
-                    TempData["message"] = "Update Successful";
+                    TempData["Success"] = "Update Successful";
                     return RedirectToAction("Index");
             }
             if (!emailIsUnique)
@@ -166,6 +219,12 @@ namespace MoesCBA.Controllers
                 Branches = _context.GetBranches().ToList()
             };
             return View("EditUserForm", viewModel);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var user = _context.GetCurrentUser(id);
+            return View(user);
         }
 
     }

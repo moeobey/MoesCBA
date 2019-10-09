@@ -1,0 +1,45 @@
+﻿@model CBA.Core.Implementation.Customer
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><b>Customer Details</b></h2>
+<div class=" pull-right ">@Html.ActionLink("Go to Customers table", "Index", "Customers",null, new{@class="table_extra"})</div>
+<div class="">
+    <table class="table cap">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr class="">
+                <td><b>Full Name</b></td>
+                <td>@Model.FullName</td>
+            </tr>
+            <tr>
+                <td><b>Address</b></td>
+                <td>@Model.Address</td>
+            </tr>
+        <tr>
+            <td><b>Email</b></td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td><b>Gender</b></td>
+            <td>@Model.Gender</td>
+        </tr>
+        <tr>
+            <td><b>Phone Number</b></td>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <td><b>Address</b></td>
+            <td>@Model.Address</td>
+        </tr>
+        <tr>
+            <td><b>Created At</b></td>
+            <td>@Model.Date</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>

@@ -3,8 +3,13 @@
     ViewBag.Title = "CurrentAccountTypeForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>CurrentAccountTypeForm</h2>
+<div class="col-md-12 m-b-10">
+    <h1>
+        <b>
+           Current Account Configurations
+        </b>
+    </h1>
+</div>
 @if (TempData["message"] != null)
 {
     <div class="alert alert-success">
@@ -17,53 +22,124 @@
 {
 <div class=" form-signin">
 
-
     <div class="form-group">
-        @Html.LabelFor(m => m.CInterestRate)
-        @Html.TextBoxFor(m => m.CInterestRate, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
-        @Html.ValidationMessageFor(m => m.CInterestRate)
-    </div>
+      <label>Credit Interest Rate</label>
 
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.MinBalance)
-        @Html.TextBoxFor(m => m.MinBalance, new { @class = "form-control", required = "required", type = "number", min = "100.00", step = "any" })
-        @Html.ValidationMessageFor(m => m.CInterestRate)
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-exchange width_30 "></i>
+            </div>
+            @Html.TextBoxFor(m => m.CInterestRate, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
+            @Html.ValidationMessageFor(m => m.CInterestRate)
+        </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.COT)
-        @Html.TextBoxFor(m => m.COT, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
-        @Html.ValidationMessageFor(m => m.COT)
+        <div class="row">
+            <div class="col-md-6 mb-3 ">
+                <label>Mininmum Balance</label>
+
+                <div class="input-group shadow_p">
+                    <div class="input-group-addon borderless_right  ">
+                        <i class="fa fa-money width_30 "></i>
+                    </div>
+                    @Html.TextBoxFor(m => m.MinBalance, new {@class = "form-control", required = "required", type = "number", min = "100.00", step = "any"})
+                    @Html.ValidationMessageFor(m => m.CInterestRate)
+                </div>
+
+             
+            </div>
+            <div class="col-md-6 mb-3 ">
+                @Html.LabelFor(m => m.COT)
+
+
+                <div class="input-group shadow_p">
+                    <div class="input-group-addon borderless_right  ">
+                        <i class="fa fa-money width_30 "></i>
+                    </div>
+                    @Html.TextBoxFor(m => m.COT, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
+                    @Html.ValidationMessageFor(m => m.COT)
+                </div>
+              
+            </div>
+        </div>
     </div>
+
     @if (Model.Id != 0) //To Show Current Interest and COT Income Gl Selected
     {
         <div class="form-group">
-            <label>Current Interest GL Account:</label>
-            @Html.DisplayTextFor(m => m.InterestExpenseGl.Name)
+            <div class="row">
+                <div class="col-md-6 mb-3 ">
+                    <label>Current Interest GL Account:</label>
+
+                    <div class="input-group shadow_p">
+                        <div class="input-group-addon borderless_right ">
+                            <i class="fa fa-credit-card width_30 "></i>
+                        </div>
+                        <div class="form_details ">
+                            @Html.DisplayTextFor(m => m.InterestExpenseGl.Name)
+
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="col-md-6 mb-3 ">
+                    <label>Current COT Income GL Account:</label>
+
+
+                    <div class="input-group shadow_p">
+                        <div class="input-group-addon borderless_right ">
+                            <i class="fa fa-credit-card width_30 "></i>
+                        </div>
+                        <div class="form_details ">
+                            @Html.DisplayTextFor(m => m.COTIncomeGl.Name)
+
+
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label>Current COT Income GL Account:</label>
-            @Html.DisplayTextFor(m => m.COTIncomeGl.Name)
-        </div>
+       
+       
     }
     <div class="form-group">
+        <div class="row">
+            <div class="col-md-6 mb-3 ">
+                <label>Interest Expense Gls</label>
 
-        @Html.LabelFor(m => m.InterestExpenseGls, new { })
-        @Html.DropDownListFor(m => m.InterestExpenseGlId, new SelectList(Model.InterestExpenseGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.InterestExpenseGls)
+                <div class="input-group shadow_p">
+                    <div class="input-group-addon borderless_right  ">
+                        <i class="fa fa-bars width_30 "></i>
+                    </div>
+                    @Html.DropDownListFor(m => m.InterestExpenseGlId, new SelectList(Model.InterestExpenseGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.InterestExpenseGls)
+                </div>
 
+            </div>
+            <div class="col-md-6 mb-3 ">
+                <label>COT Interest GLs</label>
+
+                <div class="input-group shadow_p">
+                    <div class="input-group-addon borderless_right  ">
+                        <i class="fa fa-bars width_30 "></i>
+                    </div>
+                    @Html.DropDownListFor(m => m.COTIncomeGlId, new SelectList(Model.COTIncomeGls, "id", "Name"), "Select Income  GL ", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.COTIncomeGls)
+                </div>
+            </div>
+        </div>
     </div>
     <div class="form-group">
+        <label>Interest Payable GLs</label>
 
-        @Html.LabelFor(m => m.COTIncomeGls, new { })
-        @Html.DropDownListFor(m => m.COTIncomeGlId, new SelectList(Model.COTIncomeGls, "id", "Name"), "Select Income  GL ", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.COTIncomeGls)
-    </div>
-    <div class="form-group">
-
-        @Html.LabelFor(m => m.InterestPayableGls, new { })
-        @Html.DropDownListFor(m => m.InterestPayableGlId, new SelectList(Model.InterestPayableGls, "id", "Name"), "Select Interest Payable GL ", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.InterestPayableGls)
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-bars width_30 "></i>
+            </div>
+            @Html.DropDownListFor(m => m.InterestPayableGlId, new SelectList(Model.InterestPayableGls, "id", "Name"), "Select Interest Payable GL ", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.InterestPayableGls)
+        </div>
 
     </div>
 

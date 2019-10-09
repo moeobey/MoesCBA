@@ -5,21 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        <p>@TempData["Success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-    </div>
-}
 @if (TempData["Error"] != null)
 {
-    <div class="alert alert-success">
+    <div class="alert alert-danger">
         <p>@TempData["Error"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
     </div>
 
 }
 
-<h2>Index</h2>
 @if (Model == null)
 {
     <div>Setup Bank Configurations</div>
@@ -28,11 +21,11 @@ else
 {
     if (Model.IsBusinessOpen)
     {
-        <div>Business Is Open</div>
+        <div class="business_config">Business Is Open</div>
     }
     if (!Model.IsBusinessOpen)
     {
-        <div>Business Is Closed</div>
+        <div class="business_config">Business Is Closed</div>
     }
 }
 

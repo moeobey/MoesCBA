@@ -47,17 +47,19 @@ namespace MoesCBA.Controllers
             if (ModelState.IsValid)
             {
                 var accountInDb = _context.Get(account.Id);
-                if (id== 0 && account.AccountType !=0)
+                if (id== 0 && account.AccountType !=0) //add account
                 {
                     var customerId = Request.Form["customerId"];
+                    var customerName = _customerContext.GetByCustomerId(customerId).FullName;
                     account.CustomerId = customerId;
                     //account.AccountNumber = "111111";
                     account.CreatedAt = DateTime.Now;
+                    account.AccountName = customerName;
                     account.IsOpen = true;
 
                     account.AccountNumber = _context.GenerateAccountNumber(customerId, account.AccountType.ToString());
                     _context.Save(account);
-                    TempData["message"] = "Account Created Successfully";
+                    TempData["Success"] = "Account Created Successfully";
                     return RedirectToAction("Index");
                 }
                 if (account.Id != 0)   //update account
@@ -66,7 +68,7 @@ namespace MoesCBA.Controllers
                     accountInDb.BranchId = account.BranchId;
                     accountInDb.Lien = account.Lien;
                     _context.Update(account);
-                    TempData["message"] = "Update Successful";
+                    TempData["Success"] = "Update Successful";
                     return RedirectToAction("Index");
                 }
 
@@ -137,6 +139,11 @@ namespace MoesCBA.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
 
 
+        }
+        public ActionResult Details(int id)
+        {
+            var account = _context.Get(id);
+            return View(account);
         }
     }
 }

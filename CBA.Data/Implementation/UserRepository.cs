@@ -49,6 +49,13 @@ namespace CBA.Data.Implementation
             return user;
 
         }
+        public User GetCurrentUser(int id)
+        {
+            var user = _context.User.Include(c=>c.Branch).FirstOrDefault(u => u.Id == id);
+            return user;
+
+        }
+        
 
     }
 }

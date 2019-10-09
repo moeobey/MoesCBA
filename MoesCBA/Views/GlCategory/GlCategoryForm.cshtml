@@ -4,42 +4,75 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+   
 @using (Html.BeginForm("Save", "GlCategory"))
 {
 
 <div class=" form-signin">
     @if (Model.Id == 0)
     {
-        <div class="text-center  mb-4">
-            <h1>Add GL Category</h1>
+        <div class="col-md-12 m-b-10">
+            <h1>
+                <b>
+                    Add GL Category
+                </b>
+            </h1>
         </div>
+
     }
     @if (Model.Id != 0)
     {
-        <div class="text-center  mb-4">
-            <h1>Edit GL Account Category</h1>
+        <div class="col-md-12 m-b-10">
+            <h1>
+                <b>
+                    Edit GL Category
+                </b>
+            </h1>
         </div>
+      
     }
-
-    <div class="form-group">
+    <div class="form-group ">
         @Html.LabelFor(m => m.Name)
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })
-        @Html.ValidationMessageFor(m => m.Name)
+
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-circle width_30 "></i>
+            </div>
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" , placeholder="GL Category Name"})
+            @Html.ValidationMessageFor(m => m.Name)
+        </div>
     </div>
     
   
-        <div class="form-group">
-
-            @Html.LabelFor(m => m.MainAccountCategory)
+  
+    <div class="form-group">
+        <label>Main Account Category</label>
             @if (Model.Id == 0)
             {
-            @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Account Category", new { @class = "form-control", required = "required" })
-                @Html.ValidationMessage("mainGl", new {@class ="user-validation-error"})
+                <div class="form-group ">
+
+                    <div class="input-group shadow_p">
+                        <div class="input-group-addon borderless_right  ">
+                            <i class="fa fa-bars width_30 "></i>
+                        </div>
+                        @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Account Category", new { @class = "form-control", required = "required" })
+                        @Html.ValidationMessage("mainGl", new {@class ="user-validation-error"})
+                    </div>
+                </div>
+           
             }
             @if (Model.Id != 0)
             {
-                @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Category", new { @class = "form-control", required = "required", disabled = "true"})
+                <div class="form-group ">
+
+                    <div class="input-group shadow_p">
+                        <div class="input-group-addon borderless_right  ">
+                            <i class="fa fa-bars width_30 "></i>
+                        </div>
+                        @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Category", new { @class = "form-control", required = "required", disabled = "true"})
+
+                    </div>
+                </div>
 
                
             }
@@ -47,16 +80,21 @@
  
   
     <div class="form-group">
-        @Html.LabelFor(m => m.Description)
+        <div class="form-group ">
+            @Html.LabelFor(m => m.Description)
 
-        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", required = "required" })
-        @Html.ValidationMessageFor(m => m.Description)
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-ellipsis-h width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.Description, new {@class = "form-control", required = "required", placeholder="Enter Description"})
+                @Html.ValidationMessageFor(m => m.Description)
+            </div>
+        </div>
+
+       
     </div>
-
-
-
-
-
 
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Id)

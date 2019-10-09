@@ -19,37 +19,49 @@
 
 
         <div class="form-group">
-            @Html.LabelFor(m => m.DInterestRate)
-            @Html.TextBoxFor(m => m.DInterestRate, new { @class = "form-control", required = "required", type = "number", min = "0", step ="any" })
-            @Html.ValidationMessageFor(m => m.DInterestRate)
+            <label>Debit Interest Rate</label>
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-exchange width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.DInterestRate, new {@class = "form-control", required = "required", type = "number", min = "0", step = "any"})
+                @Html.ValidationMessageFor(m => m.DInterestRate)
+            </div>
+          
         </div>
 
-        @if (Model.Id == 0)
-        {
-            <div class="form-group">
-
-                @Html.LabelFor(m => m.InterestIncomeGls, new { })
-                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control", required="" })
-                @Html.ValidationMessageFor(m => m.InterestIncomeGls)
-
-            </div>
-        }
         @if (Model.Id != 0)
         {
             <div class="form-group">
-                <label>Current Interest Income GL Account:</label>
-                @Html.DisplayTextFor(m => m.InterestIncomeGl.Name)
+                <label>Current Interest Income GL Account</label>
+
+                <div class="input-group shadow_p">
+                    <div class="input-group-addon borderless_right ">
+                        <i class="fa fa-credit-card width_30 "></i>
+                    </div>
+                    <div class="form_details ">
+                        @Html.DisplayTextFor(m => m.InterestIncomeGl.Name)
+
+                    </div>
+                </div>
 
             </div>
-            <div class="form-group">
-
-                @Html.LabelFor(m => m.InterestIncomeGls, new { })
-                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Change Interest Expense GL ", new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.InterestIncomeGls)
-
-            </div>
+           
         }
+        <div class="form-group">
+            <label>Interest Income Gls</label>
 
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-bars width_30 "></i>
+                </div>
+                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control", required="" })
+                @Html.ValidationMessageFor(m => m.InterestIncomeGls)
+            </div>
+              
+
+        </div>
         @Html.AntiForgeryToken()
         <button class="btn btn-primary">Set Configurations</button>
         @Html.HiddenFor(m => m.Id)

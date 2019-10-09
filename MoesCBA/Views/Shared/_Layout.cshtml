@@ -28,12 +28,12 @@
 
         <div class="content-wrapper">
             <section class="content-header">
-                <h1>
-                    <b>
-                        @ViewBag.Title
-                        <small>@ViewBag.Description</small>
-                    </b>
-                </h1>
+                @if (TempData["Success"] != null){
+                            <div class="alert alert-success">
+                                <p>@TempData["Success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+
+                            </div>
+                        }
             </section>
 
             <section class="content">
@@ -41,7 +41,6 @@
             </section>
         </div>
 
-        @Html.Partial("_ControlSidebar")
     </div>
 
     <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>

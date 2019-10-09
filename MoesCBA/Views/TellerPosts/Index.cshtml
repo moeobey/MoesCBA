@@ -4,16 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        <p>@TempData["Success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
-    </div>
-
-}
 @if (!Model.Any())
 {
     <p>We don't have any Accounts yet</p>
@@ -21,7 +11,8 @@
 else
 {
    
-        <h2>Till Account Balance: @Math.Round(ViewBag.GlBalance,2)</h2>
+    <div class="top_info">Till Account Balance: @Math.Round(ViewBag.GlBalance, 2)</div>
+
         <table id="customersAccount" class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -38,7 +29,12 @@ else
                         <td>@Html.ActionLink(customersAccount.AccountName, "New", "TellerPosts", new { id = customersAccount.Id }, null)</td>
                         <td>@customersAccount.AccountNumber</td>
                         <td>@Html.DisplayFor(a=>customersAccount.Balance)</td>
-                        <td><button data-customer-id="@customersAccount.Id" class="btn-link js-delete">Select</button></td>
+                        <td>
+                            <div class="option_span pull-left">
+                                @Html.ActionLink(" Post", "New", "TellerPosts", new { id = customersAccount.Id }, new { @class = "fa fa-money table_extra" })
+
+                            </div>
+                        </td>
                     </tr>
 
                 }

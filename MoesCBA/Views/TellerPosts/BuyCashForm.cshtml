@@ -14,11 +14,18 @@
 
 @using (Html.BeginForm("Buy", "TellerPosts"))
 {
-    <h2>Gl Balance: @Math.Round(ViewBag.GlBalance,2)</h2>
+    <div class="top_info">Till Account Balance: @Math.Round(ViewBag.GlBalance, 2)</div>
+
     <div class=" form-signin">
-        <div class="form-group">
+
+        <div class="form-group ">
             <label for="amount">Amount</label>
-            <input type="number" name="amount" min="0" , step="any" class="form-control" required />
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-money width_30 "></i>
+                </div>
+                <input type="number" name="amount" min="0" , step="any", class="form-control" ,  placeholder="Enter Amount", required />
+            </div>
         </div>
         <div class="form-group">
             <button class="btn btn-primary">Save</button>

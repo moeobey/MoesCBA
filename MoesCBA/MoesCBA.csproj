@@ -295,6 +295,7 @@
     <Content Include="Content\fonts\JosefinSans\OFL.txt" />
     <Content Include="Content\fonts\source-sans-pro\OFL.txt" />
     <Content Include="Content\fonts\ubuntu\UFL.txt" />
+    <Content Include="Content\img\man.png" />
     <Content Include="Content\moesFont\font-awesome-4.7.0\css\font-awesome.css" />
     <Content Include="Content\moesFont\font-awesome-4.7.0\css\font-awesome.min.css" />
     <Content Include="Content\moesFont\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
@@ -615,6 +616,13 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Users\TellerDashboard.cshtml" />
     <Content Include="Views\Loan\Details.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Tellers\Details.cshtml" />
+    <Content Include="Views\GlCategory\Details.cshtml" />
+    <Content Include="Views\GlAccounts\Details.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\CustomersAccount\Details.cshtml" />
+    <Content Include="Views\GlPosts\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -709,7 +717,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Content\img\user.jpg" />
     <Content Include="Content\img\icheck\aero.png" />
     <Content Include="Content\img\icheck\aero@2x.png" />
     <Content Include="Content\img\icheck\blue.png" />
@@ -757,7 +764,6 @@
     <Content Include="Views\Error\InternalServerError.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_ControlSidebar.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_Sidebar.cshtml" />

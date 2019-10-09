@@ -53,6 +53,13 @@ namespace CBA.Logic
             var values = _db.GetAllWithBranch();
             return values;
         }
+        public User GetCurrentUser(int id)
+        {
+
+            var values = _db.GetCurrentUser(id);
+            return values;
+        }
+        
 
         public IEnumerable<Branch> GetBranches()
         {

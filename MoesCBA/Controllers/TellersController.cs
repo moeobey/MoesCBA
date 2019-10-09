@@ -56,7 +56,7 @@ namespace MoesCBA.Controllers
 
                 teller.UserId = userId;
                 _context.Save(teller);
-                TempData["message"] = "Till Account Assigned Successfully";
+                TempData["Success"] = "Till Account Assigned Successfully";
                 return RedirectToAction("Index");
             }
 
@@ -73,6 +73,11 @@ namespace MoesCBA.Controllers
             return View("TellerForm", selectedViewModel);
 
 
+        }
+        public ActionResult Details(int id)
+        {
+            var glAccount = _glAccountContext.GetGlAccount(id);
+            return View(glAccount);
         }
     }
 }

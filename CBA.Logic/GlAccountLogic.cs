@@ -115,6 +115,12 @@ namespace CBA.Logic
             var values = _db.GetAllUnassigned();
             return values;
         }
+        public GlAccount GetGlAccount(int id)
+        {
+            var values = _db.GetGlAccount(id);
+            return values;
+        }
+        
         public bool NameIsUnique(string name)
         {
             bool isUnique = false;

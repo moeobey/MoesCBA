@@ -5,15 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
 
-@if (TempData["success"] != null){
-    <div class="alert alert-success">
-        <p>@TempData["success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
+<div class="row">
+    <div class="col-md-6">
+        <h1>
+            <b>
+                GL Posting
+            </b>
+        </h1>
     </div>
-}
+    <div class="option_span  col-md-offset-11 col-md-6 m-b-15">
+
+        @Html.ActionLink("  New Post", "New", "GlPosts", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
+    </div>
+</div>
+
 @if (!Model.Any())
 {
     <p>We don't have any Users yet</p>
@@ -22,8 +29,7 @@ else
 {
     if (Session["Role"].ToString() == "Admin")
     {
-        <h2>Users</h2>  
-        <table id="users" class="table table-bordered table-hover">
+        <table id="table" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Debit Account Name</th>
@@ -43,14 +49,18 @@ else
                 <tr>
                     <td>@post.GlAccountToDebit.Name</td>
                     <td>@post.GlAccountToDebit.AccountCode</td>
-                    <td>@post.Amount</td>
+                    <td>@Html.DisplayFor(a => post.Amount)</td>
                     <td>@post.GlAccountToCredit.Name</td>
                     <td>@post.GlAccountToCredit.AccountCode</td>
                     <td>@Html.DisplayFor(a => post.Amount)</td>
                     <td>@post.Narration</td>
-                    <td>@post.PostedAt</td>
+                    <td>@post.PostedAt.ToShortDateString()</td>
 
-                    <td>@Html.ActionLink("View", "Details", "GlPosts", new { id = post.Id }, null)</td>
+                    <td>
+                        <div class="option_span pull-left">
+                            @Html.ActionLink(" ", "Details", "GlPosts", new { id = post.Id }, new { @class = "fa fa-eye table_extra" })
+                        </div>
+                    </td>
 
 
                 </tr>
@@ -59,18 +69,5 @@ else
             </tbody>
         </table>
     }
-}
-@section ViewSpecificJavascript{
-    <script>
-        $(document).ready(function () {
-            $("#users").DataTable();
-            setTimeout(function () {
-                $(".alert-danger").fadeOut(100, null);                            
-            }, 3000);
-        });
-
-    </script>
-
-
 }
 

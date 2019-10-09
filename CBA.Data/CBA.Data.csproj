@@ -399,6 +399,14 @@
     <Compile Include="Migrations\201909261319276_UpdateDecimalPrecisionForAccountConfig.Designer.cs">
       <DependentUpon>201909261319276_UpdateDecimalPrecisionForAccountConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910031246098_setPrecisionForLiens.cs" />
+    <Compile Include="Migrations\201910031246098_setPrecisionForLiens.Designer.cs">
+      <DependentUpon>201910031246098_setPrecisionForLiens.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910041854391_setMorePrecision.cs" />
+    <Compile Include="Migrations\201910041854391_setMorePrecision.Designer.cs">
+      <DependentUpon>201910041854391_setMorePrecision.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -662,6 +670,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909261319276_UpdateDecimalPrecisionForAccountConfig.resx">
       <DependentUpon>201909261319276_UpdateDecimalPrecisionForAccountConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910031246098_setPrecisionForLiens.resx">
+      <DependentUpon>201910031246098_setPrecisionForLiens.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910041854391_setMorePrecision.resx">
+      <DependentUpon>201910041854391_setMorePrecision.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

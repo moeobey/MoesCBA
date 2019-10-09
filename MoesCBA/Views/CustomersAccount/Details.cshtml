@@ -1,0 +1,57 @@
+﻿@model CBA.Core.Implementation.CustomerAccount
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><b>Customer Account Details</b></h2>
+<div class=" pull-right ">@Html.ActionLink("Go to Customers Account table", "Index", "CustomersAccount",null, new{@class="table_extra"})</div>
+<div class="">
+    <table class="table cap">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr class="">
+                <td><b>Account Name</b></td>
+                <td>@Model.AccountName</td>
+            </tr>
+            <tr>
+                <td><b>Account Type</b></td>
+                <td>@Model.AccountType</td>
+            </tr>
+            <tr>
+                <td><b>Account Number</b></td>
+                <td>@Model.AccountNumber</td>
+            </tr>
+            <tr>
+                <td><b>Lien</b></td>
+                <td>@Model.Lien</td>
+            </tr>
+
+            <tr>
+                <td><b>Account Balance</b></td>
+                <td>@Math.Round(Model.Balance, 2)</td>
+            </tr>
+          
+            @if (Model.IsOpen)
+            {
+
+                <tr>
+                    <td><b>Status</b></td>
+                    <td>Open</td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td><b>Status</b></td>
+                    <td>Closed</td>
+                </tr>
+            }
+            <tr>
+                <td><b>Created At</b></td>
+                <td>@Model.CreatedAt</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

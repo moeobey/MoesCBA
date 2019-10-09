@@ -4,7 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Loans</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h1>
+            <b>
+                Loans
+            </b>
+        </h1>
+    </div>
+    <div class="option_span  col-md-offset-11 col-md-6 m-b-15">
+
+        @Html.ActionLink("  Take Loan", "Index", "CustomersAccount", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
+    </div>
+</div>
+
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success">
@@ -22,7 +35,7 @@ else
 {
 
 
-    <table id="customersAccount" class="table table-bordered table-hover">
+    <table id="table" class="table table-bordered table-hover">
         <thead>
             <tr>
                 <th>Account Name</th>
@@ -45,7 +58,12 @@ else
                     <td>@Html.DisplayFor(a => loan.LoanAmount)</td>
                     <td>@Html.DisplayFor(a => loan.LoanAmountRemaining)</td>
                     <td>@loan.Narration</td>
-                    <td>@Html.ActionLink("View", "Details", "Loan", new{id = loan.CustomerAccountId}, null)</td>
+                    <td>
+                        <div class="option_span pull-left">
+                            @Html.ActionLink(" ", "Details", "Loan", new { id = loan.CustomerAccountId }, new { @class = "fa fa-eye table_extra" })
+                        </div>
+                    </td>
+
 
 
 
@@ -56,13 +74,3 @@ else
     </table>
 
 }
-@section ViewSpecificJavascript{
-    <script>
-        $(document).ready(function () {
-            $("#customersAccount").DataTable();
-        });
-
-    </script>
-}
-
-

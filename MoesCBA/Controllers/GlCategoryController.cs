@@ -36,7 +36,7 @@ namespace MoesCBA.Controllers
                 if (category.Id == 0 && category.MainAccountCategory != 0)
                 {
                     _context.Save(category);
-                    TempData["message"] = "Category Added Successfully";
+                    TempData["Success"] = "Category Added Successfully";
                     return RedirectToAction("Index");
                 }
                 if (category.Id != 0)   //update Category
@@ -45,7 +45,7 @@ namespace MoesCBA.Controllers
                         categoryInDb.Description = category.Description;
 
                         _context.Update(category);
-                        TempData["message"] = "Update Successful";
+                        TempData["Success"] = "Update Successful";
                     return RedirectToAction("Index");
                 }
 
@@ -69,6 +69,12 @@ namespace MoesCBA.Controllers
                 return HttpNotFound();
 
             return View("GlCategoryForm", category);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var category = _context.Get(id);
+            return View(category);
         }
     }
 }

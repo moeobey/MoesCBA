@@ -86,9 +86,9 @@ body {
   }
 }
 .content-wrapper {
-  min-height: 100%;
-  background-color: #ecf0f5;
-  z-index: 800;
+    min-height: 100%;
+    background-color: #EDF0F6;
+    z-index: 800;
 }
 .main-footer {
   background: #fff;
@@ -285,7 +285,7 @@ a:focus {
   transition: width 0.3s ease-in-out;
   display: block;
   float: left;
-  height: 50px;
+  height: 60px;
   font-size: 20px;
   line-height: 50px;
   text-align: center;
@@ -305,8 +305,9 @@ a:focus {
   color: #fff;
 }
 .content-header {
+    margin-top: 2px;
   position: relative;
-  padding: 15px 15px 0 15px;
+    height: 40px;
 }
 .content-header > h1 {
   margin: 0;
@@ -507,7 +508,7 @@ a:focus {
   padding: 0;
 }
 .sidebar-menu > li > a {
-  padding: 12px 5px 12px 15px;
+  padding: 15px 5px 15px 15px;
   display: block;
 }
 .sidebar-menu > li > a > .fa,
@@ -856,7 +857,7 @@ a:focus {
   color: #b8c7ce;
 }
 .control-sidebar-light {
-  color: #5e5e5e;
+  color: red;
 }
 .control-sidebar-light,
 .control-sidebar-light + .control-sidebar-bg {

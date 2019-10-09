@@ -42,7 +42,14 @@ namespace CBA.Data.Implementation
             return account;
 
         }
+        public GlAccount GetGlAccount(int id)
+        {
+            var account = _context.GlAccounts.Include(c=>c.GlCategory).Include(c=>c.Branch).FirstOrDefault(u => u.Id == id);
+            return account;
+
+        }
         
+
 
         public IEnumerable<GlAccount> GetAllExpenseAccount()
         {

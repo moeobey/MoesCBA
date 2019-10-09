@@ -24,6 +24,11 @@ namespace CBA.Data.Implementation
                 .Include(p => p.GlAccountToCredit)
                 .Include(p => p.GlAccountToDebit).ToList(); ;
         }
+        public  GlPost GetAllPosts(int id)
+        {
+            return _context.GlPost.Include(c => c.GlAccountToCredit).Include(c => c.GlAccountToDebit).Include(c=>c.User)
+                .FirstOrDefault(c => c.Id == id);
+        }
 
 
     }

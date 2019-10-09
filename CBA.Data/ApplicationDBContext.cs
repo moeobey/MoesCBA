@@ -23,7 +23,11 @@ namespace CBA.Data
             modelBuilder.Entity<SavingsAccountConfig>().Property(c=>c.MinBalance).HasPrecision(20, 2);
             modelBuilder.Entity<CurrentAccountConfig>().Property(c=>c.MinBalance).HasPrecision(20, 2);
             modelBuilder.Entity<CurrentAccountConfig>().Property(c=>c.MinBalance).HasPrecision(20, 2);
+            modelBuilder.Entity<CurrentAccountConfig>().Property(c=>c.COT).HasPrecision(20, 2);
+            modelBuilder.Entity<CurrentAccountConfig>().Property(c=>c.CInterestRate).HasPrecision(20, 2);
+
             modelBuilder.Entity<LoanAccountConfig>().Property(c=>c.DInterestRate).HasPrecision(20, 2);
+            modelBuilder.Entity<CustomerAccount>().Property(c=>c.Lien).HasPrecision(20, 2);
         }
        
         public DbSet<User> User { get; set; }

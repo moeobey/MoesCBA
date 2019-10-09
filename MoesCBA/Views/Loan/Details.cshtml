@@ -3,11 +3,11 @@
     ViewBag.Title = "Loan Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class=" pull-right">@Html.ActionLink("go to loan table", "Index", "Loan", new{@class="color_orange"})</div>
+    <h2><b>Loan Details</b></h2>
+<div class=" pull-right">@Html.ActionLink("Go to loan table", "Index", "Loan",null, new{@class="table_extra"})</div>
 <div></div>
 <div class="">
-    <table class="table cap details bg_whitish ">
+    <table class="table cap details  ">
         <thead>
 
         </thead>
@@ -44,7 +44,7 @@
                 <td>@Math.Round(Model.LoanPayable + Model.InterestPayable, 2)</td>
             </tr>
 
-
+            
             <tr>
                 <td><b>Duration</b></td>
                 <td>@Model.DurationInMonths Month(s)</td>

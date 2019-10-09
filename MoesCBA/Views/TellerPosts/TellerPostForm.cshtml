@@ -26,34 +26,69 @@
     <div class=" form-signin">
 
 
+        <div class="form-group  ">
+            <label>Account Name</label><br/>
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right ">
+                    <i class="fa fa-user width_30 "></i>
+                </div>
+                <div class="form_details ">
+                    @Html.DisplayTextFor(m => m.CustomerAccount.AccountName)
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.CustomerAccount.AccountName)
-            @Html.DisplayTextFor(m => m.CustomerAccount.AccountName)
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.CustomerAccount.AccountNumber)
-            @Html.DisplayTextFor(m => m.CustomerAccount.AccountNumber)
+        <div class="form-group  ">
+            <label>Account Number</label><br/>
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right ">
+                    <i class="fa fa-user width_30 "></i>
+                </div>
+                <div class="form_details ">
+                    @Html.DisplayTextFor(m => m.CustomerAccount.AccountNumber)
+
+                </div>
+            </div>
         </div>
-
-
-        <div class="form-group">
+   
+        
+        <div class="form-group ">
             @Html.LabelFor(m => m.TellerPost.Amount)
-            @Html.TextBoxFor(m => m.TellerPost.Amount, new { @class = "form-control", required = "required", type = "decimal" })
-            @Html.ValidationMessageFor(m => m.TellerPost.Amount)
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-money width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.TellerPost.Amount, new { @class = "form-control", required = "required", Type = "number",step="any" , placeholder="Enter Amount"})
+
+                @Html.ValidationMessageFor(m => m.TellerPost.Amount)
+            </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.TellerPost.PostType)
-            @Html.EnumDropDownListFor(m => m.TellerPost.PostType, "Select Account Type", new { @class = "form-control", required = "required" })
-            @Html.ValidationMessage("selectAccountType", new { @class = "user-validation-error" })
 
+        <div class="form-group">
+            <label>Post Type</label>
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-money width_30 "></i>
+                </div>
+                @Html.EnumDropDownListFor(m => m.TellerPost.PostType, "Select Account Type", new {@class = "form-control", required = "required"})
+                @Html.ValidationMessage("selectAccountType", new {@class = "user-validation-error"})
+
+            </div>
+         
         </div>
 
         <div class="form-group">
             @Html.LabelFor(m => m.TellerPost.Narration)
-            @Html.TextAreaFor(m => m.TellerPost.Narration, new { @class = "form-control", required = "required" })
-            @Html.ValidationMessageFor(m => m.TellerPost.Narration)
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-ellipsis-h width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.TellerPost.Narration, new {@class = "form-control", required = "required" ,placeholder="Enter Narration "})
+                @Html.ValidationMessageFor(m => m.TellerPost.Narration)
+            </div>
         </div>
 
         <input type="hidden" name="accountId" value="@Model.CustomerAccount.Id" />

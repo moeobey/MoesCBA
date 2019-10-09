@@ -5,89 +5,120 @@
 }
 
 
+
+
 @using (Html.BeginForm("Save", "CustomersAccount"))
 {
-    if (@Model.Id != 0 && Model.IsOpen)
-     {
-         <div class="text-center  mb-4">
-             <h1>Customer Account is Open</h1>
-         </div>
-     }
-    if (@Model.Id != 0 && !Model.IsOpen)
+
+
+<div class=" form-signin">
+    @if (@Model.Id == 0)
     {
-        <div class="text-center  mb-4">
-            <h1>Customer Account is Closed</h1>
+        <div class="col-md-12 m-b-10">
+            <h1>
+                <b>
+                    Open Account
+                </b>
+            </h1>
         </div>
+
     }
 
-    <div class=" form-signin">
+    else
+    {
+        <div class="col-md-12 m-b-10">
+            <h1>
+                <b>
+                    Edit Account
+                </b>
+            </h1>
+        </div>
+
+    }
+
+
+@if (@Model.Id == 0)
+{
+    <div class="form-group  ">
+        <label>Account Name</label><br/>
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right ">
+                <i class="fa fa-user width_30 "></i>
+            </div>
+            <div class="form_details ">
+                @Html.DisplayTextFor(m => m.Customer.FullName)
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="form-group ">
+        <label>Account Name</label><br/>
+
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-user width_30 "></i>
+            </div>
+            @Html.TextBoxFor(m => m.AccountName, new {@class = "form-control", required = "required", placeholder = "Enter Account Name"})
+            @Html.ValidationMessageFor(m => m.AccountName)
+        </div>
+    </div>
+}
+    <div class="form-group">
+        @Html.LabelFor(m => m.Branches, new { })
+
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-bars width_30 "></i>
+            </div>
+            @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.BranchId)
+        </div>
+    </div>
+
         @if (@Model.Id == 0)
         {
-            <div class="text-center  mb-4">
-                <h1>Open Account</h1>
-            </div>
-        }
-       
-        else
-        {
-            <div class="text-center  mb-4">
-                <h1>Edit Account</h1>
-            </div>
-        }
+<div class="form-group">
+    @Html.LabelFor(m => m.AccountType)
 
-        <div class="form-group">
-            @Html.LabelFor(m => m.Customer.FullName)
-            @Html.DisplayTextFor(m => m.Customer.FullName)
-            @Html.ValidationMessageFor(m => m.Customer)
+    <div class="input-group shadow_p">
+        <div class="input-group-addon borderless_right  ">
+            <i class="fa fa-tags width_30 "></i>
         </div>
-
-        <div class="form-group">
-            <div class="form-group">
-                @Html.LabelFor(m => m.AccountName)
-                @Html.TextBoxFor(m => m.AccountName, new {@class = "form-control", required = "required"})
-                @Html.ValidationMessageFor(m => m.AccountName)
-            </div>
-            
-            @Html.LabelFor(m => m.Branches, new {})
-            @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new {@class = "form-control", required = "required"})
-            @Html.ValidationMessageFor(m => m.BranchId)
-            
-        
-            @if(@Model.Id == 0){
-            <div class="form-group">
-                @Html.LabelFor(m => m.AccountType)
-                @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new {@class = "form-control", required = "required"})
-                @Html.ValidationMessage("selectAccountType", new {@class ="user-validation-error"})
-                
-            </div>
-            }
-            @if(@Model.Id != 0){
-                <div class="form-group">
-                    @Html.LabelFor(m => m.AccountType)
-                    @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new {@class = "form-control", disabled= "true"})
-
-
-                </div>
-            }
-            <div class="form-group">
-                @Html.LabelFor(m => m.Lien)
-                @Html.TextBoxFor(m => m.Lien, new {@class = "form-control", required = "required"})
-                @Html.ValidationMessageFor(m => m.Lien)
-            </div>
-
-        </div>
-        @*@Html.HiddenFor(m=>m.Id)*@
-        <input type="hidden" name="id" value="@Model.Id"/>
-        
-            <input type="hidden" name="userId" value="@Model.Customer.Id"/>
-            <input type="hidden" name="customerId" value="@Model.Customer.CustomerId"/>
-        
-
-        @Html.AntiForgeryToken()
-        <button type="submit" class="btn btn-primary">Save</button>
-      
-
+        @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new { @class = "form-control", required = "required" })
+        @Html.ValidationMessage("selectAccountType", new { @class = "user-validation-error" })
     </div>
+
+</div>
+        }
+           
+       
+    <div class="form-group">
+        @Html.LabelFor(m => m.Lien)
+
+
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-money width_30 "></i>
+            </div>
+            @Html.TextBoxFor(m => m.Lien, new {@class = "form-control", required = "required", placeholder="Place Lien on Account", Type = "number",step="any" })
+            @Html.ValidationMessageFor(m => m.Lien)
+        </div>
+    
+    </div>
+
+    
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="userId" value="@Model.Customer.Id" />
+    <input type="hidden" name="customerId" value="@Model.Customer.CustomerId" />
+
+
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+
+
+</div>
 }
 
 

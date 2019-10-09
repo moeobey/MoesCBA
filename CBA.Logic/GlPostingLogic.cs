@@ -15,6 +15,12 @@ namespace CBA.Logic
         private readonly GlAccountLogic _glAccountContext = new GlAccountLogic();
         private readonly TransactionLogLogic _logContext = new TransactionLogLogic();
 
+        public  GlPost GetPost(int id)
+        {
+            return _db.GetAllPosts(id);
+        }
+
+
         public void Save(GlPost glPost)
         {
             _db.Add(glPost);

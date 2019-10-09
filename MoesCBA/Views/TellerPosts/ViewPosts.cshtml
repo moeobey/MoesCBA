@@ -4,13 +4,6 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (TempData["Success"]  != null)
-{
-<div class="alert alert-success">
-    <p>@TempData["Success"]  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
-</div>
-}
 
 @if (!Model.Any())
 {
@@ -18,7 +11,7 @@
 }
 else
 {
-    <h2>Till Account Balance: @Math.Round(ViewBag.GlBalance,2)</h2>
+    <div class="top_info">Till Account Balance: @Math.Round(ViewBag.GlBalance, 2)</div>
 
     <table id="customersAccount" class="table table-bordered table-hover">
         <thead>
@@ -39,9 +32,9 @@ else
                 <td>@Html.ActionLink(post.CustomerAccount.AccountName, "New", "TellerPosts")</td>
                 <td>@post.CustomerAccount.AccountNumber</td>
                 <td>@post.PostedAt</td>
-                <th>@post.Amount</th>
-                <th>@post.Amount</th>
-                <th>@post.Narration</th>
+                <td>@Html.DisplayFor(c => post.Amount)</td>
+                <td>@Html.DisplayFor(c => post.Amount)</td>
+                <td>@post.Narration</td>
                 
 
             </tr>

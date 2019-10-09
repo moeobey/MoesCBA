@@ -1,8 +1,42 @@
-﻿
+﻿@using WebHelpers.Mvc5
+@model CBA.Core.ViewModels.TellerDashboardViewModel
 @{
-    ViewBag.Title = "TellerDashboard";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>TellerDashboard</h2>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card ">
 
+            <div class="dash_content">
+                <h1 class="m-t-10 color_orange"><b>@Model.NumberOfPosting</b></h1>
+
+                <p> <b>Teller Posting</b></p>
+            </div>
+            <a href="@Url.Action("ViewPosts", "TellerPosts")" class="color_white">
+                <div class="bar bg_orange ">
+                    <p class="centerlise pull-left">Show All</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+    <div class="col-md-6">
+        <div class="card ">
+            <div class="dash_content">
+                <h1 class="m-t-10 color_gren"><b>@Math.Round(Model.TillAccountBalance,2)</b></h1>
+
+                <p> <b>Till Account Balance</b></p>
+            </div>
+            <a href="@Url.Action("Index", "TellerPosts")" class="color_white">
+                <div class="bar bg_green ">
+                    <p class="centerlise pull-left">Perform Transaction</p>
+                </div>
+            </a>
+        </div>
+
+    </div>
+   
+
+</div>

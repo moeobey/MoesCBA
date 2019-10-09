@@ -1,0 +1,60 @@
+﻿@model CBA.Core.Implementation.GlPost
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2><b>Post Details</b></h2>
+<div class=" pull-right">@Html.ActionLink("Go to Posts table", "Index", "GlPosts",null, new { @class = "table_extra" })</div>
+<div></div>
+<div class="">
+    <table class="table cap details">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr class="">
+                <td><b>Debit Account Name</b><br /></td>
+                <td>@Model.GlAccountToDebit.Name</td>
+            </tr>
+            <tr class="">
+                <td><b>Debit Account Code</b><br /></td>
+                <td>@Model.GlAccountToDebit.AccountCode</td>
+            </tr>
+            <tr>
+                <td><b> Amount To Debit</b></td>
+                <td>@Math.Round(Model.Amount, 2)</td>
+            </tr>
+            <tr class="">
+                <td><b>Credit Account Name</b></td>
+                <td>@Model.GlAccountToCredit.Name</td>
+            </tr>
+            <tr class="">
+                <td><b>Credit Account Code</b></td>
+                <td>@Model.GlAccountToCredit.AccountCode</td>
+            </tr>
+
+            <tr>
+                <td><b> Amount To Credit</b></td>
+                <td>@Math.Round(Model.Amount, 2)</td>
+            </tr>
+
+            <tr>
+                <td><b>User</b></td>
+                <td>@Model.User.FullName</td>
+            </tr>
+            <tr>
+                <td><b>User Role</b></td>
+                <td>@Model.User.Role</td>
+            </tr>
+            <tr>
+                <td><b> Narration</b></td>
+                <td>@Model.Narration</td>
+            </tr>
+            <tr>
+                <td><b>Posted At</b></td>
+                <td>@Model.PostedAt</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>

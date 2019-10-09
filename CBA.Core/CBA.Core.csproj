@@ -67,6 +67,7 @@
     <Compile Include="Implementation\UserRole.cs" />
     <Compile Include="Interface\IPerson.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AdminDashboardViewModel.cs" />
     <Compile Include="ViewModels\BalanceSheetViewModel.cs" />
     <Compile Include="ViewModels\CurrentAccountConfigViewModel.cs" />
     <Compile Include="ViewModels\GlPostViewModel.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="ViewModels\NewGlAccountViewModel.cs" />
     <Compile Include="ViewModels\NewTellerViewModel.cs" />
     <Compile Include="ViewModels\NewUserViewModel.cs" />
+    <Compile Include="ViewModels\TellerDashboardViewModel.cs" />
     <Compile Include="ViewModels\TellerPostViewModel.cs" />
     <Compile Include="ViewModels\TrialBalanceViewModel.cs" />
   </ItemGroup>

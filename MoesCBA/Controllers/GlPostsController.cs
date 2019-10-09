@@ -76,5 +76,10 @@ namespace MoesCBA.Controllers
          
             return RedirectToAction("Index");
         }
+        public ActionResult Details(int id)
+        {
+            var glPost = _context.GetPost(id);
+            return View(glPost);
+        }
     }
 }

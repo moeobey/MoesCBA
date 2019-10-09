@@ -46,7 +46,7 @@ namespace MoesCBA.Controllers
                     }
                     account.AccountCode = _context.GenerateGlAccountCode(account.GlCategoryId);
                     _context.Save(account);
-                    TempData["message"] = "GL Account Added Successfully";
+                    TempData["Success"] = "GL Account Added Successfully";
                     return RedirectToAction("Index");
                 }
 
@@ -55,7 +55,7 @@ namespace MoesCBA.Controllers
                     accountInDb.Name = account.Name;
                     accountInDb.BranchId = account.BranchId;
                     _context.Update(account);
-                    TempData["message"] = "Update Successful";
+                    TempData["Success"] = "Update Successful";
                     return RedirectToAction("Index");
                 }
 
@@ -85,6 +85,11 @@ namespace MoesCBA.Controllers
                 GlCategories = glCategories
             };
             return View("GlAccountForm", viewModel);
+        }
+        public ActionResult Details(int id)
+        {
+            var account = _context.GetGlAccount(id);
+            return View(account);
         }
     }
 }

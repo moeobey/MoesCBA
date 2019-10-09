@@ -39,7 +39,7 @@ namespace MoesCBA.Controllers
             {
                 Session["id"] = curUser.Id;
                 Session["Password"] = curUser.Password;
-                Session["FullName"] = curUser.FullName;
+                Session["Username"] = curUser.Username;
                 Session["Role"] = curUser.Role;
                 Session["FinancialDate"] = _bankConfigContext.GetConfig().FinancialDate;
                 if ((string) Session["Role"] == $"Admin")

@@ -3,14 +3,19 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+    <div class="row">
+        <div class="col-md-6">
+            <h1>
+                <b>
+                    Customers
+                </b>
+            </h1>
+        </div>
+        <div class="option_span  col-md-offset-11 col-md-6 m-b-15">
 
-@if (TempData["message"] != null){
-    <div class="alert alert-success">
-        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
+            @Html.ActionLink("  Add Customer ", "New", "Customers", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
+        </div>
     </div>
-
-}
 @if (!Model.Any())
 {
     <p>We don't have any Customers yet</p>
@@ -19,8 +24,7 @@ else
 {
     if (Session ["Role"] != null && Session["Role"].ToString() == "Admin")
     {
-        <h2>Users</h2>  
-        <table id="users" class="table table-bordered table-hover">
+        <table id="table" class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th>Full Name</th>
@@ -41,8 +45,13 @@ else
                     <td>@customer.Gender</td>
 
                     <td>
-                        <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
-                        <button>@Html.ActionLink("OpenAccount", "New", "CustomersAccount", new { id = customer.Id }, null)</button>
+                        <div class="option_span pull-left">
+                            @Html.ActionLink(" ", "Edit", "Customers", new { id = customer.Id }, new { @class = "fa fa-pencil table_extra" })
+                            @Html.ActionLink(" ", "Details", "Customers", new { id = customer.Id }, new { @class = "fa fa-eye table_extra" })
+                            @Html.ActionLink(" ", "Delete", "Customers", new { id = customer.Id }, new { @class = "fa fa-trash table_extra" })
+
+                        </div>
+                        <button>@Html.ActionLink("Open Account", "New", "CustomersAccount", new { id = customer.Id }, new { @class = "table_extra" })</button>
                     </td>
                 </tr>
 
@@ -50,17 +59,4 @@ else
             </tbody>
         </table>
     }
-}
-@section ViewSpecificJavascript{
-    <script>
-        $(document).ready(function () {
-            $("#users").DataTable();
-            setTimeout(function () {
-                $(".alert-success").fadeOut(100, null);                            
-            }, 3000);
-        });
-
-    </script>
-
-
 }

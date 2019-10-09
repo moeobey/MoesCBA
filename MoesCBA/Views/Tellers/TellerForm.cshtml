@@ -1,11 +1,17 @@
 ﻿@model CBA.Core.ViewModels.NewTellerViewModel
 @{
-    ViewBag.Title = "TellerForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<h2>TellerForm</h2>
+
+<div class="col-md-12 m-b-10">
+    <h1>
+        <b>
+            Users
+        </b>
+    </h1>
+</div>
 @if (ViewBag.hasTillAccount !=null)
 {
 <div class="alert alert-danger">
@@ -16,26 +22,37 @@
 {
    
 <div class=" form-signin">
-    <div class="text-center  mb-4">
-        <h1>Assign Till Account</h1>
-    </div>
-   
+  
+    <div class="form-group  ">
+        <label>User Name</label><br/>
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right ">
+                <i class="fa fa-user width_30 "></i>
+            </div>
+            <div class="form_details ">
+                @Html.DisplayTextFor(m => m.User.FullName)
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Teller.User, new { })
-        @Html.DisplayTextFor(m => m.User.FullName)
-        @Html.ValidationMessageFor(m => m.User)
+            </div>
+        </div>
+        
     </div>
-    <div class="form-group">
 
-        @Html.LabelFor(m => m.Teller.GlAccount, new { })
-        @Html.DropDownListFor(m => m.Teller.GlAccountId, new SelectList(Model.GlAccount, "id", "Name"), "Select Gl Account ", new { @class = "form-control", required = "required" })
-        @Html.ValidationMessageFor(m => m.Teller)
+    <div class="form-group ">
+        <label>GL Accounts</label>
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-credit-card width_30 "></i>
+            </div>
+            @Html.DropDownListFor(m => m.Teller.GlAccountId, new SelectList(Model.GlAccount, "id", "Name"), "Select Gl Account ", new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Teller)
+        </div>
+    </div><br/>
 
-    </div>
     <input type="hidden" name="userId" value="@Model.User.Id" />
     @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save</button>
+    </div>
 
 </div>
 }

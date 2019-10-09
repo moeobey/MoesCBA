@@ -74,6 +74,23 @@ namespace CBA.Logic
 
             return interestAccounts;
         }
+
+        public decimal GetProfitOrLoss()
+        {
+            decimal totalIncome = 0;
+            decimal totalExpense = 0;
+            if (GetAllIncomeAccounts() != null)
+            {
+                 totalIncome = GetAllIncomeAccounts().Sum(c => c.Balance);
+            }
+
+            if (GetAllExpenseAccounts() != null)
+            {
+                 totalExpense = GetAllExpenseAccounts().Sum(c => c.Balance);
+            }
+
+            return Math.Round(totalIncome - totalExpense,2);
+        }
         
 
 

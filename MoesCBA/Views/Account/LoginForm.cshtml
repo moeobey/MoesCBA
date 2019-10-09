@@ -1,24 +1,21 @@
 ﻿@using System.Web.Optimization
 @model CBA.Core.Implementation.User
 @{
-    //ViewBag.Title = "Index";
-    //ViewBag.Description = "Home Page";
     Layout = null;
-    //ViewBag.msg = "yo";
 }
 
 
 @Styles.Render("~/Bundles/css")
-<div class="limiter" >
+<div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
-            @using (Html.BeginForm("AuthenticateUser", "Account",FormMethod.Post,new{@class ="login100-form validate-form p-l-55 p-r-55 p-t-178"}))
+            @using (Html.BeginForm("AuthenticateUser", "Account", FormMethod.Post, new { @class = "login100-form validate-form p-l-55 p-r-55 p-t-178" }))
             {
 
                 <div class=" form-signin">
-                 <span class="login100-form-title">
-						Sign In
-					</span>
+                    <span class="login100-form-title">
+                        Sign In
+                    </span>
 
                     @if (ViewBag.msg != null)
                     {
@@ -44,8 +41,7 @@
                 </div>
 
             }
-            </div>
         </div>
     </div>
-
+</div>
 

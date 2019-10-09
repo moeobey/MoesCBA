@@ -1,0 +1,53 @@
+﻿@model CBA.Core.Implementation.GlAccount
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><b>Gl Account Details</b></h2>
+<div class=" pull-right ">@Html.ActionLink("Go to Gl Account table", "Index", "GlAccounts",null, new{@class="table_extra"})</div>
+<div class="">
+    <table class="table cap">
+        <thead>
+
+        </thead>
+        <tbody>
+            <tr class="">
+                <td><b>Name</b></td>
+                <td>@Model.Name</td>
+            </tr>
+            <tr class="">
+                <td><b>Account Code</b></td>
+                <td>@Model.AccountCode</td>
+            </tr>
+            <tr>
+                <td><b>Category</b></td>
+                <td>@Model.GlCategory.Name</td>
+            </tr>
+            <tr>
+                <td><b>Main Account Category</b></td>
+                <td>@Model.GlCategory.MainAccountCategory</td>
+            </tr>
+            <tr>
+                <td><b>Branch</b></td>
+                <td>@Model.Branch.Name</td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Is Assigned  </b>
+
+                </td>
+                <td>@Model.IsAssigned</td>
+            </tr>
+            <tr>
+
+                <td>
+                    <b>Account Balance </b>
+
+                </td>
+                <td>@Math.Round(Model.Balance, 2)</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+</div>

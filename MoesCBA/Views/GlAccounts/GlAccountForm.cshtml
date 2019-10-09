@@ -10,38 +10,49 @@
         <div class="text-center  mb-4">
             <h1>Add GL Account</h1>
         </div>
-
-        <div class="form-group">
+        
+        
+  
+        <div class="form-group ">
             @Html.LabelFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })
-            
-            @Html.ValidationMessage("nameTaken", new {@class ="user-validation-error"})
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-circle width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" ,placeholder= "Enter GL Account Name"})
+                @Html.ValidationMessage("nameTaken", new {@class ="user-validation-error"})
+            </div>
         </div>
-
-
-      
-        <div class="form-group">
-            @Html.LabelFor(m => m.Branches)
-            @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new {@class = "form-control", required = "required"})
+        <div class="form-group ">
+        @Html.LabelFor(m => m.Branches)
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-ellipsis-h width_30 "></i>
+            </div>
+            @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(m => m.BranchId)
         </div>
+      
+      
           
-        <div class="form-group">
-            @if (Model.Id == 0)
-            {
-                @Html.LabelFor(m => m.GlCategories)
-                @Html.DropDownListFor(m => m.GlCategoryId, new SelectList(Model.GlCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required"})
-                @Html.ValidationMessageFor(m => m.GlCategoryId)
-            }
-            @if (Model.Id != 0)
-            {
-                @Html.LabelFor(m => m.GlCategories)
-                @Html.DropDownListFor(m => m.GlCategoryId, new SelectList(Model.GlCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required", disabled="true"})
-                @Html.ValidationMessageFor(m => m.GlCategoryId)
-            }
-
-           
         </div>
+@if (Model.Id == 0)
+{
+    <div class="form-group">
+
+
+        <label>GL Categories</label>
+
+        <div class="input-group shadow_p">
+            <div class="input-group-addon borderless_right  ">
+                <i class="fa fa-bars width_30 "></i>
+            </div>
+            @Html.DropDownListFor(m => m.GlCategoryId, new SelectList(Model.GlCategories, "id", "Name"), "Select Category ", new {@class = "form-control", required = "required"})
+            @Html.ValidationMessageFor(m => m.GlCategoryId)
+        </div>
+
+    </div>
+}
         @if (Model.Id == 0)
         {
             <div class="form-group">

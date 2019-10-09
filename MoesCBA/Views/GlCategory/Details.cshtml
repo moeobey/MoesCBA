@@ -1,0 +1,29 @@
+﻿@model CBA.Core.Implementation.GlCategory
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2><b>Gl Category Details</b></h2>
+<div class=" pull-right ">@Html.ActionLink("Go to Gl Category table", "Index", "GlCategory",null, new{@class="table_extra"})</div>
+<div class="">
+    <table class="table cap">
+        <thead>
+
+        </thead>
+        <tbody>
+        <tr class="">
+            <td><b>Name</b></td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td><b>Main Account Category</b></td>
+            <td>@Model.MainAccountCategory</td>
+        </tr>
+        <tr>
+            <td><b>Description</b></td>
+            <td>@Model.Description</td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
