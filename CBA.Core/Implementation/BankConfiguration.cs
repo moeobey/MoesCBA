@@ -11,11 +11,8 @@ namespace CBA.Core.Implementation
         public int Id { get; set; }
         public DateTime FinancialDate { get; set; }
         public bool IsBusinessOpen { get; set; }
-
         public int DayCount { get; set; }
         public int MonthCount { get; set; }
-
         public int YearCount { get; set; }
-
     }
 }

@@ -10,6 +10,5 @@ namespace CBA.Core.ViewModels
     {
         public int NumberOfPosting { get; set; }
         public decimal TillAccountBalance { get; set; }
-
     }
 }

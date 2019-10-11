@@ -72,7 +72,6 @@
     <Compile Include="ViewModels\CurrentAccountConfigViewModel.cs" />
     <Compile Include="ViewModels\GlPostViewModel.cs" />
     <Compile Include="ViewModels\LoanAccountConfigViewModel.cs" />
-    <Compile Include="ViewModels\LoanViewModel.cs" />
     <Compile Include="ViewModels\PlViewModel.cs" />
     <Compile Include="ViewModels\SavingsAccountConfigViewModel.cs" />
     <Compile Include="ViewModels\NewCustomerAccountViewModel.cs" />

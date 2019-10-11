@@ -13,11 +13,9 @@ namespace CBA.Core.Implementation
         Savings = 1,
         Current = 2,
         Loan = 3,
-
     }
     public class CustomerAccount
     {
-      
         public int Id { get; set; }
         public Customer Customer { get; set; }
         public string CustomerId { get; set; }
@@ -25,16 +23,11 @@ namespace CBA.Core.Implementation
         public string AccountNumber { get; set; }
         public Branch Branch { get; set; }
         public int BranchId { get; set; }
-        
         public decimal Balance { get; set; }
-
         public AccountType AccountType { get; set; }
         public bool IsOpen { get; set; }
         public DateTime CreatedAt { get; set; }
-
         public decimal Lien { get; set; }
         public decimal Interest { get; set; }
-
-        
     }
 }

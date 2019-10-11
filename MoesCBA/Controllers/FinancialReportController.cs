@@ -59,8 +59,12 @@ namespace MoesCBA.Controllers
                 IncomeTotal =  Math.Round(incomeTotal,2),
                 ExpenseTotal =  Math.Round(expenseTotal,2),
                 Profit = Math.Round( incomeTotal - expenseTotal,2),
-                Date = _bankContext.GetConfig().FinancialDate
-            };
+                Date = _bankContext.GetConfig() != null
+                    ? _bankContext.GetConfig().FinancialDate
+                    : DateTime.Now,
+               
+
+        };
             return View(viewModel);
         }
 

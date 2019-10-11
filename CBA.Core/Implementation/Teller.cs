@@ -14,7 +14,6 @@ namespace CBA.Core.Implementation
         public GlAccount GlAccount { get; set; }
         public int GlAccountId { get; set; }
         public User User { get; set; }
-        
         public int? UserId { get; set; }
     }
 }

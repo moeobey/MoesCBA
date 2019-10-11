@@ -7,10 +7,34 @@
 
 @if (TempData["Error"] != null)
 {
-    <div class="alert alert-danger">
-        <p>@TempData["Error"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-    </div>
-
+    if (TempData["Error"].ToString().StartsWith("S"))
+    {
+      
+        <div class="alert alert-danger">
+            <a href="@Url.Action("SavingsAccount", "AccountTypeConfig")">@TempData["Error"] <span class="closebtn " onclick="this.parentElement.parentElement.style.display='none';">&times;</span>
+                <span>(Click Here to Review)</span>
+            </a>
+        </div>
+    }
+    if (TempData["Error"].ToString().StartsWith("C"))
+    {
+      
+        <div class="alert alert-danger">
+            <a href="@Url.Action("CurrentAccount", "AccountTypeConfig")">@TempData["Error"] <span class="closebtn " onclick="this.parentElement.parentElement.style.display='none';">&times;</span>
+                <span>(Click Here to Review)</span>
+            </a>
+        </div>
+    }
+    if (TempData["Error"].ToString().StartsWith("L"))
+    {
+      
+        <div class="alert alert-danger">
+            <a href="@Url.Action("LoanAccount", "AccountTypeConfig")">@TempData["Error"] <span class="closebtn " onclick="this.parentElement.parentElement.style.display='none';">&times;</span>
+                <span>(Click Here to Review)</span>
+            </a>
+        </div>
+    }
+   
 }
 
 @if (Model == null)

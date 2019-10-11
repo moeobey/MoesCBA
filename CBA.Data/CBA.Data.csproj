@@ -407,6 +407,14 @@
     <Compile Include="Migrations\201910041854391_setMorePrecision.Designer.cs">
       <DependentUpon>201910041854391_setMorePrecision.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910101351213_seedAdmin.cs" />
+    <Compile Include="Migrations\201910101351213_seedAdmin.Designer.cs">
+      <DependentUpon>201910101351213_seedAdmin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910101422321_SeedRoles.cs" />
+    <Compile Include="Migrations\201910101422321_SeedRoles.Designer.cs">
+      <DependentUpon>201910101422321_SeedRoles.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -676,6 +684,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910041854391_setMorePrecision.resx">
       <DependentUpon>201910041854391_setMorePrecision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101351213_seedAdmin.resx">
+      <DependentUpon>201910101351213_seedAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101422321_SeedRoles.resx">
+      <DependentUpon>201910101422321_SeedRoles.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

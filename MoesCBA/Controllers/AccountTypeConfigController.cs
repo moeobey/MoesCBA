@@ -9,14 +9,13 @@ using CBA.Logic;
 
 namespace MoesCBA.Controllers
 {
-    [CheckRole]
+    [CheckRole]//only admin can access controller
     [CheckSession]
     public class AccountTypeConfigController : Controller
     {
         private readonly AccountTypeConfigLogic _context = new AccountTypeConfigLogic();
         private readonly  GlAccountLogic _glAccountContext  = new GlAccountLogic();
 
-        // GET: AccountTypeConfig
         public ActionResult Index()
         {
             return View();
@@ -27,12 +26,12 @@ namespace MoesCBA.Controllers
             var config = _context.GetSavingsConfig();
             object glAccount = null;
             object interestPayableGl = null;
-            if (config != null)
+            if (config != null)//check if savings configurations exist
             {
-                 glAccount = _glAccountContext.Get(config.InterestExpenseGlId); //to get the gl account name
+                 glAccount = _glAccountContext.Get(config.InterestExpenseGlId); 
                  interestPayableGl = _glAccountContext.Get(Convert.ToInt32(config.InterestPayableGlId));
-
             }
+            //for the dropdowns options
             var glAccounts = _glAccountContext.GetAllExpenseAccount();
             var interestPayableGls = _glAccountContext.GetAllLiabilityAccount();
             var viewModel = new SavingsAccountConfigViewModel(config)
@@ -41,7 +40,6 @@ namespace MoesCBA.Controllers
                 InterestPayableGl = (GlAccount) interestPayableGl,
                 InterestExpenseGls = glAccounts,
                 InterestPayableGls = interestPayableGls
-                
             };
             
            return View("SavingsAccountTypeForm", viewModel);
@@ -50,7 +48,6 @@ namespace MoesCBA.Controllers
         [HttpPost]
         public ActionResult SaveSavingsConfig(SavingsAccountConfig config)
         {
-            
             var glAccount = new GlAccount();
             var configInDb = _context.GetSavingsConfig();
             var glAccountInDb = _glAccountContext.Get(config.InterestExpenseGlId);
@@ -61,9 +58,8 @@ namespace MoesCBA.Controllers
 
                 config.Status = true;
                 _context.SaveSavings(config);
-                TempData["message"] = "Configurations Added Successfully";
+                TempData["Success"] = "Configurations Added Successfully";
                 return RedirectToAction("SavingsAccount");
-
             }
 
             if (config.Id != 0) //update current savings configuration
@@ -86,9 +82,8 @@ namespace MoesCBA.Controllers
 
                     glAccountInDb.IsAssigned = true; // Update the  new gl account to is assigned
                     _glAccountContext.Update(glAccount);
-
                 }
-                TempData["message"] = "Configurations Updated Successfully";
+                TempData["Success"] = "Configurations Updated Successfully";
                 _context.UpdateSavings(config);
             }
             return RedirectToAction("SavingsAccount");
@@ -106,6 +101,8 @@ namespace MoesCBA.Controllers
                 interestPayableGl = _glAccountContext.Get(Convert.ToInt32(config.InterestPayableGlId));
                 COTincomeGl = _glAccountContext.Get(config.COTIncomeGlId);
             }
+
+            //for the dropdowns options
             var interestExpenseGls = _glAccountContext.GetAllExpenseAccount();
             var interestPayableGls = _glAccountContext.GetAllLiabilityAccount();
             var COTincomeGls = _glAccountContext.GetAllIncomeAccount();
@@ -124,7 +121,6 @@ namespace MoesCBA.Controllers
         [HttpPost]
         public ActionResult SaveCurrentConfig(CurrentAccountConfig config)
         {
-
             var glAccount = new GlAccount();
             var configInDb = _context.GetCurrentConfig();
             var interestExpenseGlInDb = _glAccountContext.Get(config.InterestExpenseGlId);
@@ -137,6 +133,8 @@ namespace MoesCBA.Controllers
 
                 config.Status = true;               //change the status of configuration to true
                 _context.SaveCurrent(config);
+                TempData["Success"] = "Configurations Created Successfully";
+
                 return RedirectToAction("CurrentAccount");
             }
 
@@ -160,12 +158,9 @@ namespace MoesCBA.Controllers
 
                     configInDb.InterestExpenseGlId = config.InterestExpenseGlId;
 
-
                     interestExpenseGlInDb.IsAssigned = true; // Update the  new gl account to is assigned
                     _glAccountContext.Update(glAccount);
-
                 }
-
                 if (config.COTIncomeGlId == 0)
                 {
                     configInDb.COTIncomeGlId = configInDb.COTIncomeGlId;
@@ -180,17 +175,14 @@ namespace MoesCBA.Controllers
                     configInDb.COTIncomeGlId = config.COTIncomeGlId;
                     cotIncomeGlInDb.IsAssigned = true;
                     _glAccountContext.Update(glAccount);
-
                 }
 
-
+                TempData["Success"] = "Configurations Updated Successfully";
                 _context.UpdateCurrent(config);
                 return RedirectToAction("CurrentAccount");
             }
             return RedirectToAction("CurrentAccount");
         }
-
-
         public ActionResult LoanAccount()
         {
             var config = _context.GetLoanConfig();
@@ -213,7 +205,6 @@ namespace MoesCBA.Controllers
         [HttpPost]
         public ActionResult SaveLoanConfig(LoanAccountConfig config)
         {
-
             var interestIncomeGl = new GlAccount();
             var configInDb = _context.GetLoanConfig();
             var interestIncomeGlInDb = _glAccountContext.Get(config.InterestIncomeGlId);
@@ -224,6 +215,8 @@ namespace MoesCBA.Controllers
 
                 config.Status = true;
                 _context.SaveLoan(config);
+                TempData["Success"] = "Configurations Created Successfully";
+
                 return RedirectToAction("LoanAccount");
             }
 
@@ -248,6 +241,7 @@ namespace MoesCBA.Controllers
 
                 }
 
+                TempData["Success"] = "Configurations Updated Successfully";
                 _context.UpdateLoan(config);
                 return RedirectToAction("LoanAccount");
             }

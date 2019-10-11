@@ -12,6 +12,5 @@ namespace CBA.Core.ViewModels
         public User User { get; set; }
         public IEnumerable<GlAccount> GlAccount { get; set; }
         public  Teller Teller { get; set; }
-      
     }
 }

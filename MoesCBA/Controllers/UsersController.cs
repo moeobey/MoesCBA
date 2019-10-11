@@ -75,11 +75,16 @@ namespace MoesCBA.Controllers
             };
             return View("TellerDashboard", viewModel );
         }
+      
         public ActionResult Index()
         {
-            var users = _context.GetAllWithBranch(); //get the branch along with the users
-            
+            if (Session["Role"].ToString() == "Admin")
+            {
+                var users = _context.GetAllWithBranch(); //get the branch along with the users
                 return View("Index", users);
+            }
+            return RedirectToAction("TellerDashboard");
+
         }
         [CheckSession]
         public ActionResult ChangePassword()
@@ -112,12 +117,25 @@ namespace MoesCBA.Controllers
                 var emailIsUnique = _context.EmailIsUnique(user.Email);
                 if (usernameIsUnique && emailIsUnique)
                 {
+
                     var randomPass = _context.GenerateRandomPassword();
                     user.Password = Crypto.Hash(_context.GenerateRandomPassword());
                     user.Date = DateTime.Now;
+                   var emailCheck =  _context.SendEmail(user.Email, randomPass, user.FullName);
+                    if (emailCheck != "Success") // if email fails to send
+                    {
+                        var data = new NewUserViewModel
+                        {
+                            UserRoles = _context.GetRoles().ToList(),
+                            Branches = _context.GetBranches().ToList()
+
+                        };
+                        TempData["error"] = emailCheck;
+                        return View("UserForm", data);
+
+                    }
                     _context.Save(user);
                     TempData["Success"] = $"{user.Role} Added changed";
-                    _context.SendEmail(user.Email, randomPass ,user.FullName);
                     return RedirectToAction("Index");
                 }
                 if (!usernameIsUnique)

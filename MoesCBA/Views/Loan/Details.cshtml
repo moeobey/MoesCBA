@@ -53,10 +53,20 @@
                 <td><b>Start Date </b></td>
                 <td>@Model.StartDate.ToLongDateString() </td>
             </tr>
-            <tr class="p-b-40">
-                <td><b>End Date</b> </td>
-                <td>@Model.EndDate.ToLongDateString()</td>
-            </tr>
+        <tr class="p-b-40">
+            <td><b>End Date</b> </td>
+            <td>@Model.EndDate.ToLongDateString()</td>
+        </tr>
+        <tr class="p-b-40">
+            <td><b>Servicing Account Number</b> </td>
+            <td>@Model.CustomerAccount.AccountNumber</td>
+        </tr>
+        <tr class="p-b-40">
+            <td><b>Servicing Account Name</b> </td>
+            <td>@Model.CustomerAccount.AccountName</td>
+        </tr>
+
+
 
 
 

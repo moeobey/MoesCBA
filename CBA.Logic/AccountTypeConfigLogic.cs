@@ -45,26 +45,22 @@ namespace CBA.Logic
             _loanAccContext.Add(config);
             _loanAccContext.Save(config);
         }
-
         public void UpdateSavings(SavingsAccountConfig savingsConfig)
         {
             _savingsAccContext.Save(savingsConfig);
-
         }
         public void UpdateCurrent(CurrentAccountConfig currentConfig)
         {
             _currentAccContext.Save(currentConfig);
-
         }
         public void UpdateLoan(LoanAccountConfig loanConfig)
         {
             _loanAccContext.Save(loanConfig);
         }
-
         public string IsAccountConfigurationSet()
         {
             var result = "";
-            if (GetCurrentConfig() == null)
+            if (GetSavingsConfig() == null)
             {
                 result = "Savings Account Configurations not Set";
             }

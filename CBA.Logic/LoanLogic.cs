@@ -29,13 +29,9 @@ namespace CBA.Logic
         {
             _db.Save(account);
         }
-
         public Loan GetByCustomerId(int id)
         {
             return _db.GetByCustomerId(id);
         }
-
-
-
     }
 }

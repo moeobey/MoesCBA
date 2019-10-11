@@ -12,6 +12,7 @@ namespace MoesCBA.Controllers
 
     public class BankConfigController : Controller
     {
+
         private  readonly  BankConfigLogic _context = new BankConfigLogic();
         //GET: BankConfig
         public ActionResult Index()
@@ -29,13 +30,11 @@ namespace MoesCBA.Controllers
                 DayCount = 0,
                 MonthCount = 0,
                 YearCount = 0
-
             };
-           Session["isBusinessOpen"] = false;
-           Session.Remove("setup");
+            Session["isBusinessOpen"] = false;
+            Session.Remove("setup");
             _context.Save(bankConfig);
             return RedirectToAction("Index");
         }
-        
     }
 }

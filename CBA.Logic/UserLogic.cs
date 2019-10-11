@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
@@ -20,34 +21,28 @@ namespace CBA.Logic
 
         public void Save(User user)
         {
-            //Console.WriteLine("trying to add user");
             _db.Add(user);
             _db.Save(user);
         }
         public User Get(int id)
         {
-
             var values = _db.Get(id);
             return values;
         }
-
         public void Update(User user)
         {
             _db.Save(user);
         }
-
         public IEnumerable<User> GetAll()
         {
             var values = _db.GetAll();
             return values;
         }
-
         public void Remove(User user)
         {
             _db.Remove(user);
             _db.Save(user);
         }
-
         public IEnumerable<User> GetAllWithBranch()
         {
             var values = _db.GetAllWithBranch();
@@ -55,12 +50,9 @@ namespace CBA.Logic
         }
         public User GetCurrentUser(int id)
         {
-
             var values = _db.GetCurrentUser(id);
             return values;
         }
-        
-
         public IEnumerable<Branch> GetBranches()
         {
             return _branch.GetAll();
@@ -69,7 +61,6 @@ namespace CBA.Logic
         {
             return _role.GetAll();
         }
-
         public bool UserIsUnique(string username)
         {
             bool isUnique = false;
@@ -90,7 +81,6 @@ namespace CBA.Logic
 
             return isUnique;
         }
-
         public string GenerateRandomPassword()
         {
             {
@@ -106,9 +96,9 @@ namespace CBA.Logic
                 return new string(chars);
             }
         }
-
-        public void SendEmail(string email, string password, string fullName)
+        public string SendEmail(string email, string password, string fullName)
         {
+            var result = "";
             var adminEmail = new MailAddress("moyinobey@gmail.com", "Moyin CBA app");
             var userEmail = new MailAddress(email);
             var adminMailPassword = "photography";
@@ -134,22 +124,28 @@ namespace CBA.Logic
                 Body = body,
                 IsBodyHtml = true
             })
+                try
+                {
+                    smtp.Send(message);
+                }
 
-                smtp.Send(message);
+                catch (Exception e)
+                {
+                   return e.Message;//failure to send mail
+                    
+                }
 
+            return "Success";
         }
-
         public IEnumerable<User> GetAllUnassigned()
         {
             var values = _db.GetAllUnassigned();
             return values;
         }
-
         public User GetUnassigned(int id)
         {
             var values = _db.GetUnassigned(id);
             return values;
         }
     }
-
 }

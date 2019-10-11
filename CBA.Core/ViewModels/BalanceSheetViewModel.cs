@@ -13,14 +13,8 @@ namespace CBA.Core.ViewModels
         public IEnumerable<GlAccount> CapitalAccounts { get; set; }
         public IEnumerable<GlAccount> LiabilityAccounts { get; set; }
         public decimal AssetTotal { get; set; }
-
         public decimal CapitalTotal { get; set; }
-
         public decimal LiabilityTotal { get; set; }
-
         public decimal CLSum { get; set; }
-
-
-
     }
 }

@@ -11,23 +11,16 @@ namespace CBA.Core.ViewModels
     {
         public IEnumerable<Branch> Branches { get; set; }
         public Customer Customer { get; set; }
-        //public CustomerAccount CustomerAccount { get; set; }
         public int Id { get; set; }
-       
         public string CustomerId { get; set; }
         public string AccountName { get; set; }
         public string AccountNumber { get; set; }
-       
         public int BranchId { get; set; }
-
         public decimal Balance { get; set; }
-
         public AccountType AccountType { get; set; }
         public bool IsOpen { get; set; }
         public DateTime CreatedAt { get; set; }
-
         public decimal Interest { get; set; }
-
         public decimal Lien { get; set; }
         public NewCustomerAccountViewModel()
         {
@@ -46,9 +39,6 @@ namespace CBA.Core.ViewModels
             CreatedAt = account.CreatedAt;
             Interest = account.Interest;
             Lien = account.Lien;
-
         }
-
-
     }
 }

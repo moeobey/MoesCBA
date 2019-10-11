@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +13,6 @@ namespace CBA.Core.Implementation
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var mySession = HttpContext.Current.Session;
-
             if (mySession["id"] == null)
             {
                 filterContext.Result = new RedirectResult(string.Format("/home/"));

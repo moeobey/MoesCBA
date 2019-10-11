@@ -53,7 +53,6 @@ else
                         <div class="option_span pull-left">
                             @Html.ActionLink(" ", "Edit", "Users", new { id = user.Id }, new { @class = "fa fa-pencil table_extra" })
                             @Html.ActionLink(" ", "Details", "Users", new { id = user.Id }, new { @class = "fa fa-eye table_extra" })
-                            @Html.ActionLink(" ", "Edit", "Users", new { id = user.Id }, new { @class = "fa fa-trash table_extra" })
 
                         </div>
                         @if (user.IsAssigned == false && user.Role == "Teller")

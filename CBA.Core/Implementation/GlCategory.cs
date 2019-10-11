@@ -12,7 +12,6 @@ namespace CBA.Core.Implementation
         Capital = 3,
         Income = 4, 
         Expense = 5
-
     }
    public class GlCategory
     {
@@ -20,6 +19,5 @@ namespace CBA.Core.Implementation
         public string Name { get; set; }
         public MainAccountCategory MainAccountCategory { get; set; }
         public string Description { get; set; }
-
     }
 }

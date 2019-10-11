@@ -15,14 +15,10 @@ namespace MoesCBA.Controllers
     {
         private readonly CustomerLogic _customerContext = new CustomerLogic();
         private readonly UserLogic _userContext = new UserLogic();
-
         private readonly CustomerAccountLogic _context = new CustomerAccountLogic();
-        // GET: CustomersAccount
-     
         public ActionResult Index()
         {
             var customerAccounts = _context.GetAllCustomersAccounts();
-
             return View(customerAccounts);
         }
       
@@ -47,16 +43,14 @@ namespace MoesCBA.Controllers
             if (ModelState.IsValid)
             {
                 var accountInDb = _context.Get(account.Id);
-                if (id== 0 && account.AccountType !=0) //add account
+                if (id== 0 ) //add account
                 {
                     var customerId = Request.Form["customerId"];
                     var customerName = _customerContext.GetByCustomerId(customerId).FullName;
                     account.CustomerId = customerId;
-                    //account.AccountNumber = "111111";
                     account.CreatedAt = DateTime.Now;
                     account.AccountName = customerName;
                     account.IsOpen = true;
-
                     account.AccountNumber = _context.GenerateAccountNumber(customerId, account.AccountType.ToString());
                     _context.Save(account);
                     TempData["Success"] = "Account Created Successfully";
@@ -71,24 +65,15 @@ namespace MoesCBA.Controllers
                     TempData["Success"] = "Update Successful";
                     return RedirectToAction("Index");
                 }
-
-                if (account.AccountType == 0)
-                {
-                    ModelState.AddModelError("selectAccountType", "Please select Account Type");
-                    
-                }
             }
             var customer = _customerContext.Get(userId);
             var branches = _userContext.GetBranches().ToList();
-
             var viewModel = new NewCustomerAccountViewModel
             {
                 Customer = customer,
                 Branches = branches
-
             };
             return View("CustomerAccountForm", viewModel);
-
         }
         public ActionResult Edit(int id)
         {
@@ -100,12 +85,10 @@ namespace MoesCBA.Controllers
             {
                 Branches = branches,
                 Customer =  customer
-               
             };
             return View("CustomerAccountForm", viewModel);
         }
 
-     
         public JsonResult CloseAccount(int id)
         {
             var customerAccount = new CustomerAccount();
@@ -119,8 +102,6 @@ namespace MoesCBA.Controllers
                 TempData["message"] = "Account Closed Successfully";
             }
             return Json(result, JsonRequestBehavior.AllowGet);
-
-
         }
       
         public JsonResult OpenAccount(int id)
@@ -134,11 +115,8 @@ namespace MoesCBA.Controllers
                 _context.Update(customerAccount);
                 result = true;
                 TempData["message"] = "Account Opened Successfully";
-
             }
             return Json(result, JsonRequestBehavior.AllowGet);
-
-
         }
         public ActionResult Details(int id)
         {

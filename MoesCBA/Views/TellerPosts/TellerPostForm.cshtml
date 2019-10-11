@@ -9,8 +9,7 @@
 @if (TempData["error"] != null)
 {
     <div class="alert alert-danger">
-        <p>@TempData["error"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
+        <p>@TempData["error"] <span class="closebtn" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> </p>
     </div>
 }
 @if (Model.CustomerAccount.AccountNumber.StartsWith("2"))
@@ -98,15 +97,3 @@
     </div>
 }
 
-@section ViewSpecificJavascript{
-    <script>
-        $(document).ready(function() {
-            setTimeout(function() {
-                    $(".alert").fadeOut(100, null);
-                },
-                3000);
-        });
-
-    </script>
-
-}

@@ -18,7 +18,6 @@ namespace CBA.Core.Implementation
         public long AccountCode { get; set; }
         public decimal Amount { get; set; }
         public TransactionType TransactionType { get; set; }
-
         public DateTime Date { get; set; }
     }
 }

@@ -4,18 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="row">
-        <div class="col-md-6">
-            <h1>
-                <b>
-                    Customer Accounts
-                </b>
-            </h1>
-        </div>
-        <div class="option_span   col-md-offset-11 col-md-6 m-b-15">
-            @Html.ActionLink("  Add Account", "Index", "Customers", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <h1>
+            <b>
+                Customer Accounts
+            </b>
+        </h1>
     </div>
+    <div class="option_span   col-md-offset-11 col-md-6 m-b-15">
+        @Html.ActionLink("  Add Account", "Index", "Customers", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
+    </div>
+</div>
 
 @if (!Model.Any())
 {
@@ -34,7 +34,6 @@ else
                     <th>Branch</th>
                     <th>Account Type</th>
                     <th>Account Balance</th>
-
                     <th>Action</th>
                 </tr>
             </thead>
@@ -46,7 +45,7 @@ else
                         <td>@customersAccount.AccountNumber</td>
                         <td>@customersAccount.Branch.Name</td>
                         <td>@customersAccount.AccountType</td>
-                        <td>@Html.DisplayFor(a=>customersAccount.Balance)</td>
+                        <td>@Html.DisplayFor(a => customersAccount.Balance)</td>
                         <td>
                             <div class="option_span pull-left">
                                 @Html.ActionLink(" ", "Edit", "CustomersAccount", new { id = customersAccount.Id }, new { @class = "fa fa-pencil table_extra" })
@@ -74,13 +73,13 @@ else
 }
 @section ViewSpecificJavascript{
     <script>
-        $(document).ready(function() {
-          
+        $(document).ready(function () {
 
-            $("#table").on("click", ".js-delete",  function () {
+
+            $("#table").on("click", ".js-delete", function () {
                 var button = $(this);
 
-                bootbox.confirm("Are you sure", function(result) {
+                bootbox.confirm("Are you sure", function (result) {
                     if (result) {
                         $.ajax({
                             url: "/CustomersAccount/CloseAccount/" + button.attr("data-customer-id"),
@@ -91,13 +90,13 @@ else
                         });
                     }
                 });
-                 
+
             });
 
-            $("#customersAccount").on("click", ".js-open",  function () {
+            $("#customersAccount").on("click", ".js-open", function () {
                 var button = $(this);
 
-                bootbox.confirm("Are you sure", function(result) {
+                bootbox.confirm("Are you sure", function (result) {
                     if (result) {
                         $.ajax({
                             url: "/CustomersAccount/OpenAccount/" + button.attr("data-customer-id"),
@@ -108,7 +107,7 @@ else
                         });
                     }
                 });
-                 
+
             });
         });
 

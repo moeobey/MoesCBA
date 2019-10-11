@@ -316,6 +316,7 @@
     <Content Include="Content\moesFont\JosefinSans\OFL.txt" />
     <Content Include="Content\moesFont\source-sans-pro\OFL.txt" />
     <Content Include="Content\moesFont\ubuntu\UFL.txt" />
+    <Content Include="Content\img\pacman.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\DataTables\css\semanticui.scss" />

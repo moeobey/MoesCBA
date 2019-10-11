@@ -46,9 +46,10 @@
   
   
     <div class="form-group">
-        <label>Main Account Category</label>
             @if (Model.Id == 0)
             {
+                <label>Main Account Category</label>
+
                 <div class="form-group ">
 
                     <div class="input-group shadow_p">
@@ -61,21 +62,7 @@
                 </div>
            
             }
-            @if (Model.Id != 0)
-            {
-                <div class="form-group ">
-
-                    <div class="input-group shadow_p">
-                        <div class="input-group-addon borderless_right  ">
-                            <i class="fa fa-bars width_30 "></i>
-                        </div>
-                        @Html.EnumDropDownListFor(m => m.MainAccountCategory, "Select Main Category", new { @class = "form-control", required = "required", disabled = "true"})
-
-                    </div>
-                </div>
-
-               
-            }
+         
         </div>
  
   

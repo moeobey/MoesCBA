@@ -10,10 +10,6 @@ namespace CBA.Core.ViewModels
    public class TellerPostViewModel
     {
         public CustomerAccount CustomerAccount { get; set; }
-       
         public TellerPost TellerPost { get; set; }
-      
-
-
     }
 }

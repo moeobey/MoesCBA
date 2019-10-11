@@ -61,7 +61,7 @@ namespace MoesCBA.Controllers
                         return RedirectToAction("Index");
                     }
 
-                    if ( customer.Id == 0 && customer.Gender != 0) //add customer
+                    if ( customer.Id == 0) //add customer
                     {
                         customer.CustomerId = _context.GenerateCustomerId();
                         customer.Date = DateTime.Now;
@@ -71,11 +71,6 @@ namespace MoesCBA.Controllers
                         return RedirectToAction("Index");
                     }
                   
-                }
-
-                if (customer.Gender == 0)
-                {
-                    ModelState.AddModelError("selectGender", "Please select gender");
                 }
                 if (!emailIsUnique)
                     ModelState.AddModelError("EmailExist", "This Email Exists");

@@ -36,8 +36,7 @@ namespace CBA.Logic
             var gl = new GlAccount();
             var glAccount = _glAccountContext.GetByAccCode(tillAccount);
             glAccount.Balance = glAccount.Balance + amount;
-            _logContext.LogTransaction(glAccount, amount, TransactionType.Debit);
-
+            _logContext.LogTransaction(glAccount, amount, TransactionType.Debit);//log transaction
             _glAccountContext.Update(gl);
         }
         private void CreditGl(long tillAccount, decimal amount)
@@ -45,18 +44,15 @@ namespace CBA.Logic
             var account = new GlAccount();
             var glAccount = _glAccountContext.GetByAccCode(tillAccount);
             glAccount.Balance = glAccount.Balance - amount;
-            _logContext.LogTransaction(glAccount, amount, TransactionType.Credit);
-
+            _logContext.LogTransaction(glAccount, amount, TransactionType.Credit);//log transaction
             _glAccountContext.Update(account);
         }
-        
         private void CreditIncomeGl(int incomeGlId, decimal  COT )
         {
             var account = new GlAccount();
             var glAccount = _glAccountContext.Get(incomeGlId);
             glAccount.Balance = glAccount.Balance + COT;
-            _logContext.LogTransaction(glAccount, COT, TransactionType.Credit);
-
+            _logContext.LogTransaction(glAccount, COT, TransactionType.Credit);//log transaction
             _glAccountContext.Update(account);
         }
         private  decimal CalculateCOT(decimal cot, decimal amount)
@@ -72,19 +68,16 @@ namespace CBA.Logic
             _customerAccountContext.DebitCustomer(customer, cotValue);
             CreditIncomeGl( incomeGlId, cotValue);
 
-            //update Log
+            //log transaction
             var COTPost = new COTPost
             {
                 AccountToCreditId = incomeGlId,
                 AccountToDebitId = customer.Id,
                 Amount = cotValue,
                 PostedAt =  DateTime.Now,
-                //TellerId =  
             };
             _COTPostContext.Add(COTPost);
             _COTPostContext.Save(COTPost);
-          
-
         }
         private string IsCustomerDebitable(CustomerAccount customer, decimal amount)
         {
@@ -97,18 +90,13 @@ namespace CBA.Logic
                 //Enforce minimum balance 
                 result = customer.Balance >= amount+customer.Lien ? "Success" : $"Insufficient Funds In {customer.AccountName} {customer.AccountType} Account";
             }
-            else if (customerAccountNumber.StartsWith("2"))//current account
+            else //current account
             {
                 //for current account enforce cot and minimum balance
                 result = customer.Balance >= amount + customer.Lien + cotValue
                     ? "Success"
                     : $"Insufficient Funds In {customer.AccountName} {customer.AccountType} Account";
             }
-            else//Loan Account
-            {
-
-            }
-
             return result;
         }
         private string IsGlCreditable(long tillAccountCode, decimal amount)
@@ -120,19 +108,24 @@ namespace CBA.Logic
         }
         public string PostEntry(TellerPost tellerPost)
         {
-           
             var customer = _customerAccountContext.Get(tellerPost.CustomerAccountId);
             var amount = tellerPost.Amount;
             var tillAccount = _tellerContext.GetTillAccount(tellerPost.TellerId);
             var result = "";
+            var configReport = _configContext.IsAccountConfigurationSet();
 
-            if (tellerPost.PostType == PostType.Deposit)        //for deposits
+            if (configReport != "Success")//check if account configurations are set
+            {
+                result = configReport;
+                return result;
+            }
+            if (tellerPost.PostType == PostType.Deposit)//for deposits
             {
                DebitGl(tillAccount, amount);
                _customerAccountContext.CreditCustomer(customer, amount);
                result = "Success";
             }
-            else if(tellerPost.PostType == PostType.Withdrawal) //for withdrawals
+            else //for withdrawals
             {
                 //for savings account and current accounts
                 if (customer.AccountType != AccountType.Loan)
@@ -143,7 +136,6 @@ namespace CBA.Logic
                         var creditFeedback = IsGlCreditable(tillAccount, amount); // check if till is creditable 
                         if (creditFeedback == "Success")
                         {
-                            
                             if (customer.AccountType == AccountType.Current)
                             {
                                 RemoveCOT(customer, amount);
@@ -169,15 +161,9 @@ namespace CBA.Logic
                 //for loans
                 else
                 {
-                    result = "";
-
+                    result = "This is a Loan Account, you cannot perform transactions";
                 }
             }
-            else
-            {
-                result = "Post Type Not Specified (Deposit or Withdrawal)";
-            }
-            
             return result;
         }
 
@@ -187,11 +173,9 @@ namespace CBA.Logic
             var tillAccount = _tellerContext.GetTillAccount(tellerId);
             var glId = _glAccountContext.GetByAccCode(tillAccount).Id;
             var vault = _glAccountContext.GetVault();
-            if (vault.AccountCode != 0)  // check if vault exist
+            if (vault !=null)  // check if vault exist
             {
                 var creditFeedback = IsGlCreditable(vault.AccountCode, amount);
-
-
                 if (creditFeedback == "Success")
                 {
                     CreditGl(vault.AccountCode, amount);
@@ -207,8 +191,7 @@ namespace CBA.Logic
                          PostedAt = DateTime.Now
                      };
                     _glPostContext.Save(glPost);
-               
-                result = creditFeedback;
+                    result = creditFeedback;
                 }
                 else
                 {
@@ -220,7 +203,6 @@ namespace CBA.Logic
             {
                 result = "Vault Doesn't Exist";
             }
-
             return result;
         }
         public string SellCash(decimal amount, int tellerId)
@@ -229,7 +211,7 @@ namespace CBA.Logic
             var tillAccount = _tellerContext.GetTillAccount(tellerId);
             var glId = _glAccountContext.GetByAccCode(tillAccount).Id;
             var vault = _glAccountContext.GetVault();
-            if (vault.AccountCode != 0) // check if vault exist
+            if (vault != null) // check if vault exist
             {
                 var creditFeedback = IsGlCreditable(tillAccount, amount);
                 if (creditFeedback == "Success")
@@ -247,7 +229,6 @@ namespace CBA.Logic
                         PostedAt = DateTime.Now
                     };
                     _glPostContext.Save(glPost);
-
                     result = creditFeedback;
                 }
                 else
@@ -260,18 +241,18 @@ namespace CBA.Logic
             {
                 result = "Vault Doesn't Exist";
             }
-
             return result;
         }
 
         public decimal GetTillBalance(int tellerId)
         {
-
+            decimal result = 0;
             var glId = _tellerContext.GetTillAccount(Convert.ToInt32(tellerId));
-            var result = _glAccountContext.GetByAccCode(glId).Balance;
+            if (glId != 0)
+            {
+                 result = _glAccountContext.GetByAccCode(glId).Balance;
+            }
             return result;
-
-
         }
     }
 }

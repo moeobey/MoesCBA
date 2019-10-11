@@ -14,6 +14,7 @@ namespace MoesCBA.Controllers
         private readonly BankConfigLogic _bankConfigContext = new BankConfigLogic();
         private readonly EodLogic _context = new EodLogic();
         private readonly TransactionLogLogic _transactionContext = new TransactionLogLogic();
+        private readonly AccountTypeConfigLogic _configContext = new AccountTypeConfigLogic();
 
 
         // GET: EOD
@@ -28,7 +29,9 @@ namespace MoesCBA.Controllers
         public ActionResult CloseBusiness()
         {
             var bankConfig = _bankConfigContext.GetConfig();
-            if (bankConfig.IsBusinessOpen)
+            var configReport = _configContext.IsAccountConfigurationSet();
+
+            if (bankConfig.IsBusinessOpen && configReport == "Success")
             {
                 bankConfig.IsBusinessOpen = false;
                 _bankConfigContext.Update(bankConfig);

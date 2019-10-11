@@ -14,7 +14,7 @@ namespace CBA.Logic
     {
         private readonly TransactionLogRepository _db = new TransactionLogRepository(new ApplicationDbContext());
 
-        public void LogTransaction(GlAccount glAccount, decimal amount,TransactionType transactionType)
+        public void LogTransaction(GlAccount glAccount, decimal amount,TransactionType transactionType)//overload for gl accounts
         {
             var transaction = new TransactionLog()
             {
@@ -29,7 +29,6 @@ namespace CBA.Logic
             _db.Add(transaction);
             _db.Save(transaction);
         }
-
         public MainAccountCategory GetMainCategory(GlAccount glAccount)
         {
             var gl = glAccount.AccountCode.ToString();
@@ -55,9 +54,8 @@ namespace CBA.Logic
                 return MainAccountCategory.Expense;
             }
         }
-        public void LogTransaction(CustomerAccount customerAccount, decimal amount, TransactionType transactionType)
+        public void LogTransaction(CustomerAccount customerAccount, decimal amount, TransactionType transactionType)//overload for customers accounts
         {
-
             var transaction = new TransactionLog
             {
                 Name = customerAccount.AccountName,
@@ -65,13 +63,12 @@ namespace CBA.Logic
                 Date = DateTime.Now,
                 AccountCode = Convert.ToInt64(customerAccount.AccountNumber),
                 TransactionType = transactionType,
-                MainAccountCategory = customerAccount.AccountType == AccountType.Loan
+                MainAccountCategory = customerAccount.AccountType == AccountType.Loan //Exception: Loan accounts are assets
                     ? MainAccountCategory.Asset
                     : MainAccountCategory.Liability,
             };
             _db.Add(transaction);
             _db.Save(transaction);
-
         }
         public IEnumerable<TransactionLog> GetAllLogs()
         {
@@ -83,7 +80,5 @@ namespace CBA.Logic
             var values = _db.GetLogsByPeriod(startDate, endDate).ToList();
             return values;
         }
-        
-
     }
 }

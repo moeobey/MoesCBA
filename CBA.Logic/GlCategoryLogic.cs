@@ -15,13 +15,11 @@ namespace CBA.Logic
      
         public void Save(GlCategory category)
         {
-    
             _db.Add(category);
             _db.Save(category);
         }
         public GlCategory Get(int id)
         {
-
             var values = _db.Get(id);
             return values;
         }
@@ -34,12 +32,11 @@ namespace CBA.Logic
             var values = _db.GetAll();
             return values;
         }
-
-       public string GetMainAccountType(int categoryId)
-       {
-           var value = _db.GetMainAccountType(categoryId);
+        public string GetMainAccountType(int categoryId)
+        {   
+            var value = _db.GetMainAccountType(categoryId);
            return value;
-       }
+        }
 
     }
 }

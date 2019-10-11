@@ -18,6 +18,7 @@ namespace MoesCBA.Controllers
         private readonly  TellerLogic _tellerContext = new TellerLogic();
         private readonly GlAccountLogic _glAccountContext = new GlAccountLogic();
         private readonly AccountTypeConfigLogic _accountTypeConfigContext = new AccountTypeConfigLogic();
+        private readonly AccountTypeConfigLogic _configContext = new AccountTypeConfigLogic();
 
 
 
@@ -62,8 +63,8 @@ namespace MoesCBA.Controllers
                 };
                 return View("TellerPostForm", viewModel);
             }
-            //check if customer account is open
 
+            //check if customer account is open
             if (!customerAccount.IsOpen)
             {
                 TempData["error"] = "Customer Account is Closed Set";
@@ -73,6 +74,7 @@ namespace MoesCBA.Controllers
                 };
                 return View("TellerPostForm", viewModel);
             }
+            //compute transaction
             var postEntry = _context.PostEntry(tellerPost);
             if (postEntry == "Success")
             {
@@ -90,7 +92,6 @@ namespace MoesCBA.Controllers
                 };
                 return View("TellerPostForm", viewModel);
             }
-
             return RedirectToAction("Index");
         }
         [CheckBusinessOpen]
@@ -123,6 +124,8 @@ namespace MoesCBA.Controllers
             }
             else
             {
+                ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
+
                 TempData["Error"] = buyCash;
                 return View("BuyCashForm");
             }
@@ -143,6 +146,8 @@ namespace MoesCBA.Controllers
             }
             else
             {
+                ViewBag.GlBalance = _context.GetTillBalance(Convert.ToInt32(Session["Id"]));
+
                 TempData["Error"] = sellCash;
                 return View("SellCashForm");
             }

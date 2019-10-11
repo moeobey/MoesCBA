@@ -19,13 +19,11 @@ namespace CBA.Logic
 
         public void Save(CustomerAccount customer)
         {
-            //Console.WriteLine("trying to add user");
             _db.Add(customer);
             _db.Save(customer);
         }
         public CustomerAccount Get(int id)
         {
-
             var values = _db.Get(id);
             return values;
         }
@@ -40,8 +38,6 @@ namespace CBA.Logic
             var value = _db.GetLoanAccounts();
             return value;
         }
-        
-
         public IEnumerable<CustomerAccount> GetAllExceptLoan()
         {
             var value = _db.GetAllExceptLoan();
@@ -52,7 +48,6 @@ namespace CBA.Logic
             var value = _db.GetByAccountType(accountType);
             return value;
         }
-        
         public IEnumerable<CustomerAccount> GetAllCustomersAccounts()
         {
             var value = _db.GetAllCustomersAccounts();
@@ -75,7 +70,7 @@ namespace CBA.Logic
         public string GenerateAccountNumber(string customerId, string accountType)
         {
             var random = new Random();
-            var value = random.Next(0, 999).ToString("D3");
+            var value = random.Next(0, 99).ToString("D2");
 
             switch (accountType)
             {
@@ -88,7 +83,6 @@ namespace CBA.Logic
                 default:
                     return "";
             }
-
         }
         public void CreditCustomer(CustomerAccount customerAccount, decimal amount)
         {
@@ -116,14 +110,11 @@ namespace CBA.Logic
                 customerAccount.Balance -= amount;
             }
             _logContext.LogTransaction(customerAccount, amount, TransactionType.Debit);
-
             _db.Save(account);
         }
-
         public bool CheckForLoanStatus(CustomerAccount customer)
         {
             return _db.GetLoanStatus(customer.Id);
         }
-
     }
 }

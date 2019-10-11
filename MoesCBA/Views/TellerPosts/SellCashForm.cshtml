@@ -7,8 +7,7 @@
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-error">
-        <p>@TempData["Error"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
+        <p>@TempData["Error"] <span class="closebtn" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> </p>
     </div>
 }
 

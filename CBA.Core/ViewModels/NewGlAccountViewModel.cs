@@ -12,10 +12,8 @@ namespace CBA.Core.ViewModels
     {
         public IEnumerable<Branch> Branches { get; set; }
         public IEnumerable<GlCategory> GlCategories { get; set; }
-
         public int? Id { get; set; }
         public string Name { get; set; }
-
         public int? GlCategoryId { get; set; }
         public int? BranchId { get; set; }
         public long AccountCode { get; set; }
@@ -37,5 +35,4 @@ namespace CBA.Core.ViewModels
             Balance = glAccount.Balance;
         }
     }
-   
 }

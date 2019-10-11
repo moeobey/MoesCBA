@@ -9,14 +9,10 @@ namespace CBA.Core.Implementation
 {
    public class LoanAccountConfig
     {
-        public int Id { get; set; }         
-        //[Range(0.1,10)]
+        public int Id { get; set; }
         public decimal DInterestRate  { get; set; }
-
         public GlAccount InterestIncomeGl { get; set; }
-
         public int InterestIncomeGlId { get; set; }
         public bool Status { get; set; }
-
     }
 }

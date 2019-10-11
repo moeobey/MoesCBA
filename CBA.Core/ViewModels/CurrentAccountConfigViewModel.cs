@@ -14,19 +14,15 @@ namespace CBA.Core.ViewModels
         public IEnumerable<GlAccount> InterestExpenseGls { get; set; } 
         public IEnumerable<GlAccount> InterestPayableGls { get; set; } 
         public IEnumerable<GlAccount> COTIncomeGls { get; set; }
-
         public GlAccount InterestExpenseGl { get; set; }
         public int InterestExpenseGlId { get; set; }
         public decimal MinBalance { get; set; }
-
         public GlAccount InterestPayableGl { get; set; }
         public int InterestPayableGlId { get; set; }
         public decimal COT { get; set; }
         public GlAccount COTIncomeGl { get; set; }
         public int COTIncomeGlId { get; set; }
         public bool Status { get; set; }
-
-
 
         public CurrentAccountConfigViewModel(CurrentAccountConfig config)
         {
@@ -46,10 +42,7 @@ namespace CBA.Core.ViewModels
                 COT = config.COT;
                 MinBalance = config.MinBalance;
                 Status = config.Status;
-
             }
-
-
         }
     }
 }

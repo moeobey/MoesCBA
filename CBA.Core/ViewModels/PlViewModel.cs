@@ -11,12 +11,9 @@ namespace CBA.Core.ViewModels
     {
         public IEnumerable<GlAccount> IncomeGls { get; set; }
         public IEnumerable<GlAccount> ExpenseGls { get; set; }
-
         public decimal IncomeTotal { get; set; }
         public decimal ExpenseTotal { get; set; }
         public decimal Profit { get; set; }
         public DateTime Date { get; set; }
-
-
     }
 }

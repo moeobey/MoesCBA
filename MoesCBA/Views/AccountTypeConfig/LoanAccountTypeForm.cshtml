@@ -4,13 +4,6 @@
     ViewBag.Title = "SavingsAccountTypeForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success">
-        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
-    </div>
-}
 
 @using (Html.BeginForm("SaveLoanConfig", "AccountTypeConfig"))
 {
@@ -25,10 +18,10 @@
                 <div class="input-group-addon borderless_right  ">
                     <i class="fa fa-exchange width_30 "></i>
                 </div>
-                @Html.TextBoxFor(m => m.DInterestRate, new {@class = "form-control", required = "required", type = "number", min = "0", step = "any"})
+                @Html.TextBoxFor(m => m.DInterestRate, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
                 @Html.ValidationMessageFor(m => m.DInterestRate)
             </div>
-          
+
         </div>
 
         @if (Model.Id != 0)
@@ -47,7 +40,7 @@
                 </div>
 
             </div>
-           
+
         }
         <div class="form-group">
             <label>Interest Income Gls</label>
@@ -56,10 +49,10 @@
                 <div class="input-group-addon borderless_right  ">
                     <i class="fa fa-bars width_30 "></i>
                 </div>
-                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Select Interest Expense GL ", new { @class = "form-control", required="" })
+                @Html.DropDownListFor(m => m.InterestIncomeGlId, new SelectList(Model.InterestIncomeGls, "id", "Name"), "Select Interest Income GL ", new { @class = "form-control", required = "" })
                 @Html.ValidationMessageFor(m => m.InterestIncomeGls)
             </div>
-              
+
 
         </div>
         @Html.AntiForgeryToken()
@@ -71,15 +64,16 @@
 @section ViewSpecificJavascript{
     <script>
         $(document).ready(function () {
-       
-            setTimeout(function () {
-                $(".alert-success").fadeOut(100, null);
-            }, 3000);
+            var id = $("#Id").val();
+            $(".error").remove();
+
+            if (id == 0) {
+                $('select').attr('required', 'required');
+            }
+
         });
 
     </script>
 
 
 }
-
-

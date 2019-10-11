@@ -14,7 +14,6 @@ namespace CBA.Core.Implementation
     {
         Daily = 30
     }
-
     public enum LoanTerms
     {
         Fixed = 1, 
@@ -30,21 +29,17 @@ namespace CBA.Core.Implementation
         public decimal LoanAmount { get; set; }
         public decimal LoanAmountRemaining { get; set; }
         public decimal LoanPayable { get; set; }
-     
         public decimal Interest { get; set; }
         public decimal InterestRemaining { get; set; }
         public decimal InterestPayable { get; set; }
         public int DurationInMonths { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-
         public int DayCount { get; set; }
         public RepaymentPlan RepaymentPlan { get; set; }
-
         public LoanTerms? LoanTerms { get; set; }
         public string Narration { get; set; }
         public bool IsLoanPaymentComplete { get; set; }
-
     }
 }
 

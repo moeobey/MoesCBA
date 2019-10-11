@@ -10,13 +10,6 @@
         </b>
     </h1>
 </div>
-@if (TempData["message"] != null)
-{
-    <div class="alert alert-success">
-        <p>@TempData["message"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
-
-    </div>
-}
 
 @using (Html.BeginForm("SaveCurrentConfig", "AccountTypeConfig"))
 {
@@ -29,7 +22,7 @@
             <div class="input-group-addon borderless_right  ">
                 <i class="fa fa-exchange width_30 "></i>
             </div>
-            @Html.TextBoxFor(m => m.CInterestRate, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
+            @Html.TextBoxFor(m => m.CInterestRate, new { @class = "form-control", required = "required", type = "number", step = "any" })
             @Html.ValidationMessageFor(m => m.CInterestRate)
         </div>
     </div>
@@ -42,7 +35,7 @@
                     <div class="input-group-addon borderless_right  ">
                         <i class="fa fa-money width_30 "></i>
                     </div>
-                    @Html.TextBoxFor(m => m.MinBalance, new {@class = "form-control", required = "required", type = "number", min = "100.00", step = "any"})
+                    @Html.TextBoxFor(m => m.MinBalance, new {@class = "form-control", required = "required", type = "number", step = "any"})
                     @Html.ValidationMessageFor(m => m.CInterestRate)
                 </div>
 
@@ -50,13 +43,11 @@
             </div>
             <div class="col-md-6 mb-3 ">
                 @Html.LabelFor(m => m.COT)
-
-
                 <div class="input-group shadow_p">
                     <div class="input-group-addon borderless_right  ">
                         <i class="fa fa-money width_30 "></i>
                     </div>
-                    @Html.TextBoxFor(m => m.COT, new { @class = "form-control", required = "required", type = "number", min = "0", step = "any" })
+                    @Html.TextBoxFor(m => m.COT, new { @class = "form-control", required = "required", type = "number",step = "any" })
                     @Html.ValidationMessageFor(m => m.COT)
                 </div>
               
@@ -100,9 +91,8 @@
                 </div>
             </div>
         </div>
-       
-       
     }
+
     <div class="form-group">
         <div class="row">
             <div class="col-md-6 mb-3 ">
@@ -144,6 +134,7 @@
     </div>
 
     @Html.AntiForgeryToken()
+    
     <button class="btn btn-primary">Set Configurations</button>
     @Html.HiddenFor(m => m.Id)
 </div>
@@ -155,10 +146,13 @@
 @section ViewSpecificJavascript{
     <script>
         $(document).ready(function () {
-          
-            setTimeout(function () {
-                $(".alert-success").fadeOut(100, null);
-            }, 3000);
+            var id = $("#Id").val();
+            $(".error").remove();
+
+            if (id == 0) {
+                $('select').attr('required', 'required');
+            }
+
         });
 
     </script>

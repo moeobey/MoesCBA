@@ -11,24 +11,17 @@ namespace CBA.Core.ViewModels
 {
    public class SavingsAccountConfigViewModel
     {
-        
         public int Id   { get; set; }
         public decimal CInterestRate { get; set; }
         public IEnumerable<GlAccount> InterestExpenseGls { get; set; }
         public IEnumerable<GlAccount> InterestPayableGls { get; set; }
-
-
         public GlAccount InterestExpenseGl { get; set; }
         public int InterestExpenseGlId { get; set; }
         public GlAccount InterestPayableGl { get; set; }
         public int InterestPayableGlId { get; set; }
         public decimal MinBalance { get; set; }
-
-      
         public bool Status { get; set; }
-      
-
-    
+        
         public SavingsAccountConfigViewModel( SavingsAccountConfig config)
         {
             if (config == null)
@@ -45,10 +38,6 @@ namespace CBA.Core.ViewModels
                 Status = config.Status;
                 InterestExpenseGl = config.InterestExpenseGl;
             }
-          
-
         }
-
     }
-
 }

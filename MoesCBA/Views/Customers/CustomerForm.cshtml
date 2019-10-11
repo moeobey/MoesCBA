@@ -6,94 +6,137 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@using (Html.BeginForm("Save", "Customers"))
+@using (Html.BeginForm("Save", "Customers", null, FormMethod.Post, new{id ="form"}))
 {
 
     <div class=" form-signin">
-@if (Model.Id == 0)
-{
-    <div class="col-md-12 m-b-10">
-        <h1>
-            <b>
-                Add Customer
-            </b>
-        </h1>
-    </div>
-}
-            @if (Model.Id != 0)
-            {
-                <div class="col-md-12 m-b-10">
-                    <h1>
-                        <b>
-                            Edit Customer
-                        </b>
-                    </h1>
-                </div>
-           
+        @if (Model.Id == 0)
+        {
+            <div class="col-md-12 m-b-10">
+                <h1>
+                    <b>
+                        Add Customer
+                    </b>
+                </h1>
+            </div>
         }
-<div class="form-group ">
-    <label>Full Name</label>
-    <div class="input-group shadow_p">
-        <div class="input-group-addon borderless_right  ">
-            <i class="fa fa-user width_30 "></i>
+        @if (Model.Id != 0)
+        {
+            <div class="col-md-12 m-b-10">
+                <h1>
+                    <b>
+                        Edit Customer
+                    </b>
+                </h1>
+            </div>
+
+        }
+        <div class="form-group ">
+            <label>Full Name</label>
+            <div class="input-group shadow_p " id="fullname">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-user width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", required = "required", placeholder = "Enter Customer Full Name" })
+                @Html.ValidationMessageFor(m => m.FullName)
+            </div>
         </div>
-        @Html.TextBoxFor(m => m.FullName, new {@class = "form-control", required = "required", placeholder="Enter Customer Full Name"})
-        @Html.ValidationMessageFor(m => m.FullName)
-    </div>
-</div>
-       
 
-<div class="form-group">
-    @Html.LabelFor(m => m.Address)
 
-    <div class="input-group shadow_p">
-        <div class="input-group-addon borderless_right  ">
-            <i class="fa fa-location-arrow width_30 "></i>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Address)
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right" id="address">
+                    <i class="fa fa-location-arrow width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", required = "required", placeholder = "Enter Customer Address" })
+                @Html.ValidationMessageFor(m => m.Address)
+            </div>
+
         </div>
-        @Html.TextBoxFor(m => m.Address, new {@class = "form-control", required = "required", placeholder="Enter Customer Address"})
-        @Html.ValidationMessageFor(m => m.Address)
-    </div>
-   
-</div>
 
-<div class="form-group">
-    @Html.LabelFor(m => m.Email)
-    <div class="input-group shadow_p">
-        <div class="input-group-addon borderless_right  ">
-            <i class="fa fa-envelope width_30 "></i>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-envelope width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email", required = "required", placeholder = "Enter Customer Email Address" })
+                @Html.ValidationMessage("EmailExist", new { @class = "user-validation-error" })
+            </div>
         </div>
-        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", type = "email", required = "required", placeholder="Enter Customer Email Address"})
-        @Html.ValidationMessage("EmailExist", new {@class = "user-validation-error"})
-    </div>
-</div>
-<div class="form-group">
-    <label>Phone Number</label>
-    <div class="input-group shadow_p">
-        <div class="input-group-addon borderless_right  ">
-            <i class="fa fa-phone width_30 "></i>
+        <div class="form-group">
+            <label>Phone Number</label>
+            <div class="input-group shadow_p" id="phoneNumber">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-phone width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", required = "required", placeholder = "Enter Customer Phone Number " })
+                @Html.ValidationMessage("PhoneNumberExist", new { @class = "user-validation-error" })
+            </div>
         </div>
-        @Html.TextBoxFor(m => m.PhoneNumber, new {@class = "form-control", required = "required", placeholder="Enter Customer Phone Number "})
-        @Html.ValidationMessage("PhoneNumberExist", new {@class = "user-validation-error"})
-    </div>
-</div>
 
-<div class="form-group">
-    @Html.LabelFor(m => m.Gender)
+        <div class="form-group">
+            @Html.LabelFor(m => m.Gender)
+            <div class="input-group shadow_p" id="gender">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-adjust width_30 "></i>
+                </div>
+                @Html.EnumDropDownListFor(m => m.Gender, "Select Gender", new { @class = "form-control", required = "required" })
 
-
-    <div class="input-group shadow_p">
-        <div class="input-group-addon borderless_right  ">
-            <i class="fa fa-adjust width_30 "></i>
+                @Html.ValidationMessage("selectGender", new { @class = "user-validation-error" })
+            </div>
         </div>
-        @Html.EnumDropDownListFor(m => m.Gender, "Select Gender", new {@class = "form-control", required = "required"})
-
-        @Html.ValidationMessage("selectGender", new {@class = "user-validation-error"})
-    </div>  
-</div>
-@Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.Id)
         <button type="submit" class="btn btn-primary">Save</button>
 
     </div>
 }
 
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function() {
+            $("#form").submit(function(e) {
+                var fullName = $("#fullname input").val().trim();
+                var phoneNumber = $("#phoneNumber input ").val().trim();
+                var gender = $("#gender select ").val();
+
+                $(".error").remove();
+
+
+                if ($("#form").submit) {
+                    $("form *").removeClass("error-box");
+                }
+                if (!fullName.length < 1) {
+                    var regExp = /^([A-Za-z]{2,50})+(\s)[a-zA-Z]{2,50}$/;
+                    var validName = regExp.test(fullName);
+                    if (!validName) {
+                        $("#fullname").addClass("error-box");
+                        $('#fullname').after('<div class="error">Enter a valid name e.g moyin obey</div>');
+                        e.preventDefault();
+                    }
+                }
+                if (!phoneNumber.length < 1) {
+                    var regExp = /^([\d]{9,11})$/;
+                    var validNumber = regExp.test(phoneNumber);
+                    if (!validNumber) {
+                        $("#phoneNumber").addClass("error-box");
+                        $('#phoneNumber')
+                            .after(
+                                '<div class="error">Enter a valid phone number (e.g 08037122121 or 018115621)</div>');
+                        e.preventDefault();
+                    }
+                }
+                if (gender == "0") {
+                    $("#gender").addClass("error-box");
+                    $("#gender").after('<div class="error">This Field is Required</div>');
+                    e.preventDefault();
+                }
+
+            });
+        })
+
+    </script>
+}

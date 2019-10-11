@@ -11,13 +11,10 @@ namespace CBA.Core.ViewModels
     {
         public IEnumerable<GlAccount> InterestIncomeGls { get; set; }
         public int Id { get; set; }
-        //[Range(0.1,10)]
         public decimal DInterestRate { get; set; }
-
         public GlAccount InterestIncomeGl { get; set; }
         public int InterestIncomeGlId { get; set; }
         public bool Status { get; set; }
-
 
         public LoanAccountConfigViewModel(LoanAccountConfig config)
         {
@@ -33,8 +30,6 @@ namespace CBA.Core.ViewModels
                 InterestIncomeGlId = config.InterestIncomeGlId;
                 Status = config.Status;
             }
-
-
         }
     }
 }

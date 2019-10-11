@@ -9,11 +9,9 @@ namespace CBA.Core.ViewModels
 {
     public class NewUserViewModel
     {
-    
         public IEnumerable<Branch> Branches { get; set; }
         public User User { get; set; }
         public IEnumerable<UserRole> UserRoles { get; set; }
-
     }
  
 }

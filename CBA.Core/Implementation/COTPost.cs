@@ -12,16 +12,9 @@ namespace CBA.Core.Implementation
         public int Id { get; set; }
         public CustomerAccount AccountToDebit { get; set; }
         public int? AccountToDebitId { get; set; }
-
         public GlAccount AccountToCredit { get; set; }
         public int? AccountToCreditId { get; set; }
-
         public decimal Amount { get; set; }
-
-        //public int TellerId { get; set; }
         public DateTime PostedAt { get; set; }
-
-
-
     }
 }

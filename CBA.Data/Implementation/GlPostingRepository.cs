@@ -30,6 +30,5 @@ namespace CBA.Data.Implementation
                 .FirstOrDefault(c => c.Id == id);
         }
 
-
     }
 }

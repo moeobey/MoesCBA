@@ -4,22 +4,28 @@
     ViewBag.Title = "ADDUserForm";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        <p>@TempData["error"] <span class="closebtn" onclick="this.parentElement.parentElement.style.display='none';">&times;</span> </p>
+    </div>
+}
 
-@using (Html.BeginForm("Save", "Users"))
+@using (Html.BeginForm("Save", "Users", null, FormMethod.Post, new { id = "form" }))
 {
 
-    <div class=" form-signin" id ="register">
+    <div class=" form-signin">
         <div class="text-center  mb-4">
             <h1>Add Teller</h1>
         </div>
 
         <div class="form-group">
             <label for="User_FullName">Full Name</label>
-            <div class="input-group shadow_p">
+            <div class="input-group shadow_p" id="fullname">
                 <div class="input-group-addon borderless_right ">
                     <i class="fa fa-user width_30 "></i>
                 </div>
-                @Html.TextBoxFor(m => m.User.FullName, new { @class = "form-control ", required = "required", placeholder = "Enter Full Name ", id="fullname" })
+                @Html.TextBoxFor(m => m.User.FullName, new { @class = "form-control ", required = "required", placeholder = "Enter Full Name ", })
                 @Html.ValidationMessageFor(m => m.User.FullName)
             </div>
         </div>
@@ -28,22 +34,19 @@
             <div class="row">
                 <div class="col-md-6 mb-3 ">
                     @Html.LabelFor(m => m.User.Email)
-                    <div class="input-group shadow_p">
+                    <div class="input-group shadow_p ">
                         <div class="input-group-addon borderless_right  ">
                             <i class="fa fa-envelope width_30 "></i>
                         </div>
-                        @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control", type = "email", required = "required", placeholder = "Enter Email Address", id ="username" })
+                        @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control", type = "email", required = "required", placeholder = "Enter Email Address", })
                         @Html.ValidationMessage("email", new { @class = "user-validation-error" })
                     </div>
-                    @*<div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>*@
+
                 </div>
                 <div class="col-md-6 mb-3 ">
                     @Html.LabelFor(m => m.User.Username)
 
-
-                    <div class="input-group shadow_p">
+                    <div class="input-group shadow_p" id="username">
                         <div class="input-group-addon borderless_right   ">
                             <i class="fa fa-user width_30 "></i>
                         </div>
@@ -51,9 +54,7 @@
                         @Html.ValidationMessage("username", new { @class = "user-validation-error" })
 
                     </div>
-                    @*<div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>*@
+
                 </div>
             </div>
         </div>
@@ -77,7 +78,6 @@
                 </div>
                 <div class="col-md-6 mb-3 ">
                     @Html.LabelFor(m => m.User.Branch, new { })
-
                     <div class="input-group shadow_p">
                         <div class="input-group-addon borderless_right   ">
                             <i class="fa fa-random width_30 "></i>
@@ -95,12 +95,12 @@
         <div class="form-group">
             <label>Phone Number</label>
 
-            <div class="input-group shadow_p">
+            <div class="input-group shadow_p " id="phoneNumber">
                 <div class="input-group-addon borderless_right ">
                     <i class="fa fa-phone-square width_30 "></i>
                 </div>
 
-                @Html.TextBoxFor(m => m.User.PhoneNumber, new { @class = "form-control", required = "required", placeholder = "Enter Phone Number", id="phoneNumber" })
+                @Html.TextBoxFor(m => m.User.PhoneNumber, new { @class = "form-control", required = "required", placeholder = "Enter Phone Number" })
                 @Html.ValidationMessageFor(m => m.User.PhoneNumber)
             </div>
         </div>
@@ -109,27 +109,33 @@
 
 
         @Html.AntiForgeryToken()
-        <button type="submit"  class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Save</button>
 
     </div>
 }
 
-@*@section ViewSpecificJavascript{
+@section ViewSpecificJavascript{
     <script>
-        $(document).ready(function() {
-            $("#register").submit(function(e) {
-                var fullName = $("#fullname").val();
-                var username = $("#username").val();
-                var phoneNumber = $("#phoneNumber").val();
+        $(document).ready(function () {
+            $("#form").submit(function (e) {
+                var fullName = $("#fullname input").val().trim();
+                var username = $("#username input").val().trim();
+                var phoneNumber = $("#phoneNumber input ").val();
 
                 $(".error").remove();
 
+
+                if ($("#form").submit) {
+                    $("form *").removeClass("error-box");
+                }
                 if (!fullName.length < 1) {
-                    var regExp = /^[A-Za-z]+( [a-zA-Z]+)*$/;
+
+
+                    var regExp = /^([A-Za-z]{2,50})+(\s)[a-zA-Z]{2,50}$/;
                     var validName = regExp.test(fullName);
                     if (!validName) {
                         $("#fullname").addClass("error-box");
-                        $('#fullname').after('<span class="error">Enter a valid name</span>');
+                        $('#fullname').after('<div class="error">Enter a valid name e.g moyin obey</div>');
                         e.preventDefault();
                     }
                 }
@@ -138,16 +144,17 @@
                     var validusername = regExps.test(username);
                     if (!validusername) {
                         $("#username").addClass("error-box");
-                        $('#username').after('<span class="error">Enter a valid name</span>');
+                        $('#username').after('<div class="error">Enter a valid name</div>');
                         e.preventDefault();
                     }
                 }
                 if (!phoneNumber.length < 1) {
-                    var regExp = /^[+(0-9){11,11}]*$/;
+                    //^([A-Z][a-z]{2,50})+(\s)[A-z][a-z]{2,50}$/
+                    var regExp = /^([\d]{9,11})$/;
                     var validNumber = regExp.test(phoneNumber);
                     if (!validNumber) {
                         $("#phoneNumber").addClass("error-box");
-                        $('#phoneNumber').after('<span class="error">Enter a valid PhoneNumber</span>');
+                        $('#phoneNumber').after('<span class="error">Enter a valid phone number (e.g 08037122121 or 018115621)</span>');
                         e.preventDefault();
                     }
                 }
@@ -156,4 +163,4 @@
 
     </script>
 
-}*@
+}

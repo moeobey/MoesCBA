@@ -18,33 +18,27 @@ namespace CBA.Logic
 {
     public class AccountLogic:Controller
     {
-        //private SessionCheck _checkSession = new SessionCheck();
-
         private readonly UserRepository _db = new UserRepository(new ApplicationDbContext());
 
         public User GetByUsername(string username)
         {
-
             var user =_db.GetByUsername(username);
             return user;
         }   
 
         public bool Authenticate(User user)
         {
-           
-            bool isUser = false;
+            bool isAUser = false;
             var getUser = _db.GetByUsername(user.Username);
             if (getUser != null)
             {
                 var pass = Crypto.Hash(user.Password.Trim());
                 if (String.CompareOrdinal(getUser.Password, pass) == 0)
                 {
-                    isUser = true;
+                    isAUser = true;
                 }
             }
-
-            return isUser;
+            return isAUser;
         }
-
     }
 }

@@ -9,10 +9,7 @@ namespace CBA.Core.ViewModels
 {
    public class GlPostViewModel
     {
-
         public IEnumerable<GlAccount> GlAccounts { get; set; }
-
         public GlPost GlPost { get; set; }
-
     }
 }

@@ -22,31 +22,34 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
-        @Html.Partial("_Header")
-        @Html.Partial("_Sidebar")
+    <div class="se-pre-con"></div>
+<div class="wrapper">
+    @Html.Partial("_Header")
+    @Html.Partial("_Sidebar")
 
-        <div class="content-wrapper">
-            <section class="content-header">
-                @if (TempData["Success"] != null){
-                            <div class="alert alert-success">
-                                <p>@TempData["Success"] <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> </p>
+    <div class="content-wrapper">
+        <section class="content-header">
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success">
+                    <p>@TempData["Success"] <span class="closebtn" onclick="this.parentElement.style.display = 'none';">&times;</span> </p>
 
-                            </div>
-                        }
-            </section>
+                </div>
+            }
+        </section>
 
-            <section class="content">
-                @RenderBody()
-            </section>
-        </div>
-
+        <section class="content">
+            @RenderBody()
+        </section>
     </div>
 
-    <script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
+</div>
+
+<script src="@RouteJs.RouteJsHandler.HandlerUrl"></script>
 <script src="@EnumHandler.HandlerUrl"></script>
 
-    @Scripts.Render("~/Bundles/js")
-    @RenderSection("ViewSpecificJavascript", required: false)
+@Scripts.Render("~/Bundles/js")
+@RenderSection("ViewSpecificJavascript", required: false)
 </body>
+
 </html>

@@ -61,20 +61,16 @@ namespace CBA.Logic
             capitalAccounts.Add(otherCapitalAcc);
             return capitalAccounts;
         }
-
         public List<GlAccount> GetAllIncomeAccounts()
         {
-            var interestAccounts = _glAccContext.GetByMainCategory(MainAccountCategory.Income);
-
-            return interestAccounts;
+            var incomeAccounts = _glAccContext.GetByMainCategory(MainAccountCategory.Income);
+            return incomeAccounts;
         }
         public List<GlAccount> GetAllExpenseAccounts()
         {
-            var interestAccounts = _glAccContext.GetByMainCategory(MainAccountCategory.Expense);
-
-            return interestAccounts;
+            var expenseAccounts = _glAccContext.GetByMainCategory(MainAccountCategory.Expense);
+            return expenseAccounts;
         }
-
         public decimal GetProfitOrLoss()
         {
             decimal totalIncome = 0;
@@ -83,16 +79,11 @@ namespace CBA.Logic
             {
                  totalIncome = GetAllIncomeAccounts().Sum(c => c.Balance);
             }
-
             if (GetAllExpenseAccounts() != null)
             {
                  totalExpense = GetAllExpenseAccounts().Sum(c => c.Balance);
             }
-
             return Math.Round(totalIncome - totalExpense,2);
         }
-        
-
-
     }
 }

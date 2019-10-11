@@ -77,12 +77,12 @@ namespace CBA.Logic
         public long GenerateGlAccountCode(int categoryId)
         {
             var ids = _db.GetAll().OrderByDescending(b => b.Id);
-            var accountId = "0000001";
-            if (ids.Count() > 1)
+            var accountId = "000000001";
+            if (ids.Any())//check if table has data else use default account ID
             {
                 var lastCustomerId = ids.First().Id;
                 lastCustomerId++;
-                accountId = lastCustomerId.ToString().PadLeft(5, '0');
+                accountId = lastCustomerId.ToString().PadLeft(9, '0');
             }
             var mainAccountType = _category.GetMainAccountType(categoryId);
             switch (mainAccountType)
@@ -102,13 +102,9 @@ namespace CBA.Logic
                 case "Expense":
                     var expenseValue = "5" + accountId;
                     return Convert.ToInt64(expenseValue);
-
                 default:
                     return 0;
             }
-
-
-
         }
         public IEnumerable<GlAccount> GetAllUnassigned()
         {
@@ -120,19 +116,14 @@ namespace CBA.Logic
             var values = _db.GetGlAccount(id);
             return values;
         }
-        
         public bool NameIsUnique(string name)
         {
             bool isUnique = false;
-
             var tName = _db.GetByName(name);
             if (tName == null)
                 isUnique = true;
 
             return isUnique;
         }
-
-
-        
     }
 }

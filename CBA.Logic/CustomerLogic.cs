@@ -35,7 +35,6 @@ namespace CBA.Logic
         public bool PhoneNumberIsUnique(string phoneNumber)
         {
             bool isUnique = false;
-
             var user = _db.GetByPhoneNumber(phoneNumber);
             if (user == null)
                 isUnique = true;
@@ -52,12 +51,11 @@ namespace CBA.Logic
 
             return isUnique;
         }
-
         public string GenerateCustomerId()
         {
             var ids = _db.GetAll().OrderByDescending(b => b.Id);
             var customerId = "0000001";
-            if (ids.Count() > 1)
+            if (ids.Any())
             {
                 var lastCustomerId = ids.First().Id;
                 lastCustomerId++;
@@ -65,13 +63,10 @@ namespace CBA.Logic
             }
             return customerId;
         }
-
         public Customer GetByCustomerId(string customerId)
         {
-           
-                var values = _db.GetByCustomerId(customerId);
-                return values;
-            
+            var values = _db.GetByCustomerId(customerId);
+            return values;
         }
     }
 }

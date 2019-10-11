@@ -15,7 +15,7 @@
     </div>
     <div class="option_span  col-md-offset-11 col-md-6 m-b-15">
 
-        @Html.ActionLink("  Add Account ", "New", "GlAccounts", null, new {@class = "fa fa-plus add_button bg_lightBlue m-b-10"})
+        @Html.ActionLink("  Add Account ", "New", "GlAccounts", null, new { @class = "fa fa-plus add_button bg_lightBlue m-b-10" })
         <span><b></b></span>
     </div>
 </div>
@@ -57,7 +57,6 @@ else
                             <div class="option_span pull-left">
                                 @Html.ActionLink(" ", "Edit", "GlAccounts", new { id = account.Id }, new { @class = "fa fa-pencil table_extra" })
                                 @Html.ActionLink(" ", "Details", "GlAccounts", new { id = account.Id }, new { @class = "fa fa-eye table_extra" })
-                                @Html.ActionLink(" ", "Delete", "GlAccounts", new { id = account.Id }, new { @class = "fa fa-trash table_extra" })
                             </div>
                         </td>
                     </tr>
@@ -66,8 +65,6 @@ else
             </tbody>
         </table>
     }
-
-
 }
 
 

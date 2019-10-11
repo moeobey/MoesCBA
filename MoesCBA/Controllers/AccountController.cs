@@ -23,55 +23,53 @@ namespace MoesCBA.Controllers
             {
                 return RedirectToAction("Index", "Users");
             }
-            else
-            {
-             return View("LoginForm");
-            }
+          
+            return View("LoginForm");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AuthenticateUser(User user)
         {
-            //validate model state
             var curUser = _context.GetByUsername(user.Username);
             if (_context.Authenticate(user))
             {
+                //authentication successful
                 Session["id"] = curUser.Id;
                 Session["Password"] = curUser.Password;
                 Session["Username"] = curUser.Username;
                 Session["Role"] = curUser.Role;
-                Session["FinancialDate"] = _bankConfigContext.GetConfig().FinancialDate;
+                if (_bankConfigContext.GetConfig() != null)//if bank has been set up create session for financial date
+                {
+                    Session["FinancialDate"] = _bankConfigContext.GetConfig().FinancialDate;
+                }
                 if ((string) Session["Role"] == $"Admin")
                 {
                     var bankConfig = _bankConfigContext.GetConfig();
-                    if (bankConfig == null)
+                    if (bankConfig == null)//if bank configuration is not set show the button to setup bank
+                    {
                         Session["setup"] = "start";
+                    }
                     else
-                        Session["isBusinessOpen"] =  bankConfig.IsBusinessOpen;
-                
+                    {
+                        Session["isBusinessOpen"] = bankConfig.IsBusinessOpen;
+                    }
 
                     return RedirectToAction("AdminDashboard", "Users");
                 }
-                else if ((string) Session["Role"] == $"Teller" && curUser.PasswordStatus == false) 
+                if (curUser.PasswordStatus == false) 
                 {
+                    //user using default password
                     return RedirectToAction("ChangePassword", "Users");
                 }
-                else if ((string)Session["Role"] == $"Teller" && curUser.PasswordStatus == true)
+                if ((string)Session["Role"] == $"Teller" && curUser.PasswordStatus)
                 {
                     //user has changed password
                     return RedirectToAction("TellerDashboard", "Users");
                 }
-                else
-                {
-                    //user has  no role
-                    return RedirectToAction("TellerDashboard", "Account");
-                }
             }
-
             ViewBag.msg = "Incorrect Username or Password";
             return View("LoginForm");
-
         }
 
         [CheckSession]

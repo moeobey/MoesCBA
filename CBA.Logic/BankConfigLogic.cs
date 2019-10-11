@@ -18,7 +18,6 @@ namespace CBA.Logic
             _db.Add(config);
             _db.Save(config);
         }
-
         public BankConfiguration GetConfig()
         {
             var config = _db.GetConfig();
@@ -28,7 +27,6 @@ namespace CBA.Logic
         {
             _db.Save(config);
         }
-
         public void IncreaseFinancialDate()
         {
             var config = GetConfig();

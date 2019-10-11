@@ -7,118 +7,155 @@
 
 
 
-@using (Html.BeginForm("Save", "CustomersAccount"))
+@using (Html.BeginForm("Save", "CustomersAccount",null, FormMethod.Post, new{id ="form"}))
 {
 
 
-<div class=" form-signin">
-    @if (@Model.Id == 0)
-    {
-        <div class="col-md-12 m-b-10">
-            <h1>
-                <b>
-                    Open Account
-                </b>
-            </h1>
-        </div>
-
-    }
-
-    else
-    {
-        <div class="col-md-12 m-b-10">
-            <h1>
-                <b>
-                    Edit Account
-                </b>
-            </h1>
-        </div>
-
-    }
-
-
-@if (@Model.Id == 0)
-{
-    <div class="form-group  ">
-        <label>Account Name</label><br/>
-        <div class="input-group shadow_p">
-            <div class="input-group-addon borderless_right ">
-                <i class="fa fa-user width_30 "></i>
+    <div class=" form-signin">
+        @if (@Model.Id == 0)
+        {
+            <div class="col-md-12 m-b-10">
+                <h1>
+                    <b>
+                        Open Account
+                    </b>
+                </h1>
             </div>
-            <div class="form_details ">
-                @Html.DisplayTextFor(m => m.Customer.FullName)
-            </div>
-        </div>
-    </div>
-}
-else
-{
-    <div class="form-group ">
-        <label>Account Name</label><br/>
 
-        <div class="input-group shadow_p">
-            <div class="input-group-addon borderless_right  ">
-                <i class="fa fa-user width_30 "></i>
-            </div>
-            @Html.TextBoxFor(m => m.AccountName, new {@class = "form-control", required = "required", placeholder = "Enter Account Name"})
-            @Html.ValidationMessageFor(m => m.AccountName)
-        </div>
-    </div>
-}
-    <div class="form-group">
-        @Html.LabelFor(m => m.Branches, new { })
+        }
 
-        <div class="input-group shadow_p">
-            <div class="input-group-addon borderless_right  ">
-                <i class="fa fa-bars width_30 "></i>
+        else
+        {
+            <div class="col-md-12 m-b-10">
+                <h1>
+                    <b>
+                        Edit Account
+                    </b>
+                </h1>
             </div>
-            @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new { @class = "form-control", required = "required" })
-            @Html.ValidationMessageFor(m => m.BranchId)
-        </div>
-    </div>
+
+        }
+
 
         @if (@Model.Id == 0)
         {
-<div class="form-group">
-    @Html.LabelFor(m => m.AccountType)
-
-    <div class="input-group shadow_p">
-        <div class="input-group-addon borderless_right  ">
-            <i class="fa fa-tags width_30 "></i>
-        </div>
-        @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new { @class = "form-control", required = "required" })
-        @Html.ValidationMessage("selectAccountType", new { @class = "user-validation-error" })
-    </div>
-
-</div>
-        }
-           
-       
-    <div class="form-group">
-        @Html.LabelFor(m => m.Lien)
-
-
-        <div class="input-group shadow_p">
-            <div class="input-group-addon borderless_right  ">
-                <i class="fa fa-money width_30 "></i>
+            <div class="form-group  ">
+                <label>Account Name</label><br />
+                <div class="input-group shadow_p">
+                    <div class="input-group-addon borderless_right ">
+                        <i class="fa fa-user width_30 "></i>
+                    </div>
+                    <div class="form_details ">
+                        @Html.DisplayTextFor(m => m.Customer.FullName)
+                    </div>
+                </div>
             </div>
-            @Html.TextBoxFor(m => m.Lien, new {@class = "form-control", required = "required", placeholder="Place Lien on Account", Type = "number",step="any" })
-            @Html.ValidationMessageFor(m => m.Lien)
+        }
+        else
+        {
+            <div class="form-group ">
+                <label>Account Name</label><br />
+
+                <div class="input-group shadow_p" id="fullname">
+                    <div class="input-group-addon borderless_right ">
+                        <i class="fa fa-user width_30 "></i>
+                    </div>
+                    @Html.TextBoxFor(m => m.AccountName, new { @class = "form-control", required = "required", placeholder = "Enter Account Name" })
+                    @Html.ValidationMessageFor(m => m.AccountName)
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            @Html.LabelFor(m => m.Branches)
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-bars width_30 "></i>
+                </div>
+                @Html.DropDownListFor(m => m.BranchId, new SelectList(Model.Branches, "id", "Name"), "Select Branch ", new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(m => m.BranchId)
+            </div>
         </div>
-    
+
+        @if (@Model.Id == 0)
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.AccountType)
+
+                <div class="input-group shadow_p" id="accountType">
+                    <div class="input-group-addon borderless_right">
+                        <i class="fa fa-tags width_30 "></i>
+                    </div>
+                    @Html.EnumDropDownListFor(m => m.AccountType, "Select Account Type", new { @class = "form-control", required = "required" })
+                    @Html.ValidationMessage("selectAccountType", new { @class = "user-validation-error" })
+                </div>
+
+            </div>
+        }
+
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Lien)
+
+
+            <div class="input-group shadow_p">
+                <div class="input-group-addon borderless_right  ">
+                    <i class="fa fa-money width_30 "></i>
+                </div>
+                @Html.TextBoxFor(m => m.Lien, new { @class = "form-control", required = "required", placeholder = "Place Lien on Account", Type = "number", step = "any" })
+                @Html.ValidationMessageFor(m => m.Lien)
+            </div>
+
+        </div>
+
+
+        <input type="hidden" name="id" value="@Model.Id" id="Id"/>
+        <input type="hidden" name="userId" value="@Model.Customer.Id" />
+        <input type="hidden" name="customerId" value="@Model.Customer.CustomerId" />
+
+
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-primary">Save</button>
+
+
     </div>
-
-    
-    <input type="hidden" name="id" value="@Model.Id" />
-    <input type="hidden" name="userId" value="@Model.Customer.Id" />
-    <input type="hidden" name="customerId" value="@Model.Customer.CustomerId" />
-
-
-    @Html.AntiForgeryToken()
-    <button type="submit" class="btn btn-primary">Save</button>
-
-
-</div>
 }
 
+@section ViewSpecificJavascript{
+    <script>
+        $(document).ready(function() {
+            $("#form").submit(function(e) {
+                var accountType = $("#accountType select").val();
+                var id = $("#Id").val();
+                
+                $(".error").remove();
+
+                if ($("#form").submit) {
+                    $("form *").removeClass("error-box");
+                }
+                if (id != 0) {
+                    var fullName = $("#fullname input").val().trim();
+                    if (!fullName.length < 1) {
+                        var regExp = /^([A-Za-z]{2,50})+(\s)[a-zA-Z]{2,50}$/;
+                        var validName = regExp.test(fullName);
+                        if (!validName) {
+                            $("#fullname").addClass("error-box");
+                            $('#fullname').after('<div class="error">Enter a valid name e.g moyin obey</div>');
+                            e.preventDefault();
+                        }
+                    }
+                }
+                
+                if (accountType == "0") {
+                    console.log("");
+                    $("#accountType").addClass("error-box");
+                    $("#accountType").after('<div class="error">This Field is Required</div>');
+                    e.preventDefault();
+                }
+            });
+        })
+
+    </script>
+
+}
 

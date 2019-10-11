@@ -11,7 +11,6 @@ namespace CBA.Core.ViewModels
         public int NumberOfCustomerAccounts { get; set; }
         public int NumberOfGlAccounts { get; set; }
         public int NumberOfLoans { get; set; }
-
         public decimal Profit { get; set; }
     }
 }

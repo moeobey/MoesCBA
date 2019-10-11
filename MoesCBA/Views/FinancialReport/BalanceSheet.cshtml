@@ -8,53 +8,53 @@
 
 <table class="table report table-borderless  table-hover">
     <thead>
-    <tr class="bg_cyan table_head">
-        <th class="col-md-10 table_row "><b>ASSETS</b></th>
-        <th></th>
-    </tr>
-    <tr class="bg_lightBlue">
-        <th class="col-md-10 ">Asset Name</th>
-        <th>Amount</th>
-    </tr>
+        <tr class="bg_cyan table_head">
+            <th class="col-md-10 table_row "><b>ASSETS</b></th>
+            <th></th>
+        </tr>
+        <tr class="bg_lightBlue">
+            <th class="col-md-10 ">Asset Name</th>
+            <th>Amount</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var report in Model.AssetAccounts)
         {
             <tr>
                 <td>@report.Name</td>
-                <td>@Math.Round(report.Balance,2)</td>
+                <td>@Math.Round(report.Balance, 2)</td>
             </tr>
         }
-    <tr class=" bg_green">
-        <td><b>Total</b></td>
-        <td><b>@Model.AssetTotal</b></td>
-    </tr>
+        <tr class=" bg_green">
+            <td><b>Total</b></td>
+            <td><b>@Model.AssetTotal</b></td>
+        </tr>
     </tbody>
 </table>
 
 <table class="table report table-borderless table-dark table-hover table-hover">
     <thead>
-    <tr class="bg_cyan table_head">
-        <th class="col-md-10 table_row "><b>LIABILITIES</b></th>
-        <th></th>
-    </tr>
-    <tr class="bg_lightBlue">
-        <th class="col-md-10 ">Liability Name</th>
-        <th>Amount</th>
-    </tr>
+        <tr class="bg_cyan table_head">
+            <th class="col-md-10 table_row "><b>LIABILITIES</b></th>
+            <th></th>
+        </tr>
+        <tr class="bg_lightBlue">
+            <th class="col-md-10 ">Liability Name</th>
+            <th>Amount</th>
+        </tr>
     </thead>
     <tbody>
         @foreach (var report in Model.LiabilityAccounts)
         {
             <tr>
                 <td>@report.Name</td>
-                <td>@Math.Round(report.Balance,2)</td>
+                <td>@Math.Round(report.Balance, 2)</td>
             </tr>
         }
-    <tr class="bg_green">
-        <td><b>Total</b> </td>
-        <td><b> @Model.LiabilityTotal</b></td>
-    </tr>
+        <tr class="bg_green">
+            <td><b>Total</b> </td>
+            <td><b> @Model.LiabilityTotal</b></td>
+        </tr>
     </tbody>
 </table>
 
@@ -68,28 +68,28 @@
             <th class="col-md-10 ">Capital Name</th>
             <th>Amount</th>
         </tr>
-       
+
     </thead>
     <tbody>
-    @foreach (var report in Model.CapitalAccounts)
-    {
-        <tr>
-            <td>@report.Name</td>
-            <td>@Math.Round(report.Balance,2)</td>
+        @foreach (var report in Model.CapitalAccounts)
+        {
+            <tr>
+                <td>@report.Name</td>
+                <td>@Math.Round(report.Balance, 2)</td>
+            </tr>
+        }
+        <tr class="bg_green">
+            <td><b>Total</b></td>
+            <td><b>@Math.Round(Model.CapitalTotal, 2)</b></td>
         </tr>
-    }
-    <tr class="bg_green">
-        <td><b>Total</b></td>
-        <td><b>@Math.Round(Model.CapitalTotal,2)</b></td>
-    </tr>
     </tbody>
     <tr class="bg_green">
         <td><b>Liability + Capital</b></td>
-        <td><b> @Math.Round(Model.CLSum,2)</b></td>
+        <td><b> @Math.Round(Model.CLSum, 2)</b></td>
     </tr>
     <tr class="bg_green">
         <td><b>Asset Total</b></td>
-        <td><b> @Math.Round(Model.AssetTotal,2)</b></td>
+        <td><b> @Math.Round(Model.AssetTotal, 2)</b></td>
     </tr>
 </table>
 
